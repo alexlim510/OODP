@@ -30,6 +30,9 @@ public class MovieGoerUI {
 		System.out.println("6) Rating: "+ movie.getMovieRating());
 		System.out.println("5) Movie Type: "+ movie.getMovieClass());
 		System.out.println("6) Movie Rating: "+ movie.getMovieRating());
+		if (movie.getOverallReviewRating() == 0)
+		System.out.println("7) Review Rating: No ratings yet");
+		else
 		System.out.println("7) Review Rating: "+ movie.getOverallReviewRating());
 		String[] movieGenre = movie.getGenre();
 		System.out.print("8) Genre: ");
@@ -52,7 +55,7 @@ public class MovieGoerUI {
 		for (Review r : movieReviews) {
 			System.out.println("   (" +(n+1)+ ") " + r.getContent());
 					n++;}
-		
+
 		}
 	public void getMovieListingView(){
 		int i=1;
@@ -67,15 +70,16 @@ public class MovieGoerUI {
 	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 	public void getHomeView() {
-        System.out.println("Select What to do: ");
-        System.out.println("1) Book Ticket");
-        System.out.println("2) Movie Listing");
-        System.out.println("3) Make a review");
 
+boolean loop = true;
 
-
-        while(true) {
+        while(loop) {
             Scanner sc = new Scanner(System.in);
+            System.out.println("Select What to do: ");
+            System.out.println("1) Book Ticket");
+            System.out.println("2) Movie Listing");
+            System.out.println("3) Make a review");
+            System.out.println("4) Quit");
             try {
                 int choice = sc.nextInt();
                 switch(choice) {
@@ -87,6 +91,9 @@ public class MovieGoerUI {
                     break;
                 case 3:
                     getMakeAReviewView();
+                    break;
+                    case 4:
+                  loop = false;
                     break;
                 default:
                     System.out.println("Please input 1,2 or 3.");

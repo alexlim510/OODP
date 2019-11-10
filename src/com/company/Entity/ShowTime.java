@@ -28,8 +28,8 @@ public class ShowTime implements Serializable {
 			else{
 				for(int j=0; j<17; j++) {
 					if(j==8) continue;
-					if(i==0 && (j==9 || j==10)) continue;
-					row.add(new Seat(rowID[i]+"c"+j,rowID[i],j));
+					if(i==8 && (j==9 || j==10)) continue;
+					row.add(new Seat("r"+rowID[i]+"c"+j,rowID[i],j));
 				}
 			}
 			seats.add(row);

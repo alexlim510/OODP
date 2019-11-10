@@ -6,15 +6,21 @@ import java.time.*;
 public class Cinema implements Serializable{
    private String CID;
    private ArrayList<Movie> movies;
-   private String cinemaType;
-   private ArrayList<ShowTime> showTime;    
-   private String cineplexName; 
+   private String cinemaType = "Normal";
+   private ArrayList<ShowTime> showTime;
 
    String[] cinemaTypes = {"Normal","Platinum Movie Suites"};
    
    public Cinema(String CID) {
       this.CID = CID;
       this.showTime = new ArrayList<ShowTime>();
+   }
+
+   public String[] getCinemaTypes(){
+      return this.cinemaTypes;
+   }
+   public void setCinemaTypes(String[] cinemaTypes){
+      this.cinemaTypes = cinemaTypes;
    }
 
    public void deleteShowTime(LocalDateTime dateTime, Movie movie){

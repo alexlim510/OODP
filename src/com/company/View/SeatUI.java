@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import java.time.format.DateTimeFormatter;
 public class SeatUI {
 	public int getCineplexSelectionView(ArrayList<Cineplex> cineplexes) {
 		System.out.println("Please select cineplex: ");
@@ -29,37 +29,67 @@ public class SeatUI {
 		return Utils.getUserChoice(1, movies.size())-1;
 	}
 
+	public int getCinemaTypeSelectionView(ArrayList<String> cinemaType) {
+		System.out.println("Please select cinema: ");
+		for(int i=0;i<cinemaType.size();i++) {
+			System.out.println((i+1)+")"+ cinemaType.get(i));
+		}
+		return Utils.getUserChoice(1, cinemaType.size())-1;
+	}
+
 	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
 		System.out.println("Please select Show Time: ");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		for(int i=0;i<showTimes.size();i++) {
-			System.out.println((i+1)+")"+showTimes.get(i).getDateTime());
+			System.out.println((i+1)+")"+showTimes.get(i).getDateTime().format(formatter));
 		}
 		return Utils.getUserChoice(1, showTimes.size())-1;
 	}
 
-	public void getSeatSelectionMenu(ShowTime st) {
+	public ArrayList<String> getSeatSelectionMenu(ShowTime st) {
 		Utils.displayHeader("Seat Selection");
-		System.out.println(
-	             "1. Select seat\n" +
-	             "2. Remove selected seat\n" +
-	             "3. Make Payment\n");
-		
-		int choice = Utils.getUserChoice(1, 3);
-		boolean complete = true;
 		ArrayList<String> chosen = new ArrayList<String>();
+		getSeatListing(st,chosen);
+		System.out.println("---------------------------------------------------------------------");
+		int choice;
 		
-		while(!complete) {
+		while(true) {
+			System.out.println(
+					"1. Select seat\n" +
+					"2. Remove selected seat\n" +
+					"3. Make Payment");
+
+			choice = Utils.getUserChoice(1, 3);
 			switch(choice) {
-			case 1:
-				getSeatListing(st,chosen);
-				chosen.add(getSeatSelectionView(st));
-				break;
-			case 2:
-				getSeatListing(st,chosen);
-				chosen.remove(getSeatSelectionView(st));
-				break;
-			case 3:
-				
+				case 1:
+					String selectedSeat = getSeatSelectionView(st,chosen);
+					if(selectedSeat!=null)
+						if(chosen.contains(selectedSeat))
+							System.out.println("The seat is chosen");
+						else
+							chosen.add(selectedSeat);
+					getSeatListing(st,chosen);
+					break;
+				case 2:
+					String removedSeat = getSeatSelectionView(st,chosen);
+					if(chosen.size()>0)
+						if(removedSeat==null)
+							continue;
+						else if(chosen.contains(removedSeat))
+							chosen.remove(removedSeat);
+						else
+							System.out.println("The seat is not chosen.");
+					else
+						System.out.println("You have not chosen any seats.");
+					getSeatListing(st,chosen);
+					break;
+				case 3:
+					return chosen;
+				default:
+					System.out.println("Invalid choice");
+			}
+			for(String c: chosen){
+				System.out.println(c);
 			}
 		}		
 	}
@@ -83,41 +113,49 @@ public class SeatUI {
 		return 0;
 	}
 	
-	public String getSeatSelectionView(ShowTime st) {
-		Scanner scanner = new Scanner(System.in);
+	public String getSeatSelectionView(ShowTime st, ArrayList<String> chosen) {
 		String row = "-1";
 		int column = -1;
 		boolean complete = false;
-		while(!complete) {
-			System.out.println("Please select row: ");
-			try {
-				row = scanner.next();
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid row");
+		while(!complete){
+			while(!complete) {
+				System.out.println("Please select row: ");
+				try {
+					Scanner scanner = new Scanner(System.in);
+					row = scanner.next();
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid row");
+					continue;
+				}
+
+				if(Arrays.asList(st.getRowID()).contains(row)) {
+					complete = true;
+				}
+				else {
+					System.out.println("Invalid row");
+				}
 			}
-			
-			if(Arrays.asList(st.getRowID()).contains(row)) {
-				complete = true;
-			}
-			else {
-				System.out.println("Invalid row");
-			}
-		}	
-		
-		complete = false;
-		while(!complete) {
-			System.out.println("Please select column: ");
-			try {
-				column = scanner.nextInt();
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid column");
-			}
-			
-			if(st.getSeat(row, column)!=null) {
-				complete = true;
-			}
-			else {
-				System.out.println("Invalid column");
+
+			complete = false;
+			while(!complete) {
+				System.out.println("Please select column: ");
+				try {
+					Scanner scanner = new Scanner(System.in);
+					column = scanner.nextInt();
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid column");
+				}
+
+				if(st.getSeat(row, column)!=null && st.getSeat(row, column).getIsAssigned()) {
+					System.out.println("Seat taken");
+					return null;
+				}
+				else if(st.getSeat(row, column)!=null){
+					complete = true;
+				}
+				else {
+					System.out.println("Invalid column");
+				}
 			}
 		}
 		String rowId = "r"+row+"c"+column;
@@ -139,7 +177,7 @@ public class SeatUI {
 					if(s.getIsAssigned()) {
 						System.out.print(" O |");
 					}
-					else if(chosen.contains(s.getSeatID())) {
+					else if(chosen.size()!=0 && chosen.contains(s.getSeatID())) {
 						System.out.print(" C |");
 					}
 					else if(c==8) {

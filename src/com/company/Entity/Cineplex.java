@@ -21,6 +21,16 @@ public class Cineplex implements Serializable{
 	public ArrayList<Cinema> getCinemas() {
 		return cinemas;
 	}
+
+	public ArrayList<Cinema> getCinemas(String cinemaType) {
+		ArrayList<Cinema> cinemas = new ArrayList<>();
+		for(Cinema c:this.cinemas){
+			if(c.getCinemaType().equals(cinemaType)){
+				cinemas.add(c);
+			}
+		}
+		return cinemas;
+	}
 	
 	public void setCinemas(ArrayList<Cinema> cinemas) {
 		this.cinemas = cinemas;
