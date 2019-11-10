@@ -24,6 +24,7 @@ public class cineplexConfig {
 			Cinema c1 = new Cinema("wm1");
 			Cinema c2 = new Cinema("wm2");
 			Cinema c3 = new Cinema("wm3");
+			c1.setCinemaType(c1.getCinemaTypes()[1]);
 			ArrayList<Cinema> cinemas = new ArrayList<Cinema>(); 
 			cinemas.add(c1);
 			cinemas.add(c2);
@@ -45,8 +46,8 @@ public class cineplexConfig {
 			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 13, 12, 10),movie.get(0));
 			try {				
 				c1.addShowTime(st1);
-				c1.addShowTime(st2);
-				c1.addShowTime(st3);
+				c2.addShowTime(st2);
+				c3.addShowTime(st3);
 			}
 			catch(IllegalArgumentException e) {
 				System.out.println(e);

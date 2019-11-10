@@ -108,12 +108,32 @@ public class MovieGoerController extends Utils {
 	   
 	   return movieList;
    }
-   
-   public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie){
-	   ArrayList<Movie> movieList = new ArrayList<Movie>();
+
+	public ArrayList<String> getCinemaTypes(Cineplex cineplex, Movie movie){
+		ArrayList<ShowTime> showTimes = new ArrayList<>();
+		ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
+		ArrayList<String> cinemaTypes = new ArrayList<>();
+		String cinemaType;
+		for (Cinema cinema: cinemaList) {
+			showTimes = cinema.getShowTime();
+			for(ShowTime st: showTimes) {
+				Movie m = st.getMovie();
+				if(m.getTitle().equals(movie.getTitle()) && st.getDateTime().compareTo(LocalDateTime.now())>0) {
+					cinemaType = cinema.getCinemaType();
+					if(cinemaType!=null && !cinemaTypes.contains(cinemaType)){
+						cinemaTypes.add(cinemaType);
+						break;
+					}
+				}
+			}
+		}
+		return cinemaTypes;
+	}
+
+   public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie, String cinemaType){
 	   ArrayList<ShowTime> showTimes = new ArrayList<>();
 	   ArrayList<ShowTime> selectedShowTimes = new ArrayList<>();
-	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
+	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas(cinemaType);
 	   for (Cinema cinema: cinemaList) {
 		   showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
@@ -123,8 +143,7 @@ public class MovieGoerController extends Utils {
 			   }
 		   }
 	   }
-//	   return movieList;
-	   return showTimes;
+	   return selectedShowTimes;
    }
    
    public void seatSelection() {
@@ -136,13 +155,18 @@ public class MovieGoerController extends Utils {
 	   Cineplex cineplex = cineplexes.get(choice);
 	   
 	   ArrayList<Movie> movies = getMovieList(cineplex);
-	   for(Movie m:movies){
-	   	System.out.println(m.getTitle());
-	   }
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
 
-	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie);
+	   ArrayList<String> cinemaTypes = getCinemaTypes(cineplex,movie);
+	   String cinemaType = cinemaTypes.get(sui.getCinemaTypeSelectionView(cinemaTypes));
+
+	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie,cinemaType);
 	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
+
+	   ArrayList<String> seats = sui.getSeatSelectionMenu(showtime);
+	   for(String s: seats){
+	   	System.out.println(s);
+	   }
    }  
 }
