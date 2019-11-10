@@ -30,6 +30,9 @@ public class MovieGoerUI {
 		System.out.println("6) Rating: "+ movie.getMovieRating());
 		System.out.println("5) Movie Type: "+ movie.getMovieClass());
 		System.out.println("6) Movie Rating: "+ movie.getMovieRating());
+		if (movie.getOverallReviewRating() == 0)
+		System.out.println("7) Review Rating: No ratings yet");
+		else
 		System.out.println("7) Review Rating: "+ movie.getOverallReviewRating());
 		String[] movieGenre = movie.getGenre();
 		System.out.print("8) Genre: ");
