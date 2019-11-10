@@ -10,23 +10,6 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class HandleReviewMgr {
-   /*
-   public static void insertReview(String review, float rating, Movie movie){
-      ArrayList<Movie> movies = null;
-      try{
-         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
-      }catch(IOException e){
-         System.out.println("File not found");
-      }catch(ClassNotFoundException e){
-         System.out.println("Class not found");
-      }
-      for(int i = 0; i< movies.size(); i++){
-         for(int j = 0; j<movies.get(i).getReviews().size(); j++){
-            System.out.println(movies.get(i).getReviews().get(j).getContent());
-         }
-      }
-
-   }*/
    public static void insertReview(String review, float rating, Movie movie){
       ArrayList<Movie> movies = null;
       //Retrieving customer
@@ -37,7 +20,6 @@ public class HandleReviewMgr {
 
       //Check if the user has provided a review;
       for(int i = 0; i<movie.getReviews().size(); i++){
-         System.out.println(movie.getReviews().get(i).getCustomer().getEmail());
          if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
             System.out.println("You have provided a review.");
             return;
@@ -48,9 +30,6 @@ public class HandleReviewMgr {
 
       //if not
       movie.insertMovieReview(userReview);
-      for(int j = 0; j<movie.getReviews().size(); j++){
-         System.out.println(movie.getReviews().get(j).getContent());
-      }
 
       //modifying database
       try{
@@ -63,7 +42,6 @@ public class HandleReviewMgr {
 
       for(int i = 0; i<movies.size(); i++){
          if(movies.get(i).getTitle().equals(movie.getTitle())){
-            System.out.println(movies.get(i).getTitle());
             movies.set(i, movie);
          }
       }
@@ -76,16 +54,52 @@ public class HandleReviewMgr {
    }
 
 
-   public static void deleteReview(Movie movie, int index){
-      //if the review is his, show the delete | edit button
-      ArrayList<Review> reviewsTemp = movie.getMovieReview();
-      reviewsTemp.remove(index);
-      movie.setMovieReview(reviewsTemp);
+   public static void deleteReview(Movie movie){
+      ArrayList<Movie> movies = null;
+      //Retrieving customer
+      Customer customer = Utils.getCustomerCookie();
+      if(customer == null){
+         System.out.println("Please log in");
+      }
+
+      //Check if the user has provided a review;
+      for(int i = 0; i<movie.getReviews().size(); i++){
+         if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
+            ArrayList<Review> reviewsTemp = movie.getReviews();
+            reviewsTemp.remove(i);
+            movie.setMovieReview(reviewsTemp);
+            break;
+         }
+      }
+
+      try{
+         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      }catch(IOException e){
+         System.out.println("File not found");
+      }catch(ClassNotFoundException e){
+         System.out.println("Class not found");
+      }
+
+      //changing the value of ArrayList
+      for(int j = 0; j<movies.size(); j++){
+         if(movies.get(j).getTitle().equals(movie.getTitle())){
+            movies.set(j, movie);
+         }
+      }
+
+      //Inserting to database
+      try{
+         Utils.writeObject("movie.txt", movies);
+      }catch(IOException e){
+         System.out.println("File not found");
+      }
+
+      System.out.println("Review deleted");
    }
 
    public static void editReview(Movie movie, int index, String review, float rating){
       //if the review is his, show the delete | edit button
-      deleteReview(movie, index);
+      deleteReview(movie);
       insertReview(review, rating, movie);
    }
 

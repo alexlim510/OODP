@@ -19,7 +19,7 @@ public class MakeReviewUI {
       
       System.out.println("Insert your review");
       do{
-         rating = Utils.getFloatInput("Rating: ");
+         rating = Utils.getFloatInput("Insert your rating (1-5): ");
       }while(rating > 5 || rating < 0);
       System.out.println("Review: ");
       review = sc.nextLine();
