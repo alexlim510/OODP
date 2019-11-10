@@ -84,10 +84,10 @@ public class StaffUI {
                      "2. Change holidays\n");
       switch (utils.getUserChoice(1, 2)) {
          case 1:
-            
+
             break;
          case 2:
-         
+
             break;
       }
    }

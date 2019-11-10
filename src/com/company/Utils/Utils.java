@@ -1,4 +1,7 @@
 package com.company.Utils;
+import com.company.Entity.Customer;
+import com.company.Entity.Staff;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +9,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Entity.*;
 
 
 public class Utils {

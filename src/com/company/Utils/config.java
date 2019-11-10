@@ -1,5 +1,6 @@
 package com.company.Utils;
 
+import com.company.Entity.Customer;
 import com.company.Entity.Movie;
 import com.company.Entity.Review;
 

@@ -27,12 +27,12 @@ public class StaffControl {
       Movie movie = new Movie(title);
       int i = 1;
       System.out.println("Select movie type from the following options:");
-      for (String movietype : movie.getMovieTypes()) {
+      for (String movietype : movie.getMovieClasses()) {
          System.out.println(i + ". " + movietype);
          i++;
       }
-      type = movie.getMovieTypes()[utils.getUserChoice(1, i - 1)];
-      movie.setMovieType(type);
+      type = movie.getMovieClasses()[utils.getUserChoice(1, i - 1)];
+//      movie.getMovieClasses(type);
    
       synopsis = utils.getStringInput("Enter the movie synopsis: ");
       movie.setSynopsis(synopsis);

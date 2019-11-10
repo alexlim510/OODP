@@ -1,6 +1,7 @@
 package com.company.View;
 import com.company.Controller.LoginController;
 import com.company.Entity.Customer;
+import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
 import java.util.Scanner;

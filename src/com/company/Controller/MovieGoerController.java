@@ -115,7 +115,7 @@ public class MovieGoerController extends Utils {
 			   }
 		   }
 	   }
-	   return movieList;   		  	   
+//	   return movieList;
    }
    
    public void seatSelection() {
