@@ -62,7 +62,7 @@ public class HandleReviewMgr {
          System.out.println("Please log in");
       }
 
-      //Check if the user has provided a review
+      //Check if the user has provided any review
       for(int i = 0; i<movie.getReviews().size(); i++){
          if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
             ArrayList<Review> reviewsTemp = movie.getReviews();
