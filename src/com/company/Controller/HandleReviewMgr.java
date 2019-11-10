@@ -59,7 +59,7 @@ public class HandleReviewMgr {
       //Retrieving customer
       Customer customer = Utils.getCustomerCookie();
       if(customer == null){
-         System.out.println("Please log in");
+         System.out.println("Please log in.");
       }
 
       //Check if the user has provided any review
