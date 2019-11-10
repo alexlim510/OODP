@@ -1,8 +1,11 @@
 package com.company.Controller;
+import com.company.Entity.Cinema;
 import com.company.Entity.Cineplex;
 import com.company.Entity.Movie;
+import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
+import com.company.View.SeatUI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -99,10 +102,10 @@ public class MovieGoerController extends Utils {
 	   return movieList;
    }
    
-   public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie){	   
+   public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie){
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
 	   
-	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas();		   
+	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
 	   for (Cinema cinema: cinemaList) {
 		   ArrayList<ShowTime> showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
