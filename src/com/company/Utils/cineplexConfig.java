@@ -40,9 +40,9 @@ public class cineplexConfig {
 			}
 			
 			ArrayList<Movie> movie = (ArrayList<Movie>)Utils.readObject("movie.txt");
-			ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2016, 12, 10, 12, 10),movie.get(0));
-			ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2016, 12, 11, 12, 10),movie.get(1));
-			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2016, 12, 13, 12, 10),movie.get(2));
+			ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
+			ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
+			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 13, 12, 10),movie.get(0));
 			try {				
 				c1.addShowTime(st1);
 				c1.addShowTime(st2);
@@ -52,14 +52,16 @@ public class cineplexConfig {
 				System.out.println(e);
 			}
 			
-			ArrayList<ArrayList<Seat>> seats = c1.getShowTime(Utils.createLocalDateTime(2016, 12, 10, 12, 10)).getSeats();
+			ArrayList<ArrayList<Seat>> seats = c1.getShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10)).getSeats();
 			seats.get(1).get(1).assignSeat();
 			
 			// print seats
 			
 			SeatUI sui = new SeatUI();
-			sui.getSeatSelectionView(st1);
-			//Utils.writeObject("cineplex.txt", (Object)cp);
+			ArrayList<String> chosen = new ArrayList<String>();
+			chosen.add("rAc1");
+			sui.getSeatListing(st1,chosen);
+			Utils.writeObject("cineplex.txt", (Object)cp);
 			
 			/*
 			ArrayList<Cineplex> cpp = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");

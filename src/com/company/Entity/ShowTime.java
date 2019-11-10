@@ -2,8 +2,8 @@ package com.company.Entity;
 
 import java.util.*;
 import java.time.*;
-
-public class ShowTime {
+import java.io.Serializable;
+public class ShowTime implements Serializable {
     private LocalDateTime dateTime;
     private Movie movie;
     private ArrayList<ArrayList<Seat>> seats;

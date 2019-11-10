@@ -16,19 +16,27 @@ public class SeatUI {
 	public int getCineplexSelectionView(ArrayList<Cineplex> cineplexes) {
 		System.out.println("Please select cineplex: ");
 		for(int i=0;i<cineplexes.size();i++) {
-			System.out.println(i+")"+cineplexes.get(i));
+			System.out.println((i+1)+")"+cineplexes.get(i).getCineplexName());
 		}
-		return Utils.getUserChoice(1, cineplexes.size());
+		return Utils.getUserChoice(1, cineplexes.size())-1;
 	}
 	
 	public int getMovieSelectionView(ArrayList<String> movies) {
 		System.out.println("Please select movie: ");
 		for(int i=0;i<movies.size();i++) {
-			System.out.println(i+")"+movies.get(i));
+			System.out.println((i+1)+")"+ movies.get(i));
 		}
-		return Utils.getUserChoice(1, movies.size());						
+		return Utils.getUserChoice(1, movies.size())-1;
 	}
-	
+
+	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
+		System.out.println("Please select Show Time: ");
+		for(int i=0;i<showTimes.size();i++) {
+			System.out.println((i+1)+")"+showTimes.get(i).getDateTime());
+		}
+		return Utils.getUserChoice(1, showTimes.size())-1;
+	}
+
 	public void getSeatSelectionMenu(ShowTime st) {
 		Utils.displayHeader("Seat Selection");
 		System.out.println(

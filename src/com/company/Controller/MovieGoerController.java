@@ -77,7 +77,7 @@ public class MovieGoerController extends Utils {
 		   ArrayList<ShowTime> showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
-			   if(movie.getStatusType().equals("Now Showing")) {		
+			   if(movie.getStatusType().equals("Now showing")) {
 				   movieList.add(movie);	   
 			   }
 		   }
@@ -87,15 +87,21 @@ public class MovieGoerController extends Utils {
    
    public ArrayList<String> getMovieTitles(ArrayList<Movie> movies){
 	   ArrayList<String> movieList = new ArrayList<String>();
-	   
+	   String temp;
 	   for(Movie movie: movies) {
 		   if(!movieList.contains(movie.getTitle())) {
 			   String title = movie.getTitle();
 			   if(movie.getMovieClass()!=null) {
-				   movieList.add(movie.getTitle()+"("+movie.getMovieClass()+")");
+				   temp = movie.getTitle()+"("+movie.getMovieClass()+")";
+				   if(!movieList.contains(temp)){
+				   	movieList.add(temp);
+				   }
 			   }
 			   else {
-				   movieList.add(movie.getTitle());					   
+			   	temp=movie.getTitle();
+			   	if(!movieList.contains(temp)){
+			   		movieList.add(temp);
+				}
 			   }				   
 		   }
 	   }
@@ -106,13 +112,14 @@ public class MovieGoerController extends Utils {
    public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie){
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
 	   ArrayList<ShowTime> showTimes = new ArrayList<>();
+	   ArrayList<ShowTime> selectedShowTimes = new ArrayList<>();
 	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
 	   for (Cinema cinema: cinemaList) {
 		   showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie m = st.getMovie();
 			   if(m.getTitle().equals(movie.getTitle()) && st.getDateTime().compareTo(LocalDateTime.now())>0) {
-				   showTimes.add(st);
+				   selectedShowTimes.add(st);
 			   }
 		   }
 	   }
@@ -129,9 +136,13 @@ public class MovieGoerController extends Utils {
 	   Cineplex cineplex = cineplexes.get(choice);
 	   
 	   ArrayList<Movie> movies = getMovieList(cineplex);
+	   for(Movie m:movies){
+	   	System.out.println(m.getTitle());
+	   }
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
 
 	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie);
+	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
    }  
 }
