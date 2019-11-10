@@ -77,20 +77,20 @@ public class StaffUI {
       } 
    }
 
-   public void displayStaffConfigurationOptions() {
-      utils.displayHeader("Configuration Options");
-      System.out.println(
-             "1. Change ticket prices\n" +
-                     "2. Change holidays\n");
-      switch (utils.getUserChoice(1, 2)) {
-         case 1:
-
-            break;
-         case 2:
-
-            break;
-      }
-   }
+//   public void displayStaffConfigurationOptions() {
+//      utils.displayHeader("Configuration Options");
+//      System.out.println(
+//             "1. Change ticket prices\n" +
+//                     "2. Change holidays\n");
+//      switch (utils.getUserChoice(1, 2)) {
+//         case 1:
+//
+//            break;
+//         case 2:
+//
+//            break;
+//      }
+//   }
 
    public void displayStaffConfigurationOptions(){
       utils.displayHeader("Change ticket price");
@@ -254,7 +254,7 @@ public class StaffUI {
    //System Configuration Area ==========================
 
    public static void addPricingUI(){
-      utils.displayHeader("Add Pricing");
+      Utils.displayHeader("Add Pricing");
       Scanner sc = new Scanner(System.in);
 
       String type;
@@ -268,14 +268,14 @@ public class StaffUI {
       boolean successful = StaffControl.addSpecialPricingMgr(type, price);
 
       if(successful){
-         system.out.println("Price added");
+         System.out.println("Price added");
       }else{
-         system.out.println("Price not added. Please try again");
+         System.out.println("Price not added. Please try again");
       }
    }
 
    public static void editPricingUI(){
-      utils.displayHeader("Edit Pricing");
+      Utils.displayHeader("Edit Pricing");
       Scanner sc = new Scanner(System.in);
 
       String type;
@@ -289,14 +289,14 @@ public class StaffUI {
       boolean successful = StaffControl.editSpecialPricingMgr(type, price);
 
       if(successful){
-         system.out.println("Price edited");
+         System.out.println("Price edited");
       }else{
-         system.out.println("Price not edited. Please try again");
+         System.out.println("Price not edited. Please try again");
       }
    }
 
    public static void deletePricingUI(){
-      utils.displayHeader("Delete Pricing");
+      Utils.displayHeader("Delete Pricing");
       Scanner sc = new Scanner(System.in);
 
       String type;
@@ -304,12 +304,12 @@ public class StaffUI {
       System.out.print("Type in the category you wish to delete: ");
       type = sc.nextLine();
 
-      boolean successful = StaffControl.editSpecialPricingMgr(type);
+      boolean successful = StaffControl.deleteSpecialPricingMgr(type);
 
       if(successful){
-         system.out.println("Price deleted");
+         System.out.println("Price deleted");
       }else{
-         system.out.println("Price not deleted. Please try again");
+         System.out.println("Price not deleted. Please try again");
       }
    }
 

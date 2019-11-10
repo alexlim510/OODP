@@ -104,10 +104,10 @@ public class MovieGoerController extends Utils {
    
    public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie){
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
-	   
+	   ArrayList<ShowTime> showTimes = new ArrayList<>();
 	   ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
 	   for (Cinema cinema: cinemaList) {
-		   ArrayList<ShowTime> showTimes = cinema.getShowTime();
+		   showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie m = st.getMovie();
 			   if(m.getStatusType().equals("Now Showing")) {		
@@ -116,6 +116,7 @@ public class MovieGoerController extends Utils {
 		   }
 	   }
 //	   return movieList;
+	   return showTimes;
    }
    
    public void seatSelection() {

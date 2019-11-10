@@ -329,7 +329,7 @@ public class StaffControl {
    }
 
    public static boolean addSpecialPricingMgr(String type, float price){
-      Price thePricing;
+      Price thePricing = new Price();
       //get the current pricing
    
       try{
@@ -344,7 +344,7 @@ public class StaffControl {
    }
 
    public static boolean editSpecialPricingMgr(String type, float price){
-      Price thePricing;
+      Price thePricing = new Price();
       //get the current pricing
    
       try{
@@ -358,7 +358,7 @@ public class StaffControl {
    }
 
    public static boolean deleteSpecialPricingMgr(String type){
-      Price thePricing;
+      Price thePricing = new Price();
       //get the current pricing
    
       try{
