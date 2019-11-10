@@ -7,6 +7,7 @@ import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 
+import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -110,8 +111,8 @@ public class MovieGoerController extends Utils {
 		   showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie m = st.getMovie();
-			   if(m.getStatusType().equals("Now Showing")) {		
-				   movieList.add(m);	   
+			   if(m.getTitle().equals(movie.getTitle()) && st.getDateTime().compareTo(LocalDateTime.now())>0) {
+				   showTimes.add(st);
 			   }
 		   }
 	   }
@@ -130,5 +131,7 @@ public class MovieGoerController extends Utils {
 	   ArrayList<Movie> movies = getMovieList(cineplex);
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
+
+	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie);
    }  
 }

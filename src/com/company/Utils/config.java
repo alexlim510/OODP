@@ -15,7 +15,7 @@ public class config {
 
 
 public static void main(String[] args) {
-		/*
+
 		try {				
 			Customer cp1 = new Customer("john","98765432","john@gmail.com");
 			Customer cp2 = new Customer("alex","87654321","alex@gmail.com");
@@ -42,7 +42,7 @@ public static void main(String[] args) {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		*/
+
 		
 		
 		ObjectOutputStream oos1;
