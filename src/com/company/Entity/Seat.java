@@ -1,6 +1,6 @@
 package com.company.Entity;
-
-public class Seat {
+import java.io.Serializable;
+public class Seat implements Serializable{
     private String seatID;
     private String row;
     private int column;

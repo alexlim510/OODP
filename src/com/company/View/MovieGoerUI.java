@@ -80,7 +80,7 @@ public class MovieGoerUI {
                 int choice = sc.nextInt();
                 switch(choice) {
                 case 1:
-                    getCineplexView();
+                    movieController.seatSelection();
                     break;
                 case 2:
                     getMovieListingView();
