@@ -1,13 +1,15 @@
 package com.company.Controller;
+import com.company.Entity.Cineplex;
+import com.company.Entity.Movie;
+import com.company.Utils.Utils;
+import com.company.View.MovieGoerUI;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Entity.*;
-import View.MovieGoerUI;
-import Utils.Utils;
-import View.SeatUI;
 
-public class MovieGoerController extends Utils{
+
+public class MovieGoerController extends Utils {
 	 
  
    public void MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)

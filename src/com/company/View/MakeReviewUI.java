@@ -1,11 +1,13 @@
 
 package com.company.View;
 
+import com.company.Controller.HandleReviewMgr;
+import com.company.Entity.Movie;
+import com.company.Utils.Utils;
+
 import java.util.Scanner;
 
-import Entity.*;
-import Utils.*;
-import Controller.HandleReviewMgr;
+
 
 public class MakeReviewUI {
 	

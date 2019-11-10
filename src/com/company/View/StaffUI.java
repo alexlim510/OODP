@@ -1,10 +1,12 @@
 package com.company.View;
 
-import Controller.StaffControl;
-import Utils.Utils;
+
+import com.company.Controller.StaffControl;
+import com.company.Utils.Utils;
+
 import java.util.Scanner;
 import java.time.LocalDateTime;
-import Entity.*;
+
 
 public class StaffUI {
    StaffControl staffControl = new StaffControl();

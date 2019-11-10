@@ -1,9 +1,16 @@
 package com.company.View;
 
-import Entity.*;
-import java.util.*;
-import Utils.Utils;
-import Controller.MovieGoerController;
+
+import com.company.Entity.Cineplex;
+import com.company.Entity.Price;
+import com.company.Entity.Seat;
+import com.company.Entity.ShowTime;
+import com.company.Utils.Utils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class SeatUI {
 	public int getCineplexSelectionView(ArrayList<Cineplex> cineplexes) {
@@ -11,7 +18,7 @@ public class SeatUI {
 		for(int i=0;i<cineplexes.size();i++) {
 			System.out.println(i+")"+cineplexes.get(i));
 		}
-		return Utils.getUserChoice(1, cineplexes.size());						
+		return Utils.getUserChoice(1, cineplexes.size());
 	}
 	
 	public int getMovieSelectionView(ArrayList<String> movies) {
@@ -115,7 +122,7 @@ public class SeatUI {
 			boolean first = true;
 			System.out.print(st.getRowID(r));
 			for(int c=0;c<st.getNumColumns();c++) {					
-				Seat s = st.getSeat(r, c);					
+				Seat s = st.getSeat(r, c);
 				if(s !=null) {						
 					if(first) {
 						System.out.print("|");

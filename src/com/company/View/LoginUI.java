@@ -1,12 +1,12 @@
 package com.company.View;
+import com.company.Controller.LoginController;
+import com.company.Entity.Customer;
+import com.company.Utils.Utils;
+
 import java.util.Scanner;
-import Controller.LoginController;
-import View.StaffUI;
-import View.MovieGoerUI;
+
 import java.util.*;
-import Utils.Utils;
-import Entity.Staff;
-import Entity.Customer;
+
 
 public class LoginUI {
 	
@@ -40,7 +40,7 @@ public class LoginUI {
    }
 	 
    public void displayPublicLoginPage() {
-      LoginController logCtrl = new LoginController(); 
+      LoginController logCtrl = new LoginController();
       Utils.displayHeader("Customer Login");
       boolean  credentialCheck = false;
       while(!credentialCheck) {

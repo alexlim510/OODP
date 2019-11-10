@@ -1,7 +1,7 @@
 package com.company.Entity;
 import java.util.*;
 import java.time.*;
-import Entity.*;
+
 
 public class Price {
 	private static final int FRIDAY = 5;

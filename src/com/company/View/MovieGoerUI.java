@@ -1,15 +1,15 @@
 package com.company.View;
+import com.company.Controller.MovieGoerController;
+import com.company.Entity.Cineplex;
+import com.company.Entity.Movie;
+import com.company.Entity.Review;
+import com.company.Utils.Utils;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Controller.MovieGoerController;
-import Utils.Utils;
-import Entity.Movie;
-import Entity.Review;
-import Entity.Seat;
-import Entity.Cineplex;
-import Entity.Cinema;
+
 
 
 public class MovieGoerUI {

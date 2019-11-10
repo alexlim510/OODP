@@ -1,11 +1,12 @@
 package com.company.Utils;
-import Utils.Utils;
+
+import com.company.Entity.*;
+import com.company.View.SeatUI;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import Entity.*;
-import View.*;
 
 public class cineplexConfig {
 	public static void main(String[] args) {

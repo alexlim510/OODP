@@ -1,6 +1,7 @@
 package com.company.Controller;
 
 import com.company.Entity.Customer;
+import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
 import java.util.*;
@@ -32,7 +33,7 @@ public class LoginController extends Utils {
    public boolean checkAdmin(String username, String password) {
       try {
       	//create empty array of Staff
-         ArrayList<Staff> staffArray; 
+         ArrayList<Staff> staffArray;
       	//Read objects from staff.txt, cast it to array of staff
          staffArray = (ArrayList<Staff>)getObjectInputStream("staff.txt").readObject();
       	
