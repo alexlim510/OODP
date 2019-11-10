@@ -30,7 +30,7 @@ public class Movie implements Serializable{
       this.reviews = new ArrayList<Review>();
    }
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
-   	   Date showTill , int duration , ArrayList<Review> reviews , String movieRating , float overallReviewRating,int movieClass,
+   	   Date showTill , int duration , ArrayList<Review> reviews  , float overallReviewRating,int movieClass,
    	   int ageType, int statusType ) {
     
       
@@ -42,7 +42,6 @@ public class Movie implements Serializable{
       this.showTill = showTill;
       this.duration = duration;
       this.reviews = reviews;
-      this. movieRating=movieRating;
       this.overallReviewRating = overallReviewRating;
       this.movieClass = movieClasses[movieClass];
       this.ageType = ageTypes[ageType];

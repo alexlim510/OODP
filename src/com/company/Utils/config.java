@@ -60,13 +60,13 @@ public static void main(String[] args) {
 		
 			Movie movie1 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
 					new String[]{"Jay" , "Chean" ,"Alfredo","Bharat"},new String[]{ "Sci-fi" , "Cartoon" },
-					Date  , 2 ,null , "3/5" , 3.6f,1,2 ,1);
+					Date  , 2 ,null , 3.6f,1,2 ,1);
 			Movie movie2 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
 					new String[]{"Jay" , "Chean" },new String[]{ "Sci-fi" , "Cartoon" }, Date  ,
-					2 ,null , "3/5" , 3.6f,1,2 ,1);
+					2 ,null , 3.6f,1,2 ,1);
 			
 			Review review1 = new Review(movie1 , Customer1, "WTF bad movie" , 1.52f, now);
-			Review review2 = new Review(movie1 , Customer1, "niceeeeee" , 1.52f, now);
+			Review review2 = new Review(movie1 , Customer1, "niceeeeee" , 4.1f, now);
 			reviewlist.add(review1);
 			reviewlist.add(review2);
 			
