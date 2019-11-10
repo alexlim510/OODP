@@ -18,7 +18,9 @@ public class MakeReviewUI {
       Scanner sc = new Scanner(System.in);
       
       System.out.println("Insert your review");
-      Utils.getFloatInput("Rating: ");
+      do{
+         rating = Utils.getFloatInput("Rating: ");
+      }while(rating > 5 || rating < 0);
       System.out.println("Review: ");
       review = sc.nextLine();
       
