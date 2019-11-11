@@ -4,7 +4,6 @@ import com.company.Entity.Price;
 import com.company.Utils.Utils;
 
 public class HandlePricingMgr {
-    //Hello
     public static Price readPriceFile(){
         Price pricing = new Price();
         try{

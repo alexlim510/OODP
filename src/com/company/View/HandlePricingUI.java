@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class HandlePricingUI {
-    //hello
     public static void main(String[] args){
-        //dws
         Price pricing = HandlePricingMgr.readPriceFile();
         ArrayList<String> priceKeys= new ArrayList<String>();
         for(String st : pricing.getKeys()){
