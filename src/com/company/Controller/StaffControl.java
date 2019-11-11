@@ -90,9 +90,6 @@ public class StaffControl {
         }
         movieArray.add(movie);
 
-
-
-
         System.out.println("Movie successfully created!");
         // Todo print out the movie attribues?
 
