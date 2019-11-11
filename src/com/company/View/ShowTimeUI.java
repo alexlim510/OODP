@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShowTimeUI {
-    //SHOW TIME AREA =====================================
+    //SHOW TIME AREA =======================================
 
     public static void addShowTimeUI(){
         Utils.displayHeader("Add Show Time");
