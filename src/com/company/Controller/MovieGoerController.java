@@ -1,12 +1,10 @@
 package com.company.Controller;
-import com.company.Entity.Cinema;
-import com.company.Entity.Cineplex;
-import com.company.Entity.Movie;
-import com.company.Entity.ShowTime;
+import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -145,7 +143,20 @@ public class MovieGoerController extends Utils {
 	   }
 	   return selectedShowTimes;
    }
-   
+/*
+   public float calculateTicketPrice(Movie movie, String cinemaType, ShowTime showtime){
+	   ArrayList<String> prices = new ArrayList<>();
+	   String movieClass = movie.getMovieClass();
+	   if(movieClass!= null) prices.add(movieClass);
+	   prices.add(cinemaType);
+	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
+	   Price p = new Price();
+	   if(p.isWeekend(dayOfWeek)) prices.add("Weekend");
+
+
+
+   }
+*/
    public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
@@ -163,6 +174,10 @@ public class MovieGoerController extends Utils {
 
 	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie,cinemaType);
 	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
+	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
+
+
+
 
 	   ArrayList<String> seats = sui.getSeatSelectionMenu(showtime);
    }  

@@ -42,7 +42,7 @@ public class cineplexConfig {
 			
 			ArrayList<Movie> movie = (ArrayList<Movie>)Utils.readObject("movie.txt");
 			ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
-			ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
+			ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 11, 10),movie.get(0));
 			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 13, 12, 10),movie.get(0));
 			try {				
 				c1.addShowTime(st1);
@@ -52,7 +52,10 @@ public class cineplexConfig {
 			catch(IllegalArgumentException e) {
 				System.out.println(e);
 			}
-			
+
+			//check day of week of showtime
+			System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
+
 			ArrayList<ArrayList<Seat>> seats = c1.getShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10)).getSeats();
 			seats.get(1).get(1).assignSeat();
 			

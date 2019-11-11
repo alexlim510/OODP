@@ -4,9 +4,9 @@ import java.time.*;
 
 
 public class Price {
-	private static final int FRIDAY = 5;
-	private static final int SATURDAY= 6;
-	private static final int SUNDAY = 7;
+	private static final int FRIDAY = 4;
+	private static final int SATURDAY= 5;
+	private static final int SUNDAY = 6;
 	private HashMap<String,Float> prices;
 	private ArrayList<LocalDateTime> holidays;
 	private List<Integer> weekends;
@@ -93,4 +93,15 @@ public class Price {
 			throw new IllegalArgumentException("Weekend does not exist.");
 		}
 	}
+
+	public boolean isWeekend(int day){
+		if(weekends.contains(day)){
+			return true;
+		}
+		return false;
+	}
+
+	//public boolean isHoliday(LocalDateTime date){
+
+	//}
 }

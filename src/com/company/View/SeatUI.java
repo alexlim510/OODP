@@ -52,7 +52,7 @@ public class SeatUI {
 		getSeatListing(st,chosen);
 		System.out.println("---------------------------------------------------------------------");
 		int choice;
-		
+		float agePrice;
 		while(true) {
 			System.out.println(
 					"1. Select seat\n" +
@@ -67,6 +67,7 @@ public class SeatUI {
 						if(chosen.contains(selectedSeat))
 							System.out.println("The seat is chosen");
 						else
+							agePrice = getAgeSelection();
 							chosen.add(selectedSeat);
 					getSeatListing(st,chosen);
 					break;
