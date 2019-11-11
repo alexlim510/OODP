@@ -11,39 +11,48 @@ import java.util.Set;
 
 public class HandlePricingUI {
     public static void main(String[] args){
-        Price pricing = HandlePricingMgr.readPriceFile();
-        ArrayList<String> priceKeys= new ArrayList<String>();
-        for(String st : pricing.getKeys()){
-            priceKeys.add(st);
-        }
-        for(String st : priceKeys){
-            System.out.println(st);
-        }
+        deletePriceCategoryUI();
     }
 
     public static void addPriceCategoryUI(){
-        Price pricing = HandlePricingMgr.readPriceFile();
         Utils.displayHeader("Adding Price Category");
         boolean successful = false;
         boolean retry = true;
         while(retry && !successful){
-            try{
-                successful = true;
-                pricing.addPrice(Utils.getStringInput("Insert the name of the category: "), Utils.getFloatInput("Insert the price of the category: "));
-            }catch(IllegalArgumentException e){
-                successful = false;
-                System.out.println(e.getMessage());
+            successful = HandlePricingMgr.addPriceCategoryMgr();
+            if(!successful){
                 retry = Utils.retry("Retry");
             }
         }
         if(successful){
-            try{
-                Utils.writeObject("price.txt", pricing);
-            }catch (Exception e){
-                System.out.println("Failed to modify the database. Please try again");
-                return;
-            }
             System.out.println("Successfully added a new price category.");
         }
     }
+
+    public static void deletePriceCategoryUI(){
+        Utils.displayHeader("Delete Price Category");
+        int userChoice;
+        boolean successful = false;
+        boolean retry = true;
+        ArrayList<String> priceKeys= new ArrayList<String>();
+        for(String st : HandlePricingMgr.readPriceFile().getKeys()){
+            priceKeys.add(st);
+        }
+        while(retry && !successful){
+            System.out.println("Select category you want to delete: ");
+            for(int i = 0; i<priceKeys.size(); i++){
+                System.out.println(i+1+". "+priceKeys.get(i));
+            }
+            userChoice = Utils.getUserChoice(1, priceKeys.size()) - 1;
+            successful = HandlePricingMgr.deletePriceCategoryMgr(priceKeys.get(userChoice));
+            if(!successful){
+                retry = Utils.retry("Retry");
+            }
+        }
+        if(successful){
+            System.out.println("Successfully deleted the price category.");
+        }
+    }
+
+
 }
