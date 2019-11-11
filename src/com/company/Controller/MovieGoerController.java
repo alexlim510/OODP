@@ -1,8 +1,5 @@
 package com.company.Controller;
-import com.company.Entity.Cinema;
-import com.company.Entity.Cineplex;
-import com.company.Entity.Movie;
-import com.company.Entity.ShowTime;
+import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
@@ -10,7 +7,7 @@ import com.company.View.SeatUI;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class MovieGoerController extends Utils {
@@ -145,20 +142,32 @@ public class MovieGoerController extends Utils {
 	   }
 	   return selectedShowTimes;
    }
-/*
-   public float calculateTicketPrice(Movie movie, String cinemaType, ShowTime showtime){
-	   ArrayList<String> prices = new ArrayList<>();
+
+   public float calculateTicketBasePrice(Movie movie, String cinemaType, ShowTime showtime){
+	   ArrayList<String> categories = new ArrayList<>();
 	   String movieClass = movie.getMovieClass();
-	   if(movieClass!= null) prices.add(movieClass);
-	   prices.add(cinemaType);
+	   if(movieClass!= null) categories.add(movieClass);
+       categories.add(cinemaType);
 	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
 	   Price p = new Price();
-	   if(p.isWeekend(dayOfWeek)) prices.add("Weekend");
-
-
-
+	   if(p.isWeekend(dayOfWeek)) categories.add("Weekend");
+	   if(p.isHoliday(showtime.getDateTime())) categories.add("Holiday");
+	   if(categories.size()!=0){
+	       return p.getPrice(categories);
+       }
+	   else return 0;
    }
-*/
+
+   public float calculateTotalPrice(HashMap<String,Float> chosenSeats){
+       float totalPrice=0;
+       if(chosenSeats.size()!=0){
+           for(float price: chosenSeats.values()){
+               totalPrice = totalPrice + price;
+           }
+       }
+       return totalPrice;
+   }
+
    public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
@@ -176,11 +185,8 @@ public class MovieGoerController extends Utils {
 
 	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie,cinemaType);
 	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
-	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
+       float basePrice = calculateTicketBasePrice(movie,cinemaType,showtime);
 
-
-
-
-	   ArrayList<String> seats = sui.getSeatSelectionMenu(showtime);
-   }  
+       HashMap<String,Float> chosenSeats = sui.getSeatSelectionMenu(showtime,basePrice);
+   }
 }

@@ -4,6 +4,7 @@ import com.company.Entity.*;
 import com.company.View.SeatUI;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -43,7 +44,7 @@ public class cineplexConfig {
 			ArrayList<Movie> movie = (ArrayList<Movie>)Utils.readObject("movie.txt");
 			ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
 			ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 11, 10),movie.get(0));
-			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 13, 12, 10),movie.get(0));
+			ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
 			try {				
 				c1.addShowTime(st1);
 				c2.addShowTime(st2);
@@ -55,6 +56,11 @@ public class cineplexConfig {
 
 			//check day of week of showtime
 			System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			System.out.println(st3.getDateTime().format(formatter));
+			System.out.println(st2.getDateTime().format(formatter));
+			System.out.println(st1.getDateTime().format(formatter));
+			System.out.println(st1.getDateTime().format(formatter).equals(st2.getDateTime().format(formatter)));
 
 			ArrayList<ArrayList<Seat>> seats = c1.getShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10)).getSeats();
 			seats.get(1).get(1).assignSeat();
@@ -64,7 +70,7 @@ public class cineplexConfig {
 			SeatUI sui = new SeatUI();
 			ArrayList<String> chosen = new ArrayList<String>();
 			chosen.add("rAc1");
-			sui.getSeatListing(st1,chosen);
+			//sui.getSeatListing(st1,chosen);
 			Utils.writeObject("cineplex.txt", (Object)cp);
 
 			Price p = new Price();

@@ -1,4 +1,5 @@
 package com.company.Entity;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.*;
 import java.io.Serializable;
@@ -19,7 +20,9 @@ public class Price implements Serializable{
 		this.prices.put("Holiday", 3f);
 		this.prices.put("Weekend", 2f);
 		this.prices.put("Blockbuster", 2f);
-		this.prices.put("Platinium Suite", 10f);
+		this.prices.put("3D", 2f);
+		this.prices.put("Platinum Movie Suites", 10f);
+		this.prices.put("Normal",2f);
 		this.holidays = new ArrayList<LocalDateTime>();
 		this.weekends = Arrays.asList(FRIDAY, SATURDAY, SUNDAY);
 	}
@@ -57,7 +60,15 @@ public class Price implements Serializable{
 			throw new IllegalArgumentException("Price category does not exist.");
 		}
 	}
-	
+
+	public float getPrice(ArrayList<String> categories) {
+		float price = 0;
+		for(String category: categories){
+			price = price + getPrice(category);
+		}
+		return price;
+	}
+
 	public void addHoliday(LocalDateTime holiday) {
 		if(holidays.contains(holiday)) {
 			throw new IllegalArgumentException("Holiday is already present.");
@@ -101,7 +112,12 @@ public class Price implements Serializable{
 		return false;
 	}
 
-	//public boolean isHoliday(LocalDateTime date){
-
-	//}
+	public boolean isHoliday(LocalDateTime date){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String chosenDate = date.format(formatter);
+		for(LocalDateTime holiday: holidays){
+			if(holiday.format(formatter).equals(chosenDate)) return true;
+		}
+		return false;
+	}
 }

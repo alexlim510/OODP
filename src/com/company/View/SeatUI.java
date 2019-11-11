@@ -6,11 +6,8 @@ import com.company.Entity.Price;
 import com.company.Entity.Seat;
 import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import com.company.Controller.MovieGoerController;
+import java.util.*;
 import java.time.format.DateTimeFormatter;
 public class SeatUI {
 	public int getCineplexSelectionView(ArrayList<Cineplex> cineplexes) {
@@ -46,13 +43,14 @@ public class SeatUI {
 		return Utils.getUserChoice(1, showTimes.size())-1;
 	}
 
-	public ArrayList<String> getSeatSelectionMenu(ShowTime st) {
+	public HashMap<String,Float> getSeatSelectionMenu(ShowTime st, float basePrice) {
+		MovieGoerController mgc = new MovieGoerController();
 		Utils.displayHeader("Seat Selection");
-		ArrayList<String> chosen = new ArrayList<String>();
-		getSeatListing(st,chosen);
+		HashMap<String,Float> chosenSeat = new HashMap<>();
+		getSeatListing(st,chosenSeat);
 		System.out.println("---------------------------------------------------------------------");
 		int choice;
-		float agePrice;
+		float totalPrice = 0;
 		while(true) {
 			System.out.println(
 					"1. Select seat\n" +
@@ -62,35 +60,37 @@ public class SeatUI {
 			choice = Utils.getUserChoice(1, 3);
 			switch(choice) {
 				case 1:
-					String selectedSeat = getSeatSelectionView(st,chosen);
+					String selectedSeat = getSeatSelectionView(st,chosenSeat);
 					if(selectedSeat!=null)
-						if(chosen.contains(selectedSeat))
+						if(chosenSeat.containsKey(selectedSeat))
 							System.out.println("The seat is chosen");
-						else
-							agePrice = getAgeSelection();
-							chosen.add(selectedSeat);
-					getSeatListing(st,chosen);
+						else{
+							chosenSeat.put(selectedSeat,basePrice+getAgeSelection());
+							totalPrice = mgc.calculateTotalPrice(chosenSeat);
+						}
+					getSeatListing(st,chosenSeat);
+					System.out.println("Current price: "+ Float.toString(totalPrice));
 					break;
 				case 2:
-					String removedSeat = getSeatSelectionView(st,chosen);
-					if(chosen.size()>0)
+					String removedSeat = getSeatSelectionView(st,chosenSeat);
+					if(chosenSeat.size()>0)
 						if(removedSeat==null)
 							continue;
-						else if(chosen.contains(removedSeat))
-							chosen.remove(removedSeat);
+						else if(chosenSeat.containsKey(removedSeat)){
+							chosenSeat.remove(removedSeat);
+							totalPrice = mgc.calculateTotalPrice(chosenSeat);
+						}
 						else
 							System.out.println("The seat is not chosen.");
 					else
 						System.out.println("You have not chosen any seats.");
-					getSeatListing(st,chosen);
+					getSeatListing(st,chosenSeat);
+					System.out.println("Current price: "+ Float.toString(totalPrice));
 					break;
 				case 3:
-					return chosen;
+					return chosenSeat;
 				default:
 					System.out.println("Invalid choice");
-			}
-			for(String c: chosen){
-				System.out.println(c);
 			}
 		}		
 	}
@@ -104,20 +104,24 @@ public class SeatUI {
 		int choice = Utils.getUserChoice(1, 3);
 		Price prices = new Price();
 		switch(choice) {
-		case 0:
-			return prices.getPrice("Adult");			
 		case 1:
-			return prices.getPrice("Senior Citizen");
+			return prices.getPrice("Adult");			
 		case 2:
+			return prices.getPrice("Senior Citizen");
+		case 3:
 			return prices.getPrice("Child");
 		}
 		return 0;
 	}
 	
-	public String getSeatSelectionView(ShowTime st, ArrayList<String> chosen) {
+	public String getSeatSelectionView(ShowTime st, HashMap<String,Float> chosenSeats) {
 		String row = "-1";
 		int column = -1;
 		boolean complete = false;
+		ArrayList<String> chosen = new ArrayList<>();
+		for(String seatId: chosenSeats.keySet()){
+			chosen.add(seatId);
+		}
 		while(!complete){
 			while(!complete) {
 				System.out.println("Please select row: ");
@@ -163,7 +167,11 @@ public class SeatUI {
 		return rowId;
 	}
 	
-   public void getSeatListing(ShowTime st, ArrayList<String> chosen) {
+   public void getSeatListing(ShowTime st, HashMap<String,Float> chosenSeats) {
+	   ArrayList<String> chosen = new ArrayList<>();
+		for(String seatId: chosenSeats.keySet()){
+			chosen.add(seatId);
+		}
 	   System.out.println("################################# Screen #############################");
 		for(int r=0;r<st.getNumRows();r++) {
 			boolean first = true;
