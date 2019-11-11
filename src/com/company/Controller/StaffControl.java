@@ -25,7 +25,6 @@ public class StaffControl {
         String director;
         String[] cast;
         String[] genre;
-        Date showTill = null;
         int duration;
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
@@ -39,20 +38,7 @@ public class StaffControl {
                 .split(",");
         genre = Utils.getStringInput("Enter the movie genre with a comma separating them. \nGenre: ")
                 .split(",");
-        // DATE Showtill
-        boolean loop = true;
-        while(loop) {
-            String date = Utils.getStringInput("Enter the Date in the format dd-MMM-yyyy:");
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-            try {
-                //Parsing the String
-                showTill = dateFormat.parse(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            loop = false;
-        }
         System.out.println("Enter the movie duration in minutes: ");
         duration = Utils.getUserChoice(1, 500);
         i = 1;
@@ -78,17 +64,25 @@ public class StaffControl {
         }
         statusType = Utils.getUserChoice(1, i - 1);
 
-        Movie movie = new Movie( title, synopsis , director , cast , genre, showTill , duration , movieClass, ageType, statusType );
+        Movie movie = new Movie( title, synopsis , director , cast , genre , duration , movieClass, ageType, statusType );
 
-        ArrayList<Movie> movieArray = new ArrayList<Movie>();
+//        ArrayList<Movie> movieArray = new ArrayList<Movie>();
+//        try {
+//            movieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        ArrayList<Movie> movieArray = movieController.getAllMovieList();
+        movieArray.add(movie);
+
+
         try {
-            movieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+            Utils.writeObject("movie.txt", movieArray);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
-        movieArray.add(movie);
 
         System.out.println("Movie successfully created!");
         // Todo print out the movie attribues?
@@ -96,95 +90,121 @@ public class StaffControl {
     }
 
     public void editMovieListing() {
-        int i = 1;
+        String title;
+        String synopsis;
+        String director;
+        String[] cast;
+        String[] genre;
+        Date showTill = null;
+        int duration;
+        int movieClass; // 3D, blockbuster etc..
+        int statusType; //now showing, etc..
+        int ageType; //age type {"G", "PG", "PG13", "NC16", "M18", "R21"}
+        int i = 0;
+
+        int k = 1;
         int choice;
-        ArrayList<Movie> movieList = new ArrayList<Movie>();
-        movieList = movieController.getAllMovieList();
+
+        ArrayList<Movie> movieList = movieController.getAllMovieList();
         Utils.displayHeader("Movie List");
         for (Movie m: movieList) //MovieLists is initiated in main
         {
-            System.out.println(i + ": " + m.getTitle() + ", movie status: " + m.getStatusType());
-            i++;
+            System.out.println(k + ": " + m.getTitle() + ", movie status: " + m.getStatusType());
+            k++;
         }
         System.out.println("Select movie to edit: ");
         choice = Utils.getUserChoice(1, movieList.size());
-        Movie movieSelected = movieList.get(choice - 1);
-        movieGoerUI.getMovieDetailsView(movieSelected);
+        Movie movie = movieList.get(choice - 1);
+//        movieGoerUI.getMovieDetailsView(movieSelected);
+
+        Utils.displayHeader("Movie Details");
+        System.out.println("The details of "+ movie.getTitle() + " :");
+        System.out.println("1) Duration: "+ movie.getDuration());
+        System.out.println("2) Synopsis: "+ movie.getSynopsis());
+        System.out.println("3) Status: "+ movie.getStatusType());
+        System.out.println("4) Movie Type: "+ movie.getMovieClass());
+        System.out.println("5) Age Type: "+ movie.getAgeType());
+        String[] movieGenre = movie.getGenre();
+        System.out.print("6) Genre: ");
+        for (int j = 0; j < movieGenre.length; j++) {
+            if (j != movieGenre.length - 1)
+                System.out.print(movieGenre[j] + ", ");
+            else
+                System.out.print(movieGenre[j] + ".\n");}
+        System.out.println("7) Director: "+ movie.getDirector());
+        System.out.print("8) Cast: ");
+        String[] movieCast = movie.getCast();
+        for (i = 0; i < movieCast.length; i++) {
+            if (i != movieCast.length - 1)
+                System.out.print(movieCast[i] + ", ");
+            else
+                System.out.print(movieCast[i] + ".\n");	}
+
         System.out.println("Select detail to edit: ");
-        switch (Utils.getUserChoice(1, 10)) {
-            case 1:
+        switch (Utils.getUserChoice(1, 8)) {
+            case 1: // duration
+                duration = Utils.getUserChoice(1, 500);
+                movie.setDuration(duration);
                 break;
-            case 2:
+            case 2: // synopsis
+                synopsis = Utils.getStringInput("Enter the movie synopsis: ");
+                movie.setSynopsis(synopsis);
                 break;
-            case 3:
+            case 3: // status: now showing
+                i = 1;
+                System.out.println("Select movie status type from the following options:");
+                for (String statustype : movieFunctions.getStatusTypes()) {
+                    System.out.println(i + ". " + statustype);
+                    i++;
+                }
+                statusType = Utils.getUserChoice(1, i - 1);
+                movie.setStatusType( movie.getStatusTypes()[statusType]);
                 break;
-            case 4:
+            case 4: // movie type : 3D
+                i = 1;
+                System.out.println("Select movie type from the following options:");
+                for (String movietype : movieFunctions.getMovieClasses()) {
+                    System.out.println(i + ". " + movietype);
+                    i++;
+                }
+                movieClass = Utils.getUserChoice(1, i - 1);
+                movie.setMovieClass(movie.getMovieClasses()[movieClass]);
                 break;
-            case 5:
+            case 5: // age type PG13
+                i = 1;
+                System.out.println("Select movie age restriction from the following options:");
+                for (String movieagetype : movieFunctions.getAgeTypes()) {
+                    System.out.println(i + ". " + movieagetype);
+                    i++;
+                }
+                ageType = Utils.getUserChoice(1, i - 1);
+                movie.setAgeType(movie.getAgeTypes()[ageType]);
                 break;
-            case 6:
+            case 6: // Genre
+                genre = Utils.getStringInput("Enter the movie genre with a comma separating them. \nGenre: ")
+                        .split(",");
+                movie.setGenre(genre);
+                break;
+            case 7: // Director
+                director = Utils.getStringInput("Enter the movie director: ");
+                movie.setDirector(director);
                 break;
 
-            case 7:
-                break;
-
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
+            case 8: // cast
+                cast = Utils.getStringInput("Enter the cast names with a comma separating the cast names. \nCast names: ")
+                        .split(",");
+                movie.setCast(cast);
                 break;
             default:
                 break;
         }
 
+
     }
-//   public void editMovieListing() {
-//      MovieGoerUI UI = new MovieGoerUI();
-//      Movie[] movieArray = null;
-//      try {
-//         ArrayList<Movie> MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
-//         movieArray = MovieArray.toArray(new Movie[MovieArray.size()]);
-//         UI.getMovieListingView();
-//
-//         ArrayList<Cineplex> CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-//         Cineplex[] array1 = CineplexArray.toArray(new Cineplex[CineplexArray.size()]);
-//         UI.getHomeView();
-//      } catch (IOException e) {
-//         e.printStackTrace();
-//      } catch (ClassNotFoundException e) {
-//         e.printStackTrace();
-//
-//      }
-//
-//      UI.getMovieListingView();
-//      System.out.println("Select movie to edit: ");
-//      int choice = Utils.getUserChoice(1, movieArray.length - 1);
-//   }
 
-    //public void deleteMovieListing() {
-//      MovieGoerUI UI = new MovieGoerUI();
-//      Movie[] movieArray = null;
-//      try {
-//         ArrayList<Movie> MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
-//         movieArray = MovieArray.toArray(new Movie[MovieArray.size()]);
-//         UI.getMovieListingView();
-//
-//         ArrayList<Cineplex> CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-//         Cineplex[] array1 = CineplexArray.toArray(new Cineplex[CineplexArray.size()]);
-//         UI.getHomeView();
-//      } catch (IOException e) {
-//         e.printStackTrace();
-//      } catch (ClassNotFoundException e) {
-//         e.printStackTrace();
-//
-//      }
-//
-//      UI.getMovieListingView();
-//      System.out.println("Select movie to delete: ");
-//      int choice = Utils.getUserChoice(1, movieArray.length - 1);
-//   }
+    public void deleteMovieListing() {
 
+    }
     // SHOW TIME AREA =====================================
 
     public static boolean addShowTimeMgr(ArrayList<Cineplex> CineplexArray, int cineplexChoice, int cinemaChoice, int movieChoice, int year, int month,
