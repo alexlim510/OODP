@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class StaffControl {
-   Utils utils = new Utils();
-
    public void addMovieListing() {
       String type;
       String synopsis;
@@ -23,7 +21,7 @@ public class StaffControl {
       String ageType;
       String statusType;
    
-      title = utils.getStringInput("Enter the movie title: ");
+      title = Utils.getStringInput("Enter the movie title: ");
       Movie movie = new Movie(title);
       int i = 1;
       System.out.println("Select movie type from the following options:");
@@ -31,16 +29,16 @@ public class StaffControl {
          System.out.println(i + ". " + movietype);
          i++;
       }
-      type = movie.getMovieClasses()[utils.getUserChoice(1, i - 1)];
+      type = movie.getMovieClasses()[Utils.getUserChoice(1, i - 1)];
 //      movie.getMovieClasses(type);
    
-      synopsis = utils.getStringInput("Enter the movie synopsis: ");
+      synopsis = Utils.getStringInput("Enter the movie synopsis: ");
       movie.setSynopsis(synopsis);
    
-      director = utils.getStringInput("Enter the movie director: ");
+      director = Utils.getStringInput("Enter the movie director: ");
       movie.setDirector(director);
    
-      cast = utils.getStringInput("Enter the cast names with a comma separating the cast names. \nCast names: ")
+      cast = Utils.getStringInput("Enter the cast names with a comma separating the cast names. \nCast names: ")
             .split(",");
       movie.setCast(cast);
    
@@ -50,7 +48,7 @@ public class StaffControl {
          System.out.println(i + ". " + agetype);
          i++;
       }
-      ageType = movie.getAgeTypes()[utils.getUserChoice(1, i - 1)];
+      ageType = movie.getAgeTypes()[Utils.getUserChoice(1, i - 1)];
       movie.setMovieRating(ageType);
    
       i = 1;
@@ -59,12 +57,12 @@ public class StaffControl {
          System.out.println(i + ". " + statustype);
          i++;
       }
-      statusType = movie.getStatusTypes()[utils.getUserChoice(1, i - 1)];
+      statusType = movie.getStatusTypes()[Utils.getUserChoice(1, i - 1)];
       movie.setStatusType(statusType);
    
       System.out.println("Movie successfully created!");
-      // Todo print out the movie attribues?
-   };
+      // Todo print out the movie attributes?
+   }
 
    public void editMovieListing() {
       MovieGoerUI UI = new MovieGoerUI();
@@ -86,7 +84,7 @@ public class StaffControl {
    
       UI.getMovieListingView();
       System.out.println("Select movie to edit: ");
-      int choice = utils.getUserChoice(1, movieArray.length - 1);
+      int choice = Utils.getUserChoice(1, movieArray.length - 1);
    }
 
    public void deleteMovieListing() {
@@ -109,7 +107,7 @@ public class StaffControl {
    
       UI.getMovieListingView();
       System.out.println("Select movie to delete: ");
-      int choice = utils.getUserChoice(1, movieArray.length - 1);
+      int choice = Utils.getUserChoice(1, movieArray.length - 1);
    }
 
    // Configure System Setting ==============================
@@ -131,9 +129,9 @@ public class StaffControl {
       ArrayList<Cineplex> CineplexArray;
       try {
          CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-         for (int i = 0; i < CineplexArray.size(); i++) {
-            if (CineplexArray.get(i).getCineplexName() == cineplexName) {
-               theCineplex = CineplexArray.get(i);
+         for (Cineplex cineplex: CineplexArray) {
+            if (cineplex.getCineplexName().equals(cineplexName)) {
+               theCineplex = cineplex;
                break;
             }
          }
@@ -150,9 +148,9 @@ public class StaffControl {
       // Checking cinema name
       ArrayList<Cinema> CinemaArray = theCineplex.getCinemas();
    
-      for (int i = 0; i < CinemaArray.size(); i++) {
-         if (CinemaArray.get(i).getCID() == cinemaName) {
-            theCinema = CinemaArray.get(i);
+      for (Cinema cinema: CinemaArray) {
+         if (cinema.getCID().equals(cinemaName)) {
+            theCinema = cinema;
             break;
          }
       }
@@ -165,9 +163,9 @@ public class StaffControl {
       // Checking movie name
       ArrayList<Movie> MovieArray = theCinema.getMovies();
    
-      for (int i = 0; i < MovieArray.size(); i++) {
-         if (MovieArray.get(i).getTitle() == movieTitle) {
-            theMovie = MovieArray.get(i);
+      for (Movie movie: MovieArray) {
+         if (movie.getTitle().equals(movieTitle)) {
+            theMovie = movie;
             break;
          }
       }
@@ -188,6 +186,15 @@ public class StaffControl {
       }
    
       theCinema.addShowTime(newShowTime);
+
+      //Inserting new showtime to database
+      try{
+         Utils.writeObject("cineplex.txt", theCineplex);
+      }catch (IOException e){
+         System.out.println("File not found. please try again.");
+         return false;
+      }
+
       return true;
    }
 
@@ -204,9 +211,9 @@ public class StaffControl {
       ArrayList<Cineplex> CineplexArray;
       try {
          CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-         for (int i = 0; i < CineplexArray.size(); i++) {
-            if (CineplexArray.get(i).getCineplexName() == cineplexName) {
-               theCineplex = CineplexArray.get(i);
+         for (Cineplex cineplex: CineplexArray) {
+            if (cineplex.getCineplexName().equals(cineplexName)) {
+               theCineplex = cineplex;
                break;
             }
          }
@@ -224,9 +231,9 @@ public class StaffControl {
       // Checking cinema name
       ArrayList<Cinema> CinemaArray = theCineplex.getCinemas();
    
-      for (int i = 0; i < CinemaArray.size(); i++) {
-         if (CinemaArray.get(i).getCID() == cinemaName) {
-            theCinema = CinemaArray.get(i);
+      for (Cinema cinema: CinemaArray) {
+         if (cinema.getCID().equals(cinemaName)) {
+            theCinema = cinema;
             break;
          }
       }
@@ -239,9 +246,9 @@ public class StaffControl {
       // Checking movie name
       ArrayList<Movie> MovieArray = theCinema.getMovies();
    
-      for (int i = 0; i < MovieArray.size(); i++) {
-         if (MovieArray.get(i).getTitle() == movieTitle) {
-            theMovie = MovieArray.get(i);
+      for (Movie movie: MovieArray) {
+         if (movie.getTitle().equals(movieTitle)) {
+            theMovie = movie;
             break;
          }
       }
@@ -256,10 +263,20 @@ public class StaffControl {
    
       // checking showtime in cinema
       ArrayList<ShowTime> ShowTimeArray = theCinema.getShowTime();
-      for (int i = 0; i < ShowTimeArray.size(); i++) {
-         if (ShowTimeArray.get(i).getDateTime().isEqual(oldShowTime.getDateTime())
-               && ShowTimeArray.get(i).getMovie().getTitle() == (theMovie.getTitle())) {
-            ShowTimeArray.get(i).setDateTime(newShowTime.getDateTime());
+      for (ShowTime st: ShowTimeArray) {
+         if (st.getDateTime().isEqual(oldShowTime.getDateTime())
+               && st.getMovie().getTitle().equals(theMovie.getTitle())) {
+
+            st.setDateTime(newShowTime.getDateTime());
+
+            //Inserting new showtime to database
+            try{
+               Utils.writeObject("cineplex.txt", theCineplex);
+            }catch (IOException e){
+               System.out.println("File not found. please try again.");
+               return false;
+            }
+
             return true;
          }
       }
@@ -276,12 +293,12 @@ public class StaffControl {
       ShowTime newShowTime;
    
       // Checking cineplex name
-      ArrayList<Cineplex> CineplexArray;
+      ArrayList<Cineplex> CineplexArray = null;
       try {
          CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-         for (int i = 0; i < CineplexArray.size(); i++) {
-            if (CineplexArray.get(i).getCineplexName() == cineplexName) {
-               theCineplex = CineplexArray.get(i);
+         for (Cineplex cineplex: CineplexArray) {
+            if (cineplex.getCineplexName().equals(cineplexName)){
+               theCineplex = cineplex;
                break;
             }
          }
@@ -294,25 +311,27 @@ public class StaffControl {
    
       // Checking cinema name
       ArrayList<Cinema> CinemaArray = theCineplex.getCinemas();
+      if(CinemaArray == null) return false;
    
-      for (int i = 0; i < CinemaArray.size(); i++) {
-         if (CinemaArray.get(i).getCID() == cinemaName) {
-            theCinema = CinemaArray.get(i);
+      for (Cinema cinema: CinemaArray) {
+         if (cinema.getCID().equals(cinemaName)) {
+            theCinema = cinema;
             break;
          }
       }
    
-      if (theCineplex == null) {
+      if (theCinema == null) {
          System.out.println("Cinema not found in this cineplex");
          return false;
       }
    
       // Checking movie name
       ArrayList<Movie> MovieArray = theCinema.getMovies();
+      if(MovieArray == null) return false;
    
-      for (int i = 0; i < MovieArray.size(); i++) {
-         if (MovieArray.get(i).getTitle() == movieTitle) {
-            theMovie = MovieArray.get(i);
+      for (Movie movie: MovieArray) {
+         if (movie.getTitle().equals(movieTitle)){
+            theMovie = movie;
             break;
          }
       }
@@ -325,6 +344,15 @@ public class StaffControl {
       // checking showtime in cinema
    
       theCinema.deleteShowTime(LocalDateTime.of(year, month, day, hour, minute), theMovie);
+
+      //Inserting new showtime to database
+      try{
+         Utils.writeObject("cineplex.txt", theCineplex);
+      }catch (IOException e){
+         System.out.println("File not found. please try again.");
+         return false;
+      }
+
       return true;
    }
 

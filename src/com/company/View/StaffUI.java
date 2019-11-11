@@ -1,6 +1,7 @@
 package com.company.View;
 
 
+import com.company.App.StaffTest;
 import com.company.Controller.StaffControl;
 import com.company.Utils.Utils;
 
@@ -10,41 +11,42 @@ import java.time.LocalDateTime;
 
 public class StaffUI {
    StaffControl staffControl = new StaffControl();
-   Utils utils = new Utils();
 
-   public void displayMenu() {
-      utils.displayHeader("Staff Portal");
+   public boolean displayMenu() {
+      Utils.displayHeader("Staff Portal");
       System.out.println(
              "1. Create/Update/Remove movie listing\n" +
                      "2. Create/Update/Remove cinema showtimes\n" +
                      "3. Configure system settings\n" +
-                     "4. List top 5 movies");
-   
-      switch (utils.getUserChoice(1, 4)) {
+                     "4. List top 5 movies\n"+
+                     "5. Exit\n"
+              );
+      switch (Utils.getUserChoice(1, 5)) {
          case 1:
             displayStaffMovieOptions();
-            break;
+            return false;
          case 2:
             displayStaffShowtimeOptions();
-            break;
-      
+            return false;
          case 3:
             displayStaffConfigurationOptions();
-            break;
-      
+            return false;
          case 4:
             listTopMovies();
-            break;
+            return false;
+         case 5:
+            return true;
       }
+      return true;
    }
 
    public void displayStaffMovieOptions() {
-      utils.displayHeader("Modify Movie Listing");
+      Utils.displayHeader("Modify Movie Listing");
       System.out.println(
              "1. Create movie listing\n" +
                      "2. Update movie listing\n" +
                      "3. Remove movie listing");
-      switch (utils.getUserChoice(1, 3)) {
+      switch (Utils.getUserChoice(1, 3)) {
          case 1:
             staffControl.addMovieListing();
             break;
@@ -59,12 +61,12 @@ public class StaffUI {
    }
 
    public void displayStaffShowtimeOptions() {
-      utils.displayHeader("Modify Showtimes");
+      Utils.displayHeader("Modify Showtimes");
       System.out.println(
              "1. Create movie showtime\n" +
                      "2. Update movie showtime\n" +
                      "3. Remove movie showtime");
-      switch (utils.getUserChoice(1, 3)) {
+      switch (Utils.getUserChoice(1, 3)) {
          case 1:
             addShowTimeUI();
             break;
@@ -77,28 +79,13 @@ public class StaffUI {
       } 
    }
 
-//   public void displayStaffConfigurationOptions() {
-//      utils.displayHeader("Configuration Options");
-//      System.out.println(
-//             "1. Change ticket prices\n" +
-//                     "2. Change holidays\n");
-//      switch (utils.getUserChoice(1, 2)) {
-//         case 1:
-//
-//            break;
-//         case 2:
-//
-//            break;
-//      }
-//   }
-
    public void displayStaffConfigurationOptions(){
-      utils.displayHeader("Change ticket price");
+      Utils.displayHeader("Change ticket price");
       System.out.println(
          "1. Add new category\n" +
          "2. Delete category\n"+
          "3. Edit category\n");
-      switch (utils.getUserChoice(1, 3)) {
+      switch (Utils.getUserChoice(1, 3)) {
          case 1:
             addPricingUI();
             break;
@@ -112,17 +99,17 @@ public class StaffUI {
    }
 
    public void listTopMovies() {
-      utils.displayHeader("Top 5 Movies");
+      Utils.displayHeader("Top 5 Movies");
       System.out.println(
-             "1. List top 5 ranking movies by ticket sales.\n" +
-                     "2. List top 5 ranking movies by Overall reviewers' rating.\n");
+              "1. List top 5 ranking movies by ticket sales.\n" +
+               "2. List top 5 ranking movies by Overall reviewers' rating.\n");
    }
 
    //SHOW TIME AREA =====================================
 
    public void addShowTimeUI(){
       Scanner sc = new Scanner(System.in);
-      utils.displayHeader("Add Show Time");
+      Utils.displayHeader("Add Show Time");
       
       String cineplexName;
       String cinemaName;
@@ -133,8 +120,9 @@ public class StaffUI {
       int hour;
       int minute;
       boolean successful=false;
+      boolean tryAgain = true;
    
-      while(!successful){
+      while(!successful && tryAgain){
          System.out.print("Insert cineplex name for the movie: ");
          cineplexName = sc.nextLine();
       
@@ -157,13 +145,14 @@ public class StaffUI {
             System.out.println("Showtime was created.");
          }else{
             System.out.println("Showtime was not created. Please try again");
+            tryAgain = Utils.retry("Retry");
          }
       }
    }
 
    public void deleteShowTimeUI(){
       Scanner sc = new Scanner(System.in);
-      utils.displayHeader("Delete Show Time");
+      Utils.displayHeader("Delete Show Time");
       
       String cineplexName;
       String cinemaName;
@@ -173,9 +162,10 @@ public class StaffUI {
       int day;
       int hour;
       int minute;
-      boolean successful=false;
+      boolean successful = false;
+      boolean tryAgain = true;
    
-      while(!successful){
+      while(!successful && tryAgain){
          System.out.print("Insert cineplex name for the movie: ");
          cineplexName = sc.nextLine();
       
@@ -198,13 +188,14 @@ public class StaffUI {
             System.out.println("Showtime deleted.");
          }else{
             System.out.println("Showtime not deleted. Please try again");
+            tryAgain = Utils.retry("Retry");
          }
       }
    }
 
    public void editShowTimeUI(){
       Scanner sc = new Scanner(System.in);
-      utils.displayHeader("Edit Show Time");
+      Utils.displayHeader("Edit Show Time");
       
       String cineplexName;
       String cinemaName;
@@ -215,8 +206,9 @@ public class StaffUI {
       int hour; int oldhour;
       int minute; int oldminute;
       boolean successful = false;
+      boolean tryAgain = true;
    
-      while(!successful){
+      while(!successful && tryAgain){
          System.out.print("Insert cineplex name for the movie: ");
          cineplexName = sc.nextLine();
       
@@ -245,6 +237,7 @@ public class StaffUI {
             System.out.println("Showtime edited.");
          }else{
             System.out.println("Showtime not edited. Please try again");
+            tryAgain = Utils.retry("Retry");
          }
       }
    }
