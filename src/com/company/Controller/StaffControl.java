@@ -81,13 +81,18 @@ public class StaffControl {
 
       Movie movie = new Movie( title, synopsis , director , cast , genre, showTill , duration , movieClass, ageType, statusType );
 
+      ArrayList<Movie> movieArray = new ArrayList<Movie>();
       try {
-         ArrayList<Movie> MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+         movieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
       } catch (IOException e) {
          e.printStackTrace();
       } catch (ClassNotFoundException e) {
          e.printStackTrace();
       }
+      movieArray.add(movie);
+
+
+
 
       System.out.println("Movie successfully created!");
       // Todo print out the movie attribues?
@@ -107,7 +112,7 @@ public class StaffControl {
       }
       System.out.println("Select movie to edit: ");
       choice = utils.getUserChoice(1, movieList.size());
-      Movie movieSelected = movieList.get(choice);
+      Movie movieSelected = movieList.get(choice - 1);
       movieGoerUI.getMovieDetailsView(movieSelected);
       System.out.println("Select detail to edit: ");
       switch (utils.getUserChoice(1, 10)) {
