@@ -124,7 +124,8 @@ public class StaffControl {
             k++;
         }
         System.out.println("Select movie to edit: ");
-        int movieIndex = Utils.getUserChoice(1, movieList.size()) - 1;
+        int movieIndex = Utils.getUserChoice(0, movieList.size()) - 1;
+
         Movie movie = movieList.get(movieIndex);
 
         Utils.displayHeader("Movie Details");
@@ -221,7 +222,34 @@ public class StaffControl {
     }
 
     public void deleteMovieListing() {
+        ArrayList<Movie> movieList;
+        try{
+            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        }catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }
 
+        int k = 1;
+        Utils.displayHeader("Movie List");
+        for (Movie m: movieList)
+        {
+            System.out.println(k + ": " + m.getTitle() + ", movie status: " + m.getStatusType());
+            k++;
+        }
+        System.out.println("Select movie to delete: ");
+        int movieIndex = Utils.getUserChoice(1, movieList.size()) - 1;
+        movieList.remove(movieIndex);
+        try{
+            Utils.writeObject("movie.txt", movieList);
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }
+        System.out.println("Movie deleted successfully!");
     }
     // SHOW TIME AREA =====================================
 

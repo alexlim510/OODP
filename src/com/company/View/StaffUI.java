@@ -56,9 +56,8 @@ public class StaffUI {
          case 2:
             staffControl.editMovieListing();
             break;
-      
          case 3:
-         
+            staffControl.deleteMovieListing();
             break;
       }
    }
