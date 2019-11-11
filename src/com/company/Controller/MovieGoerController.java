@@ -165,8 +165,5 @@ public class MovieGoerController extends Utils {
 	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
 
 	   ArrayList<String> seats = sui.getSeatSelectionMenu(showtime);
-	   for(String s: seats){
-	   	System.out.println(s);
-	   }
    }  
 }

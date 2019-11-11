@@ -30,21 +30,19 @@ public class Utils {
       return (Object)getObjectInputStream(fileName).readObject();
    }
 	
-   public void storeCustomerCookie(Customer c) {
+   public static void storeCustomerCookie(Customer c) {
       try {
          ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
          oos.writeObject(c);
-         return;						
       } catch (IOException e) {			
          System.out.println(e);
       }
    }
 	
-   public void storeAdminCookie(Staff s) {
+   public static void storeAdminCookie(Staff s) {
       try {
          ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
          oos.writeObject(s);
-         return;
       } catch (IOException e) {
          System.out.println(e);
       }
@@ -162,5 +160,15 @@ public class Utils {
       return input;
    }
 
+   public static boolean retry(String message){
+      Scanner sc = new Scanner(System.in);
+      char ans;
+      do{
+         System.out.println(message+"? (y/n)");
+         ans = (sc.nextLine()).charAt(0);
+      }while(ans != 'y' && ans != 'n');
+
+      return ans == 'y' ? true : false;
+   }
 }
 

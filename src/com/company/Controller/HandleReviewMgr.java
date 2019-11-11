@@ -1,39 +1,105 @@
 package com.company.Controller;
 
-
-
 import com.company.Entity.Customer;
 import com.company.Entity.Movie;
 import com.company.Entity.Review;
 import com.company.Utils.Utils;
 
+import java.io.IOException;
 import java.util.*;
 import java.time.LocalDateTime;
 
-
-
-
 public class HandleReviewMgr {
    public static void insertReview(String review, float rating, Movie movie){
-      //push review to review list
+      ArrayList<Movie> movies = null;
+      //Retrieving customer
       Customer customer = Utils.getCustomerCookie();
-      if(customer != null){
-         Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());
-         movie.insertMovieReview(userReview);
+      if(customer == null){
+         System.out.println("Please log in");
+      }
+
+      //Check if the user has provided a review;
+      for(int i = 0; i<movie.getReviews().size(); i++){
+         if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
+            System.out.println("You have provided a review.");
+            return;
+         }
+      }
+
+      Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());
+
+      //if not
+      movie.insertMovieReview(userReview);
+
+      //modifying database
+      try{
+         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      }catch(IOException e){
+         System.out.println("File not found");
+      }catch(ClassNotFoundException e){
+         System.out.println("Class not found");
+      }
+
+      for(int i = 0; i<movies.size(); i++){
+         if(movies.get(i).getTitle().equals(movie.getTitle())){
+            movies.set(i, movie);
+         }
+      }
+
+      try{
+         Utils.writeObject("movie.txt", movies);
+      }catch(IOException e){
+         System.out.println("File not found");
       }
    }
-    
-   public static void deleteReview(Movie movie, int index){
-      //if the review is his, show the delete | edit button
-      ArrayList<Review> reviewsTemp = movie.getMovieReview();
-      reviewsTemp.remove(index);
-      movie.setMovieReview(reviewsTemp);
+
+
+   public static void deleteReview(Movie movie){
+      ArrayList<Movie> movies = null;
+      //Retrieving customer
+      Customer customer = Utils.getCustomerCookie();
+      if(customer == null){
+         System.out.println("Please log in.");
+      }
+
+      //Check if the user has provided any review
+      for(int i = 0; i<movie.getReviews().size(); i++){
+         if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
+            ArrayList<Review> reviewsTemp = movie.getReviews();
+            reviewsTemp.remove(i);
+            movie.setMovieReview(reviewsTemp);
+            break;
+         }
+      }
+
+      try{
+         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      }catch(IOException e){
+         System.out.println("File not found");
+      }catch(ClassNotFoundException e){
+         System.out.println("Class not found");
+      }
+
+      //changing the value of ArrayList
+      for(int j = 0; j<movies.size(); j++){
+         if(movies.get(j).getTitle().equals(movie.getTitle())){
+            movies.set(j, movie);
+         }
+      }
+
+      //Inserting to database
+      try{
+         Utils.writeObject("movie.txt", movies);
+      }catch(IOException e){
+         System.out.println("File not found");
+      }
+
+      System.out.println("Review deleted");
    }
-  
+
    public static void editReview(Movie movie, int index, String review, float rating){
-      //if the review is his, show the delete | edit button
-      deleteReview(movie, index);
+      deleteReview(movie);
       insertReview(review, rating, movie);
-   }   
-   
+   }
+
 }

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class MovieGoerTest {
 
    public static void main(String[] args) {
