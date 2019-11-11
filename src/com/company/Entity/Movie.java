@@ -9,7 +9,6 @@ public class Movie implements Serializable{
    private String movieClass; // 3D, blockbuster etc..
    private String statusType; //now showing, etc..
    private String ageType; //now showing, etc..
-   private String movieRating; //age type
    private String synopsis;
    private String director;
    private String[] cast;
@@ -136,14 +135,7 @@ public class Movie implements Serializable{
    public void setDuration(int duration) {
       this.duration = duration;
    }
-    
-   public String getMovieRating() {
-      return movieRating;
-   }
 
-   public void setMovieRating(String movieRating) {
-      this.movieRating = movieRating;
-   }
 
    public String getMovieClass() {
       return movieClass;
