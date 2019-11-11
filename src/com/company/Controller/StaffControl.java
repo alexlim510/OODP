@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class StaffControl {
-    MovieGoerController movieController = new MovieGoerController();
-    MovieGoerUI movieGoerUI = new MovieGoerUI();
+//    MovieGoerController movieController = new MovieGoerController();
+//    MovieGoerUI movieGoerUI = new MovieGoerUI();
     Movie movieFunctions = new Movie();
 
     public void addMovieListing() {
@@ -47,14 +47,14 @@ public class StaffControl {
             System.out.println(i + ". " + movietype);
             i++;
         }
-        movieClass = Utils.getUserChoice(1, i - 1);
+        movieClass = Utils.getUserChoice(1, i - 1) - 1;
         i = 1;
         System.out.println("Select movie age restriction from the following options:");
         for (String movieagetype : movieFunctions.getAgeTypes()) {
             System.out.println(i + ". " + movieagetype);
             i++;
         }
-        ageType = Utils.getUserChoice(1, i - 1);
+        ageType = Utils.getUserChoice(1, i - 1) - 1;
 
         i = 1;
         System.out.println("Select movie status type from the following options:");
@@ -62,40 +62,41 @@ public class StaffControl {
             System.out.println(i + ". " + statustype);
             i++;
         }
-        statusType = Utils.getUserChoice(1, i - 1);
+        statusType = Utils.getUserChoice(1, i - 1) - 1;
 
+        // newly created movie object
         Movie movie = new Movie( title, synopsis , director , cast , genre , duration , movieClass, ageType, statusType );
 
-//        ArrayList<Movie> movieArray = new ArrayList<Movie>();
-//        try {
-//            movieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-        ArrayList<Movie> movieArray = movieController.getAllMovieList();
-        movieArray.add(movie);
-
-
-        try {
-            Utils.writeObject("movie.txt", movieArray);
-        } catch (IOException e) {
-            e.printStackTrace();
+        // read the movielist from text file
+        ArrayList<Movie> movieList;
+        try{
+            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        }catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }
+        // add movie to movie list
+        movieList.add(movie);
+        // write movielist to text file
+        try{
+            Utils.writeObject("movie.txt", movieList);
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
         }
 
         System.out.println("Movie successfully created!");
         // Todo print out the movie attribues?
-
     }
 
     public void editMovieListing() {
-        String title;
         String synopsis;
         String director;
         String[] cast;
         String[] genre;
-        Date showTill = null;
         int duration;
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
@@ -103,19 +104,28 @@ public class StaffControl {
         int i = 0;
 
         int k = 1;
-        int choice;
 
-        ArrayList<Movie> movieList = movieController.getAllMovieList();
+        ArrayList<Movie> movieList;
+        try{
+            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        }catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }
+
+
         Utils.displayHeader("Movie List");
-        for (Movie m: movieList) //MovieLists is initiated in main
+        for (Movie m: movieList)
         {
             System.out.println(k + ": " + m.getTitle() + ", movie status: " + m.getStatusType());
             k++;
         }
         System.out.println("Select movie to edit: ");
-        choice = Utils.getUserChoice(1, movieList.size());
-        Movie movie = movieList.get(choice - 1);
-//        movieGoerUI.getMovieDetailsView(movieSelected);
+        int movieIndex = Utils.getUserChoice(1, movieList.size()) - 1;
+        Movie movie = movieList.get(movieIndex);
 
         Utils.displayHeader("Movie Details");
         System.out.println("The details of "+ movie.getTitle() + " :");
@@ -143,6 +153,7 @@ public class StaffControl {
         System.out.println("Select detail to edit: ");
         switch (Utils.getUserChoice(1, 8)) {
             case 1: // duration
+                System.out.println("Enter the movie duration in minutes: ");
                 duration = Utils.getUserChoice(1, 500);
                 movie.setDuration(duration);
                 break;
@@ -157,7 +168,7 @@ public class StaffControl {
                     System.out.println(i + ". " + statustype);
                     i++;
                 }
-                statusType = Utils.getUserChoice(1, i - 1);
+                statusType = Utils.getUserChoice(1, i - 1) - 1;
                 movie.setStatusType( movie.getStatusTypes()[statusType]);
                 break;
             case 4: // movie type : 3D
@@ -167,7 +178,7 @@ public class StaffControl {
                     System.out.println(i + ". " + movietype);
                     i++;
                 }
-                movieClass = Utils.getUserChoice(1, i - 1);
+                movieClass = Utils.getUserChoice(1, i - 1) - 1;
                 movie.setMovieClass(movie.getMovieClasses()[movieClass]);
                 break;
             case 5: // age type PG13
@@ -177,7 +188,7 @@ public class StaffControl {
                     System.out.println(i + ". " + movieagetype);
                     i++;
                 }
-                ageType = Utils.getUserChoice(1, i - 1);
+                ageType = Utils.getUserChoice(1, i - 1) - 1;
                 movie.setAgeType(movie.getAgeTypes()[ageType]);
                 break;
             case 6: // Genre
@@ -199,7 +210,14 @@ public class StaffControl {
                 break;
         }
 
+        movieList.set(movieIndex, movie);
 
+        try{
+            Utils.writeObject("movie.txt", movieList);
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }
     }
 
     public void deleteMovieListing() {

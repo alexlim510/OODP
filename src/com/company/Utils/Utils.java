@@ -111,7 +111,7 @@ public class Utils {
    public static String getStringInput(String inputMessage) {
       System.out.println(inputMessage);
       Scanner scanner = new Scanner(System.in);
-      return scanner.next();
+      return scanner.nextLine();
    }
     
    public static LocalDateTime createLocalDateTime(int year, int month, int day, int hour, int minute) {
