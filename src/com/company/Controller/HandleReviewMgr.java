@@ -98,7 +98,6 @@ public class HandleReviewMgr {
    }
 
    public static void editReview(Movie movie, int index, String review, float rating){
-      //if the review is his, show the delete | edit button
       deleteReview(movie);
       insertReview(review, rating, movie);
    }

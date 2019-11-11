@@ -111,86 +111,29 @@ public class StaffControl {
       int choice = Utils.getUserChoice(1, movieArray.length - 1);
    }
 
-   // Configure System Setting ==============================
-
-   // Configure System Setting ==============================
-
    // SHOW TIME AREA =====================================
 
-   public static boolean addShowTimeMgr(String cineplexName, String cinemaName, String movieTitle, int year, int month,
+   public static boolean addShowTimeMgr(ArrayList<Cineplex> CineplexArray, int cineplexChoice, int cinemaChoice, int movieChoice, int year, int month,
          int day, int hour, int minute) {
       // cinema, film, datetime needed
-      Cineplex theCineplex = null;
-      Cinema theCinema = null;
-      Movie theMovie = null;
       LocalDateTime dateTime;
       ShowTime newShowTime;
-   
-      // Checking cineplex name
-      ArrayList<Cineplex> CineplexArray;
-      try {
-         CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-         for (Cineplex cineplex: CineplexArray) {
-            if (cineplex.getCineplexName().equals(cineplexName)) {
-               theCineplex = cineplex;
-               break;
-            }
-         }
-      } catch (ClassNotFoundException | IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   
-      if (theCineplex == null) {
-         System.out.println("Cineplex not found");
-         return false;
-      }
-   
-      // Checking cinema name
-      ArrayList<Cinema> CinemaArray = theCineplex.getCinemas();
-   
-      for (Cinema cinema: CinemaArray) {
-         if (cinema.getCID().equals(cinemaName)) {
-            theCinema = cinema;
-            break;
-         }
-      }
-   
-      if (theCineplex == null) {
-         System.out.println("Cinema not found in this cineplex");
-         return false;
-      }
-   
-      // Checking movie name
-      ArrayList<Movie> MovieArray = theCinema.getMovies();
-   
-      for (Movie movie: MovieArray) {
-         if (movie.getTitle().equals(movieTitle)) {
-            theMovie = movie;
-            break;
-         }
-      }
-   
-      if (theMovie == null) {
-         System.out.println("Movie not found in this cinema");
-         return false;
-      }
-   
-      newShowTime = new ShowTime(LocalDateTime.of(year, month, day, hour, minute), theMovie);
+
+      newShowTime = new ShowTime(LocalDateTime.of(year, month, day, hour, minute), CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getMovies().get(movieChoice));
    
       // checking if the showtime has existed
-      for (int i = 0; i < theCinema.getShowTime().size(); i++) {
-         if (theCinema.getShowTime().get(i).getDateTime().isEqual(newShowTime.getDateTime())) {
+      for (ShowTime st: CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getShowTime()) {
+         if (st.getDateTime().isEqual(newShowTime.getDateTime())) {
             System.out.println("The show time at the inserted time is unavailable");
             return false;
          }
       }
-   
-      theCinema.addShowTime(newShowTime);
+
+      CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).addShowTime(newShowTime);
 
       //Inserting new showtime to database
       try{
-         Utils.writeObject("cineplex.txt", theCineplex);
+         Utils.writeObject("cineplex.txt", CineplexArray);
       }catch (IOException e){
          System.out.println("File not found. please try again.");
          return false;
@@ -220,7 +163,7 @@ public class StaffControl {
          }
       
       } catch (ClassNotFoundException | IOException e) {
-         // TODO Auto-generated catch block
+         System.out.println("Please try again");
          e.printStackTrace();
       }
    
@@ -231,6 +174,11 @@ public class StaffControl {
    
       // Checking cinema name
       ArrayList<Cinema> CinemaArray = theCineplex.getCinemas();
+      //null checker
+      if (CinemaArray == null) {
+         System.out.println("No cinema found in this cineplex");
+         return false;
+      }
    
       for (Cinema cinema: CinemaArray) {
          if (cinema.getCID().equals(cinemaName)) {
@@ -246,6 +194,11 @@ public class StaffControl {
    
       // Checking movie name
       ArrayList<Movie> MovieArray = theCinema.getMovies();
+      //null checker
+      if (MovieArray == null) {
+         System.out.println("No movie found in this cinema");
+         return false;
+      }
    
       for (Movie movie: MovieArray) {
          if (movie.getTitle().equals(movieTitle)) {
@@ -357,6 +310,8 @@ public class StaffControl {
       return true;
    }
 
+   //SHOW TIME AREA ===========================
+
    public static boolean addSpecialPricingMgr(String type, float price){
       Price thePricing = new Price();
       //get the current pricing
@@ -400,5 +355,4 @@ public class StaffControl {
       return true;
    }
 
-   // SHOW TIME AREA =====================================
 }
