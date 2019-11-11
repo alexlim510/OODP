@@ -67,7 +67,7 @@ public class MovieGoerUI {
 	}
 	public void getHomeView() {
 
-boolean loop = true;
+		boolean loop = true;
 
         while(loop) {
             Scanner sc = new Scanner(System.in);

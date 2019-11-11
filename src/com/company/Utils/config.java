@@ -85,16 +85,10 @@ public static void main(String[] args) {
 		
 		
 		//Read
-		try {
-			ArrayList<Movie> moviei = (ArrayList<Movie>)Utils.readObject("movie.txt");
-			for(Movie m: moviei) {
-				System.out.println(m.getTitle());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	ArrayList<Movie> moviei = (ArrayList<Movie>)Utils.readObject("movie.txt");
+	for(Movie m: moviei) {
+		System.out.println(m.getTitle());
+	}
 		/*
 		try {
 			

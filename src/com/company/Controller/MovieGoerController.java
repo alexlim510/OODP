@@ -4,6 +4,7 @@ import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,27 +43,13 @@ public class MovieGoerController extends Utils {
    }
    public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
-	   try {
-		   int i = 0;
-		   allMovie = (ArrayList<Movie>)Utils.getObjectInputStream("movie.txt").readObject();		  
-	   }
-       catch (IOException e) {
-    	   e.printStackTrace();
-       } catch(ClassNotFoundException e) {
-    	   e.printStackTrace();
-       }
+	   int i = 0;
+	   allMovie = (ArrayList<Movie>)Utils.readObject("movie.txt");
 	   return allMovie;
    }
    public ArrayList<Cineplex> getCineplexList(){
 	   ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
-	   try {
-		   allCineplex = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
-	   }
-       catch (IOException e) {
-    	   e.printStackTrace();
-       } catch(ClassNotFoundException e) {
-    	   e.printStackTrace();
-       }
+	   allCineplex = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
 	   return allCineplex;
    }
    
@@ -106,9 +93,10 @@ public class MovieGoerController extends Utils {
 	   return movieList;
    }
 
-	public ArrayList<String> getCinemaTypes(Cineplex cineplex, Movie movie){
+	public ArrayList<Cinema> getCinemas(Cineplex cineplex, Movie movie){
 		ArrayList<ShowTime> showTimes = new ArrayList<>();
 		ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
+        ArrayList<Cinema>  cinemaResult = new ArrayList<>();
 		ArrayList<String> cinemaTypes = new ArrayList<>();
 		String cinemaType;
 		for (Cinema cinema: cinemaList) {
@@ -116,16 +104,36 @@ public class MovieGoerController extends Utils {
 			for(ShowTime st: showTimes) {
 				Movie m = st.getMovie();
 				if(m.getTitle().equals(movie.getTitle()) && st.getDateTime().compareTo(LocalDateTime.now())>0) {
-					cinemaType = cinema.getCinemaType();
-					if(cinemaType!=null && !cinemaTypes.contains(cinemaType)){
-						cinemaTypes.add(cinemaType);
-						break;
-					}
+                    cinemaResult.add(cinema);
 				}
 			}
 		}
-		return cinemaTypes;
+		return cinemaResult;
 	}
+
+    public ArrayList<String> getCinemaTypes(ArrayList<Cinema> cinemas){
+        ArrayList<String> cinemaTypes = new ArrayList<>();
+        String cinemaType;
+        for (Cinema cinema: cinemas) {
+            cinemaType = cinema.getCinemaType();
+            if(cinemaType!=null && !cinemaTypes.contains(cinemaType)){
+                cinemaTypes.add(cinemaType);
+                break;
+            }
+        }
+        return cinemaTypes;
+    }
+
+    public Cinema getCinema(ArrayList<Cinema> cinemas, ShowTime st){
+        for (Cinema cinema: cinemas) {
+            for(ShowTime s: cinema.getShowTime()){
+                if(st.isEqual(s)){
+                    return cinema;
+                }
+            }
+        }
+        return null;
+    }
 
    public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie, String cinemaType){
 	   ArrayList<ShowTime> showTimes = new ArrayList<>();
@@ -158,15 +166,22 @@ public class MovieGoerController extends Utils {
 	   else return 0;
    }
 
-   public float calculateTotalPrice(HashMap<String,Float> chosenSeats){
+   public float calculateTotalPrice(HashMap<String,String> chosenSeats,float basePrice){
        float totalPrice=0;
+       Price p = new Price();
        if(chosenSeats.size()!=0){
-           for(float price: chosenSeats.values()){
-               totalPrice = totalPrice + price;
+           for(String age: chosenSeats.values()){
+               totalPrice = basePrice + totalPrice + p.getPrice(age);
            }
        }
        return totalPrice;
    }
+
+    public float calculateTicketPrice(String age, float basePrice){
+       Price p = new Price();
+       float ticketPrice = basePrice  + p.getPrice(age);
+       return ticketPrice;
+    }
 
    public void seatSelection() {
 	   SeatUI sui = new SeatUI();
@@ -180,13 +195,40 @@ public class MovieGoerController extends Utils {
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
 
-	   ArrayList<String> cinemaTypes = getCinemaTypes(cineplex,movie);
+	   ArrayList<Cinema> cinemas = getCinemas(cineplex,movie);
+	   ArrayList<String> cinemaTypes = getCinemaTypes(cinemas);
 	   String cinemaType = cinemaTypes.get(sui.getCinemaTypeSelectionView(cinemaTypes));
 
 	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie,cinemaType);
 	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
+       Cinema cinema = getCinema(cinemas,showtime);
        float basePrice = calculateTicketBasePrice(movie,cinemaType,showtime);
 
-       HashMap<String,Float> chosenSeats = sui.getSeatSelectionMenu(showtime,basePrice);
+       HashMap<String,String> chosenSeats = sui.getSeatSelectionMenu(showtime,basePrice);
+       sui.getTicketView(chosenSeats,cinema,showtime);
+       occupySeats(cineplex,cinema,showtime,chosenSeats);
+
+   }
+
+   public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){
+       ArrayList<Cineplex> cineplexes = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
+       Cineplex chosenCineplex = null;
+       for(int i = 0; i<cineplexes.size();i++){
+           if(cineplexes.get(i).getCineplexName().equals(cineplex.getCineplexName())){
+               chosenCineplex=cineplexes.get(i);
+           }
+       }
+       for(Cinema ci: chosenCineplex.getCinemas()){
+           if(ci.getCID().equals(cinema.getCID())){
+               for(ShowTime st : ci.getShowTime()){
+                   if(st.getDateTime().isEqual(showTime.getDateTime())){
+                       for(String seat : chosenSeats.keySet()){
+                           st.occupySeat(seat);
+                       }
+                   }
+               }
+           }
+       }
+       Utils.writeObject("cineplex.txt", cineplexes);
    }
 }

@@ -83,7 +83,33 @@ public class ShowTime implements Serializable {
     	}
     	return null;
     }
-    
+	public Seat getSeat(String seatID) {
+		for(ArrayList<Seat> row : this.seats){
+			for(Seat seat : row){
+				if(seat.getSeatID().equals(seatID)){
+					return seat;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void occupySeat(String seatID){
+		for(ArrayList<Seat> row : this.seats){
+			for(Seat seat : row){
+				if(seat.getSeatID().equals(seatID)){
+					seat.assignSeat();
+				}
+			}
+		}
+	}
+
+	public boolean isEqual(ShowTime st){
+    	if(st.getDateTime().isEqual(this.dateTime) && st.movie.getTitle().equals(this.movie.getTitle())){
+    		return true;
+		}
+    	return false;
+	}
     public String[] getRowID() {
     	return rowID;
     }

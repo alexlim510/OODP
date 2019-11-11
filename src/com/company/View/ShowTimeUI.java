@@ -21,12 +21,11 @@ public class ShowTimeUI {
         Scanner sc = new Scanner(System.in);
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
-        try {
-            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-        } catch (ClassNotFoundException | IOException e) {
+        CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        /*catch (ClassNotFoundException | IOException e) {
             System.out.println("File is missing. Please try again");
             return;
-        }
+        }*/
 
         int cineplexChoice;
         try{
@@ -119,12 +118,11 @@ public class ShowTimeUI {
         Scanner sc = new Scanner(System.in);
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
-        try {
-            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-        } catch (ClassNotFoundException | IOException e) {
+        CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        /*catch (ClassNotFoundException | IOException e) {
             System.out.println("File is missing. Please try again");
             return;
-        }
+        }*/
 
         int cineplexChoice;
         try{

@@ -1,10 +1,7 @@
 package com.company.View;
 
 
-import com.company.Entity.Cineplex;
-import com.company.Entity.Price;
-import com.company.Entity.Seat;
-import com.company.Entity.ShowTime;
+import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.Controller.MovieGoerController;
 import java.util.*;
@@ -43,10 +40,10 @@ public class SeatUI {
 		return Utils.getUserChoice(1, showTimes.size())-1;
 	}
 
-	public HashMap<String,Float> getSeatSelectionMenu(ShowTime st, float basePrice) {
+	public HashMap<String,String> getSeatSelectionMenu(ShowTime st, float basePrice) {
 		MovieGoerController mgc = new MovieGoerController();
 		Utils.displayHeader("Seat Selection");
-		HashMap<String,Float> chosenSeat = new HashMap<>();
+		HashMap<String,String> chosenSeat = new HashMap<>();
 		getSeatListing(st,chosenSeat);
 		System.out.println("---------------------------------------------------------------------");
 		int choice;
@@ -63,10 +60,10 @@ public class SeatUI {
 					String selectedSeat = getSeatSelectionView(st,chosenSeat);
 					if(selectedSeat!=null)
 						if(chosenSeat.containsKey(selectedSeat))
-							System.out.println("The seat is chosen");
+							System.out.println("The seat is already chosen!!!");
 						else{
-							chosenSeat.put(selectedSeat,basePrice+getAgeSelection());
-							totalPrice = mgc.calculateTotalPrice(chosenSeat);
+							chosenSeat.put(selectedSeat,getAgeSelection());
+							totalPrice = mgc.calculateTotalPrice(chosenSeat,basePrice);
 						}
 					getSeatListing(st,chosenSeat);
 					System.out.println("Current price: "+ Float.toString(totalPrice));
@@ -78,24 +75,25 @@ public class SeatUI {
 							continue;
 						else if(chosenSeat.containsKey(removedSeat)){
 							chosenSeat.remove(removedSeat);
-							totalPrice = mgc.calculateTotalPrice(chosenSeat);
+							totalPrice = mgc.calculateTotalPrice(chosenSeat,basePrice);
 						}
 						else
-							System.out.println("The seat is not chosen.");
+							System.out.println("The seat is not chosen!!!");
 					else
-						System.out.println("You have not chosen any seats.");
+						System.out.println("You have not chosen any seats!!!");
 					getSeatListing(st,chosenSeat);
 					System.out.println("Current price: "+ Float.toString(totalPrice));
 					break;
 				case 3:
-					return chosenSeat;
+				    if(getPaymentView(chosenSeat,basePrice,st)) return chosenSeat;
+				    else break;
 				default:
 					System.out.println("Invalid choice");
 			}
 		}		
 	}
 	
-	public float getAgeSelection() {
+	public String getAgeSelection() {
 		System.out.println("Select Age: ");
 		System.out.println(
 	             "1. Adult\n" +
@@ -105,16 +103,16 @@ public class SeatUI {
 		Price prices = new Price();
 		switch(choice) {
 		case 1:
-			return prices.getPrice("Adult");			
+			return "Adult";
 		case 2:
-			return prices.getPrice("Senior Citizen");
+			return "Senior Citizen";
 		case 3:
-			return prices.getPrice("Child");
+			return "Child";
 		}
-		return 0;
+		return "Adult";
 	}
 	
-	public String getSeatSelectionView(ShowTime st, HashMap<String,Float> chosenSeats) {
+	public String getSeatSelectionView(ShowTime st, HashMap<String,String> chosenSeats) {
 		String row = "-1";
 		int column = -1;
 		boolean complete = false;
@@ -152,7 +150,7 @@ public class SeatUI {
 				}
 
 				if(st.getSeat(row, column)!=null && st.getSeat(row, column).getIsAssigned()) {
-					System.out.println("Seat taken");
+					System.out.println("Seat taken!!!");
 					return null;
 				}
 				else if(st.getSeat(row, column)!=null){
@@ -167,7 +165,7 @@ public class SeatUI {
 		return rowId;
 	}
 	
-   public void getSeatListing(ShowTime st, HashMap<String,Float> chosenSeats) {
+   public void getSeatListing(ShowTime st, HashMap<String,String> chosenSeats) {
 	   ArrayList<String> chosen = new ArrayList<>();
 		for(String seatId: chosenSeats.keySet()){
 			chosen.add(seatId);
@@ -205,5 +203,47 @@ public class SeatUI {
 		System.out.println("   0   1   2   3   4   5   6   7           10  11  12  13  14  15  16");
 		System.out.println("---------------------------------------------------------------------");
 		System.out.println("O: Occupied, C: Chosen");
-   }   
+   }
+
+   public boolean getPaymentView(HashMap<String,String> chosenSeats, float basePrice, ShowTime st){
+       MovieGoerController mgc = new MovieGoerController();
+       System.out.println("---------------------------------------------------------------------");
+	    for (Map.Entry<String, String> seat : chosenSeats.entrySet()) {
+           String seatID = seat.getKey();
+           String age = seat.getValue();
+           float price = mgc.calculateTicketPrice(age,basePrice);
+            System.out.println(age);
+            System.out.println("Seat: " + st.getSeat(seatID).getRow() + st.getSeat(seatID).getColumn());
+       }
+       System.out.println("Total Price: " + mgc.calculateTotalPrice(chosenSeats,basePrice));
+       String choice;
+       while(true){
+           System.out.println("Confirm payment? (y/n)");
+           Scanner scanner = new Scanner(System.in);
+           choice = scanner.next();
+           switch(choice){
+               case "y":
+                   return true;
+               case "n":
+                   return false;
+               default:
+                   System.out.println("Invalid choice!!!");
+           }
+       }
+   }
+
+   public void getTicketView(HashMap<String,String> chosenSeats,Cinema cinema, ShowTime st){
+       MovieGoerController mgc = new MovieGoerController();
+       Utils.displayHeader("Tickets");
+       for (Map.Entry<String, String> seat : chosenSeats.entrySet()) {
+           System.out.println("===========================================");
+           String seatID = seat.getKey();
+           String age = seat.getValue();
+           System.out.println(st.getMovie().getTitle());
+           System.out.println("Seat: " + st.getSeat(seatID).getRow() + st.getSeat(seatID).getColumn());
+           System.out.println(age);
+           System.out.println("===========================================");
+       }
+
+   }
 }

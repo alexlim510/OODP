@@ -13,21 +13,42 @@ import java.util.Scanner;
 
 public class Utils {
 	
-   public static ObjectOutputStream getObjectOutputStream(String fileName) throws IOException {
-      return new ObjectOutputStream(new FileOutputStream(fileName));
+   public static ObjectOutputStream getObjectOutputStream(String fileName) {
+      try {
+         return new ObjectOutputStream(new FileOutputStream(fileName));
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return null;
    }
 	
-   public static void writeObject(String fileName, Object data) throws IOException {
-      getObjectOutputStream(fileName).writeObject(data);
+   public static void writeObject(String fileName, Object data) {
+      try {
+         getObjectOutputStream(fileName).writeObject(data);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
    }
 	
-   public static ObjectInputStream getObjectInputStream(String fileName) throws IOException {
-      return new ObjectInputStream(new FileInputStream(fileName));
+   public static ObjectInputStream getObjectInputStream(String fileName) {
+      try {
+         return new ObjectInputStream(new FileInputStream(fileName));
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return null;
    }
 	
 
-   public static Object readObject(String fileName) throws IOException,ClassNotFoundException {
-      return (Object)getObjectInputStream(fileName).readObject();
+   public static Object readObject(String fileName) {
+      try {
+         return (Object)getObjectInputStream(fileName).readObject();
+      } catch (IOException e) {
+         e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+         e.printStackTrace();
+      }
+      return null;
    }
 	
    public static void storeCustomerCookie(Customer c) {
@@ -71,13 +92,7 @@ public class Utils {
    }
 
    public static void clearCookies() {
-      try {
-         ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
-      
-      }
-      catch (IOException e) {
-         System.out.println(e);
-      }
+      ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
    }
 
    public static void displayHeader(String headerText) {

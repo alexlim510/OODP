@@ -56,7 +56,7 @@ public class LoginUI {
       Customer c = Utils.getCustomerCookie();
       System.out.println("Your email: " + c.getEmail());
       MovieGoerUI mui = new MovieGoerUI();
-   	//mui.getHomeView(Movies, Cineplex);
+      mui.getHomeView();
    }
 	
    public void displayAdminLoginPage() {

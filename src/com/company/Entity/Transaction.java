@@ -1,5 +1,6 @@
 package com.company.Entity;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 class Transaction {
    private String TID;
@@ -8,11 +9,11 @@ class Transaction {
    private String customerName;
    private String movieTitle;
    private ShowTime showTime;
-   private Seat[] seats;
+   private ArrayList<Seat> seats;
    private LocalDateTime dateTime;
    private float totalPrice;
    
-   public Transaction(String TID, Customer customer, Movie movie, float totalPrice, Seat[] seats, LocalDateTime dateTime){
+   public Transaction(String TID, Customer customer, Movie movie, float totalPrice, ArrayList<Seat> seats, LocalDateTime dateTime){
       this.TID = TID;
       this.customerPhone = customer.getPhone();
       this.customerEmail = customer.getEmail();
@@ -43,7 +44,7 @@ class Transaction {
       return this.showTime;
    }   
    
-   public Seat[] getSeats(){
+   public ArrayList<Seat> getSeats(){
       return this.seats;
    }
    
@@ -58,7 +59,7 @@ class Transaction {
       this.showTime = showTime;
    }
    
-   public void setSeats(Seat[] seats){
+   public void setSeats(ArrayList<Seat> seats){
       this.seats = seats;
    }
    

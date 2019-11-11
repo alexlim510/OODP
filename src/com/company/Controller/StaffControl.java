@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class StaffControl {
 //    MovieGoerController movieController = new MovieGoerController();
@@ -70,9 +69,11 @@ public class StaffControl {
 
         // read the movielist from text file
         ArrayList<Movie> movieList;
-        try{
-            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (Exception e){
+        movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        /*catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
             System.out.println("File not found. please try again.");
             return;
         }
@@ -104,12 +105,15 @@ public class StaffControl {
         int k = 1;
 
         ArrayList<Movie> movieList;
-        try{
-            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (Exception e){
+        movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        /*catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
             System.out.println("File not found. please try again.");
             return;
         }
+
 
         Utils.displayHeader("Movie List");
         for (Movie m: movieList)
@@ -207,18 +211,16 @@ public class StaffControl {
 
         movieList.set(movieIndex, movie);
 
-        try{
-            Utils.writeObject("movie.txt", movieList);
-        }catch (IOException e){
-            System.out.println("File not found. please try again.");
-        }
+        Utils.writeObject("movie.txt", movieList);
     }
 
     public void deleteMovieListing() {
         ArrayList<Movie> movieList;
-        try{
-            movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (Exception e){
+        movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        /*catch (ClassNotFoundException e){
+            System.out.println("File not found. please try again.");
+            return;
+        }catch (IOException e){
             System.out.println("File not found. please try again.");
             return;
         }

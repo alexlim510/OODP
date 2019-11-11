@@ -32,13 +32,7 @@ public class HandleReviewMgr {
       movie.insertMovieReview(userReview);
 
       //modifying database
-      try{
-         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
-      }catch(IOException e){
-         System.out.println("File not found");
-      }catch(ClassNotFoundException e){
-         System.out.println("Class not found");
-      }
+      movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
 
       for(int i = 0; i<movies.size(); i++){
          if(movies.get(i).getTitle().equals(movie.getTitle())){
@@ -46,11 +40,7 @@ public class HandleReviewMgr {
          }
       }
 
-      try{
-         Utils.writeObject("movie.txt", movies);
-      }catch(IOException e){
-         System.out.println("File not found");
-      }
+      Utils.writeObject("movie.txt", movies);
    }
 
 
@@ -72,13 +62,7 @@ public class HandleReviewMgr {
          }
       }
 
-      try{
-         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
-      }catch(IOException e){
-         System.out.println("File not found");
-      }catch(ClassNotFoundException e){
-         System.out.println("Class not found");
-      }
+      movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
 
       //changing the value of ArrayList
       for(int j = 0; j<movies.size(); j++){
@@ -88,11 +72,7 @@ public class HandleReviewMgr {
       }
 
       //Inserting to database
-      try{
-         Utils.writeObject("movie.txt", movies);
-      }catch(IOException e){
-         System.out.println("File not found");
-      }
+      Utils.writeObject("movie.txt", movies);
 
       System.out.println("Review deleted");
    }
