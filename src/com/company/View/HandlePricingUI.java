@@ -39,7 +39,7 @@ public class HandlePricingUI {
             priceKeys.add(st);
         }
         while(retry && !successful){
-            System.out.println("Select category you want to delete: ");
+            System.out.println("Select category you want to delete:  ");
             for(int i = 0; i<priceKeys.size(); i++){
                 System.out.println(i+1+". "+priceKeys.get(i));
             }
