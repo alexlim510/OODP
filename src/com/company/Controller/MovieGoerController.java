@@ -1,10 +1,12 @@
 package com.company.Controller;
-import com.company.Entity.*;
+import com.company.Entity.Cinema;
+import com.company.Entity.Cineplex;
+import com.company.Entity.Movie;
+import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;

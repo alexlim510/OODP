@@ -8,12 +8,11 @@ public class Movie implements Serializable{
    private String title;
    private String movieClass; // 3D, blockbuster etc..
    private String statusType; //now showing, etc..
-   private String ageType; //now showing, etc..
+   private String ageType; //{"G", "PG", "PG13", "NC16", "M18", "R21"}
    private String synopsis;
    private String director;
    private String[] cast;
    private String[] genre;
-   private Date showTill;
    private int duration;
    private ArrayList<Review> reviews;
    public float overallReviewRating;
@@ -35,14 +34,13 @@ public class Movie implements Serializable{
 
    // This constructor is used for creating new movies from the staffUI.
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
-                Date showTill , int duration ,int movieClass,
+                int duration ,int movieClass,
                 int ageType, int statusType ) {
       this.title= title;
       this.synopsis= synopsis;
       this.director=director;
       this.cast =cast ;
       this.genre = genre;
-      this.showTill = showTill;
       this.duration = duration;
       this.movieClass = movieClasses[movieClass];
       this.ageType = ageTypes[ageType];
@@ -51,16 +49,15 @@ public class Movie implements Serializable{
 
    // This constructor is used for creating dummy data.
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
-   	   Date showTill , int duration , ArrayList<Review> reviews  , float overallReviewRating,int movieClass,
-   	   int ageType, int statusType ) {
-    
-      
+                int duration , ArrayList<Review> reviews  , float overallReviewRating,int movieClass,
+                int ageType, int statusType ) {
+
+
       this.title= title;
       this.synopsis= synopsis;
       this.director=director;
       this.cast =cast ;
       this.genre = genre;
-      this.showTill = showTill;
       this.duration = duration;
       this.reviews = reviews;
       this.overallReviewRating = overallReviewRating;
@@ -116,7 +113,7 @@ public class Movie implements Serializable{
       this.reviews.clear();
       this.reviews.addAll(reviews);
    }
-    
+
    public void insertMovieReview(Review review) {
       this.reviews.add(reviews.size(), review);
    }
@@ -124,7 +121,7 @@ public class Movie implements Serializable{
    public void setOverallReviewRating(float overallReviewRating) {
       this.overallReviewRating = overallReviewRating;
    }
-    
+
    public float getOverallReviewRating() {
       float overallReviewRating = 0;
       for(int i = 0; i<this.reviews.size(); i++){
@@ -140,14 +137,6 @@ public class Movie implements Serializable{
 
    public void setGenre(String[] genre) {
       this.genre = genre;
-   }
-
-   public Date getShowTill() {
-      return showTill;
-   }
-
-   public void setShowTill(Date showTill) {
-      this.showTill = showTill;
    }
 
    public int getDuration() {

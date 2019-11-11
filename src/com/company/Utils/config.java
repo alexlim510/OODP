@@ -53,16 +53,15 @@ public static void main(String[] args) {
 			Customer Customer1 = new Customer("anyone", "0123123", "abc@gmail.com");
 			ArrayList<Review> reviewlist= new ArrayList<Review>();
 			LocalDateTime now = LocalDateTime.now();
-		
-			java.util.Date Date = sdf.parse("1992-07-26");
+
 			oos1 = Utils.getObjectOutputStream("movie.txt");
 			  
 		
 			Movie movie1 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
-					new String[]{"Jay" , "Chean" ,"Alfredo","Bharat"},new String[]{ "Sci-fi" , "Cartoon" },
-					Date  , 2 ,null , 3.6f,1,2 ,1);
+					new String[]{"Jay" , "Chean" ,"Alfredo","Bharat"},new String[]{ "Sci-fi" , "Cartoon" }
+					  , 2 ,null , 3.6f,1,2 ,1);
 			Movie movie2 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
-					new String[]{"Jay" , "Chean" },new String[]{ "Sci-fi" , "Cartoon" }, Date  ,
+					new String[]{"Jay" , "Chean" },new String[]{ "Sci-fi" , "Cartoon" }  ,
 					2 ,null , 3.6f,1,2 ,1);
 			
 			Review review1 = new Review(movie1 , Customer1, "WTF bad movie" , 1.52f, now);
@@ -79,9 +78,6 @@ public static void main(String[] args) {
 		//	movie.add(movie3);
 		oos1.writeObject(movie);
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

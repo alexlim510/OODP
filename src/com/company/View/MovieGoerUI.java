@@ -24,7 +24,6 @@ public class MovieGoerUI {
 		System.out.println("1) Duration: "+ movie.getDuration());
 		System.out.println("2) Synopsis: "+ movie.getSynopsis());
 		System.out.println("3) Status: "+ movie.getStatusType());
-		System.out.println("4) Showing Till: "+ movie.getShowTill());
 		System.out.println("5) Movie Type: "+ movie.getMovieClass());
 		System.out.println("6) Age Type: "+ movie.getAgeType());
 		if (movie.getOverallReviewRating() == 0)
