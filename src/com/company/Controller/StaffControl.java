@@ -61,7 +61,8 @@ public class StaffControl {
       movie.setStatusType(statusType);
    
       System.out.println("Movie successfully created!");
-      // Todo print out the movie attributes?
+      //print out movie attributes
+
    }
 
    public void editMovieListing() {
