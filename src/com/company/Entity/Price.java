@@ -26,6 +26,10 @@ public class Price implements Serializable{
 		this.holidays = new ArrayList<LocalDateTime>();
 		this.weekends = Arrays.asList(FRIDAY, SATURDAY, SUNDAY);
 	}
+
+	public Set<String> getKeys(){
+		return this.prices.keySet();
+	}
 	
 	public void addPrice(String category, float price) {
 		if(prices.containsKey(category)) {
