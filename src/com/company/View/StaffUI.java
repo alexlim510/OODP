@@ -67,16 +67,13 @@ public class StaffUI {
       Utils.displayHeader("Modify Showtimes");
       System.out.println(
              "1. Create movie showtime\n" +
-                     "2. Update movie showtime\n" +
-                     "3. Remove movie showtime");
+                     "2. Delete movie showtime\n");
+
       switch (Utils.getUserChoice(1, 3)) {
          case 1:
             ShowTimeUI.addShowTimeUI();
             break;
          case 2:
-            ShowTimeUI.editShowTimeUI();
-            break;
-         case 3:
             ShowTimeUI.deleteShowTimeUI();
             break;
       } 

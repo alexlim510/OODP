@@ -4,6 +4,7 @@ import com.company.Controller.StaffControl;
 import com.company.Entity.Cinema;
 import com.company.Entity.Cineplex;
 import com.company.Entity.Movie;
+import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
@@ -107,92 +108,80 @@ public class ShowTimeUI {
     }
 
     public static void deleteShowTimeUI(){
-        Scanner sc = new Scanner(System.in);
         Utils.displayHeader("Delete Show Time");
-
-        String cineplexName;
-        String cinemaName;
-        String movieTitle;
-        int year;
-        int month;
-        int day;
-        int hour;
-        int minute;
-        boolean successful = false;
-        boolean tryAgain = true;
-
-        while(!successful && tryAgain){
-            System.out.print("Insert cineplex name for the movie: ");
-            cineplexName = sc.nextLine();
-
-            System.out.print("Insert cinema name for the movie: ");
-            cinemaName = sc.nextLine();
-
-            System.out.print("Insert title of the movie: ");
-            movieTitle = sc.nextLine();
-
-            System.out.println("Insert date and time of show time of the movie");
-
-            day = Utils.getDateIntInput("Insert the day you want to delete (in number)", 1, 31);
-            month = Utils.getDateIntInput("Insert the month you want to delete (in number)", 1, 12);
-            year = Utils.getDateIntInput("Insert the year you want to delete (in number)", LocalDateTime.now().getYear(), 9999);
-            hour = Utils.getDateIntInput("Insert the hour you want to delete (in number)", 0, 24);
-            minute = Utils.getDateIntInput("Insert the minute you want to delete (in number)", 0, 59);
-
-            successful = StaffControl.deleteShowTimeMgr(cineplexName, cinemaName, movieTitle, year, month, day, hour, minute);
-            if(successful){
-                System.out.println("Showtime deleted.");
-            }else{
-                System.out.println("Showtime not deleted. Please try again");
-                tryAgain = Utils.retry("Retry");
-            }
-        }
-    }
-
-    public static void editShowTimeUI(){
-        Utils.displayHeader("Edit Show Time");
-
         Scanner sc = new Scanner(System.in);
-        String cineplexName;
-        String cinemaName;
-        String movieTitle;
-        int year; int oldyear;
-        int month; int oldmonth;
-        int day; int oldday;
-        int hour; int oldhour;
-        int minute; int oldminute;
-        boolean successful = false;
+        //Selecting the cineplex
+        ArrayList<Cineplex> CineplexArray;
+        try {
+            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
+
+        int cineplexChoice;
+        try{
+            if(CineplexArray.size() == 0){
+                System.out.println("Cineplex does not exist!");
+                return;
+            }
+        }catch (java.lang.NullPointerException e){
+            System.out.println("Cineplex does not exist!");
+            return;
+        }
+        System.out.println("Select the cineplex: ");
+        for(int i = 0; i<CineplexArray.size(); i++){
+            System.out.println(i+1+". "+CineplexArray.get(i).getCineplexName());
+        }
+        cineplexChoice = Utils.getUserChoice(1, CineplexArray.size()) - 1;
+        ArrayList<Cinema> CinemaArray = CineplexArray.get(cineplexChoice).getCinemas();
+
+        //Selecting the cinema
+        int cinemaChoice;
+        try{
+            if(CinemaArray.size() == 0){
+                System.out.println("Cinema does not exist!");
+                return;
+            }
+        }catch (java.lang.NullPointerException e){
+            System.out.println("Cinema does not exist!");
+            return;
+        }
+
+        System.out.println("Select the cinema: ");
+        for(int i = 0; i<CinemaArray.size(); i++){
+            System.out.println(i+1+". "+ CinemaArray.get(i).getCID());
+        }
+        cinemaChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        ArrayList<ShowTime> ShowTimeArray = CinemaArray.get(cinemaChoice).getShowTime();
+
+        //selecting showtime
+        int showTimeChoice;
+        try{
+            if(ShowTimeArray.size() == 0){
+                System.out.println("No Show Time in this cinema");
+                return;
+            }
+        }catch (java.lang.NullPointerException e){
+            System.out.println("No Show Time in this cinema");
+            return;
+        }
+
+        System.out.println("Select the Show Time you want to delete: ");
+        for(int i = 0; i<ShowTimeArray.size(); i++){
+            System.out.println(i+1+". "+ ShowTimeArray.get(i).getMovie().getTitle()+": "+ShowTimeArray.get(i).getDateTime().getHour()+":"+ShowTimeArray.get(i).getDateTime().getMinute());
+        }
+        showTimeChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+
+        boolean successful=false;
         boolean tryAgain = true;
 
         while(!successful && tryAgain){
-            System.out.print("Insert cineplex name for the movie: ");
-            cineplexName = sc.nextLine();
-
-            System.out.print("Insert cinema name for the movie: ");
-            cinemaName = sc.nextLine();
-
-            System.out.print("Insert title of the movie: ");
-            movieTitle = sc.nextLine();
-
-            System.out.println("Insert date and time of show time of the movie");
-
-            oldday = Utils.getDateIntInput("Insert the day you want to edit (in number)", 1, 31);
-            oldmonth = Utils.getDateIntInput("Insert the month you want to edit (in number)", 1, 12);
-            oldyear = Utils.getDateIntInput("Insert the year you want to edit (in number)", LocalDateTime.now().getYear(), 9999);
-            oldhour = Utils.getDateIntInput("Insert the hour you want to edit (in number)", 0, 24);
-            oldminute = Utils.getDateIntInput("Insert the minute you want to edit (in number)", 0, 59);
-
-            day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-            month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-            year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-            hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-            minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
-
-            successful = StaffControl.editShowTimeMgr(cineplexName, cinemaName, movieTitle, year, month, day, hour, minute, oldyear, oldmonth, oldday, oldhour, oldminute);
+            successful = StaffControl.deleteShowTimeMgr(CineplexArray, cineplexChoice, cinemaChoice, showTimeChoice);
             if(successful){
-                System.out.println("Showtime edited.");
+                System.out.println("Showtime was deleted.");
             }else{
-                System.out.println("Showtime not edited. Please try again");
+                System.out.println("Showtime was not deleted. Please try again");
                 tryAgain = Utils.retry("Retry");
             }
         }
