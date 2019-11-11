@@ -5,11 +5,11 @@ import com.company.Utils.Utils;
 
 public class HandlePricingMgr {
     public static Price readPriceFile(){
-        Price pricing = new Price();
+        Price pricing;
         try{
             pricing = (Price) Utils.readObject("price.txt");
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             System.out.println("Cannot read file");
             return null;
         }
@@ -31,7 +31,10 @@ public class HandlePricingMgr {
         try{
             pricing.addPrice(Utils.getStringInput("Insert the name of the category: "), Utils.getFloatInput("Insert the price of the category: "));
         }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
+            System.out.println("Parameters incorrect");
+            return false;
+        }catch (NullPointerException e){
+            System.out.println("Cannot retrieve data from database");
             return false;
         }
         return modifyPriceDB(pricing);
@@ -42,6 +45,23 @@ public class HandlePricingMgr {
         try{
             pricing.deletePrice(catName);
         }catch (IllegalArgumentException e){
+            System.out.println("Parameters incorrect");
+            return false;
+        }catch (NullPointerException e){
+            System.out.println("Cannot retrieve data from database");
+            return false;
+        }
+        return modifyPriceDB(pricing);
+    }
+
+    public static boolean editPriceCategoryMgr(String catName, float newPrice){
+        Price pricing = readPriceFile();
+        try{
+            pricing.updatePrice(catName, newPrice);
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return false;
+        }catch (NullPointerException e){
             System.out.println(e.getMessage());
             return false;
         }

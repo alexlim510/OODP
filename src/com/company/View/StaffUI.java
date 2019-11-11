@@ -19,7 +19,7 @@ public class StaffUI {
       Utils.displayHeader("Staff Portal");
       System.out.println(
              "1. Create/Update/Remove movie listing\n" +
-                     "2. Create/Update/Remove cinema showtimes\n" +
+                     "2. Create/Remove cinema showtimes\n" +
                      "3. Configure system settings\n" +
                      "4. List top 5 movies\n"+
                      "5. Exit\n"
@@ -68,7 +68,7 @@ public class StaffUI {
              "1. Create movie showtime\n" +
                      "2. Delete movie showtime\n");
 
-      switch (Utils.getUserChoice(1, 3)) {
+      switch (Utils.getUserChoice(1, 2)) {
          case 1:
             ShowTimeUI.addShowTimeUI();
             break;
@@ -79,22 +79,37 @@ public class StaffUI {
    }
 
    public void displayStaffConfigurationOptions(){
-      Utils.displayHeader("Change ticket price");
+      Utils.displayHeader("System Configuration");
       System.out.println(
-         "1. Add new category\n" +
-         "2. Delete category\n"+
-         "3. Edit category\n");
-      switch (Utils.getUserChoice(1, 3)) {
+              "1. Configure price\n" +
+                      "2. Configure holidays/special dates\n");
+      switch (Utils.getUserChoice(1, 2)) {
          case 1:
-            addPricingUI();
+            displayStaffConfigurationOptionsPricing();
             break;
          case 2:
-            deletePricingUI();
+            //TO DO configure holiday
+            break;
+      }
+   }
+
+   public void displayStaffConfigurationOptionsPricing(){
+      Utils.displayHeader("Change ticket price");
+      System.out.println(
+              "1. Add new category\n" +
+                      "2. Delete category\n"+
+                      "3. Edit category\n");
+      switch (Utils.getUserChoice(1, 3)) {
+         case 1:
+            HandlePricingUI.addPriceCategoryUI();
+            break;
+         case 2:
+            HandlePricingUI.deletePriceCategoryUI();
             break;
          case 3:
-            editPricingUI();
+            HandlePricingUI.editPriceCategoryUI();
             break;
-      }      
+      }
    }
 
    public void listTopMovies() {
@@ -103,68 +118,4 @@ public class StaffUI {
               "1. List top 5 ranking movies by ticket sales.\n" +
                "2. List top 5 ranking movies by Overall reviewers' rating.\n");
    }
-
-   //System Configuration Area ==========================
-
-   public static void addPricingUI(){
-      Utils.displayHeader("Add Pricing");
-      Scanner sc = new Scanner(System.in);
-
-      String type;
-      float price;
-
-      System.out.print("Type in the category you wish to add: ");
-      type = sc.nextLine();
-
-      price = Utils.getFloatInput("Type in the price you wish to add for "+type+" category: ");
-
-      boolean successful = StaffControl.addSpecialPricingMgr(type, price);
-
-      if(successful){
-         System.out.println("Price added");
-      }else{
-         System.out.println("Price not added. Please try again");
-      }
-   }
-
-   public static void editPricingUI(){
-      Utils.displayHeader("Edit Pricing");
-      Scanner sc = new Scanner(System.in);
-
-      String type;
-      float price;
-
-      System.out.print("Type in the category you wish to edit: ");
-      type = sc.nextLine();
-
-      price = Utils.getFloatInput("Type in the price you wish to edit for "+type+" category: ");
-
-      boolean successful = StaffControl.editSpecialPricingMgr(type, price);
-
-      if(successful){
-         System.out.println("Price edited");
-      }else{
-         System.out.println("Price not edited. Please try again");
-      }
-   }
-
-   public static void deletePricingUI(){
-      Utils.displayHeader("Delete Pricing");
-      Scanner sc = new Scanner(System.in);
-
-      String type;
-
-      System.out.print("Type in the category you wish to delete: ");
-      type = sc.nextLine();
-
-      boolean successful = StaffControl.deleteSpecialPricingMgr(type);
-
-      if(successful){
-         System.out.println("Price deleted");
-      }else{
-         System.out.println("Price not deleted. Please try again");
-      }
-   }
-
-   //System Configuration Area ==========================
 }

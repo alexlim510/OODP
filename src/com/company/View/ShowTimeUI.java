@@ -1,5 +1,6 @@
 package com.company.View;
 
+import com.company.Controller.HandleShowTimeMgr;
 import com.company.Controller.StaffControl;
 import com.company.Entity.Cinema;
 import com.company.Entity.Cineplex;
@@ -61,10 +62,16 @@ public class ShowTimeUI {
             System.out.println(i+1+". "+ CinemaArray.get(i).getCID());
         }
         cinemaChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
-        ArrayList<Movie> MovieArray = CinemaArray.get(cinemaChoice).getMovies();
 
         //selecting movie
         int movieChoice;
+        ArrayList<Movie> MovieArray;
+        try {
+            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println("Movie file is missing. Please try again");
+            return;
+        }
         try{
             if(MovieArray.size() == 0){
                 System.out.println("Movie does not exist!");
@@ -97,7 +104,7 @@ public class ShowTimeUI {
             hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
             minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
 
-            successful = StaffControl.addShowTimeMgr(CineplexArray, cineplexChoice, cinemaChoice, movieChoice, year, month, day, hour, minute);
+            successful = HandleShowTimeMgr.addShowTimeMgr(CineplexArray, MovieArray, cineplexChoice, cinemaChoice, movieChoice, year, month, day, hour, minute);
             if(successful){
                 System.out.println("Showtime was created.");
             }else{
@@ -177,7 +184,7 @@ public class ShowTimeUI {
         boolean tryAgain = true;
 
         while(!successful && tryAgain){
-            successful = StaffControl.deleteShowTimeMgr(CineplexArray, cineplexChoice, cinemaChoice, showTimeChoice);
+            successful = HandleShowTimeMgr.deleteShowTimeMgr(CineplexArray, cineplexChoice, cinemaChoice, showTimeChoice);
             if(successful){
                 System.out.println("Showtime was deleted.");
             }else{

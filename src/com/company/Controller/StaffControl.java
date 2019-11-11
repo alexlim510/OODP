@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class StaffControl {
 //    MovieGoerController movieController = new MovieGoerController();
@@ -71,10 +72,7 @@ public class StaffControl {
         ArrayList<Movie> movieList;
         try{
             movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (ClassNotFoundException e){
-            System.out.println("File not found. please try again.");
-            return;
-        }catch (IOException e){
+        }catch (Exception e){
             System.out.println("File not found. please try again.");
             return;
         }
@@ -108,14 +106,10 @@ public class StaffControl {
         ArrayList<Movie> movieList;
         try{
             movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (ClassNotFoundException e){
-            System.out.println("File not found. please try again.");
-            return;
-        }catch (IOException e){
+        }catch (Exception e){
             System.out.println("File not found. please try again.");
             return;
         }
-
 
         Utils.displayHeader("Movie List");
         for (Movie m: movieList)
@@ -217,7 +211,6 @@ public class StaffControl {
             Utils.writeObject("movie.txt", movieList);
         }catch (IOException e){
             System.out.println("File not found. please try again.");
-            return;
         }
     }
 
@@ -225,10 +218,7 @@ public class StaffControl {
         ArrayList<Movie> movieList;
         try{
             movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
-        }catch (ClassNotFoundException e){
-            System.out.println("File not found. please try again.");
-            return;
-        }catch (IOException e){
+        }catch (Exception e){
             System.out.println("File not found. please try again.");
             return;
         }
@@ -251,99 +241,4 @@ public class StaffControl {
         }
         System.out.println("Movie deleted successfully!");
     }
-    // SHOW TIME AREA =====================================
-
-    public static boolean addShowTimeMgr(ArrayList<Cineplex> CineplexArray, int cineplexChoice, int cinemaChoice, int movieChoice, int year, int month,
-                                         int day, int hour, int minute) {
-        // cinema, film, datetime needed
-        LocalDateTime dateTime;
-        ShowTime newShowTime;
-
-        newShowTime = new ShowTime(LocalDateTime.of(year, month, day, hour, minute), CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getMovies().get(movieChoice));
-
-        // checking if the showtime has existed
-        for (ShowTime st: CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getShowTime()) {
-            if (st.getDateTime().isEqual(newShowTime.getDateTime())) {
-                System.out.println("The show time at the inserted time is unavailable");
-                return false;
-            }
-        }
-
-        //Adding to Cineplex Array
-        CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).addShowTime(newShowTime);
-
-        //Inserting new showtime to database
-        try{
-            Utils.writeObject("cineplex.txt", CineplexArray);
-        }catch (IOException e){
-            System.out.println("File not found. please try again.");
-            return false;
-        }
-
-        return true;
-    }
-
-    public static boolean deleteShowTimeMgr(ArrayList<Cineplex> CineplexArray, int cineplexChoice, int cinemaChoice, int showTimeChoice) {
-        ArrayList<ShowTime> ShowTimeArray = CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getShowTime();
-        ShowTimeArray.remove(ShowTimeArray.get(showTimeChoice));
-
-        //Inserting new showtime to database
-        try{
-            Utils.writeObject("cineplex.txt", CineplexArray);
-        }catch (IOException e){
-            System.out.println("File not found. please try again.");
-            return false;
-        }
-        return true;
-    }
-
-    //SHOW TIME AREA ===========================
-
-    //PRICING ================================
-
-    public static boolean addSpecialPricingMgr(String type, float price){
-        Price thePricing = new Price();
-        //get the current pricing
-
-        try{
-            thePricing.addPrice(type, price);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("The price category exists");
-            return false;
-        }
-
-        return true;
-    }
-
-    public static boolean editSpecialPricingMgr(String type, float price){
-        Price thePricing = new Price();
-        //get the current pricing
-
-        try{
-            thePricing.updatePrice(type, price);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("The price category does not exist");
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean deleteSpecialPricingMgr(String type){
-        Price thePricing = new Price();
-        //get the current pricing
-
-        try{
-            thePricing.deletePrice(type);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("The price category does not exist");
-            return false;
-        }
-        return true;
-    }
-
-    //PRICING ================================
-
 }
