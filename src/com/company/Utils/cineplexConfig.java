@@ -66,7 +66,9 @@ public class cineplexConfig {
 			chosen.add("rAc1");
 			sui.getSeatListing(st1,chosen);
 			Utils.writeObject("cineplex.txt", (Object)cp);
-			
+
+			Price p = new Price();
+			Utils.writeObject("price.txt", (Object)p);
 			/*
 			ArrayList<Cineplex> cpp = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
 			for(Cineplex c: cpp) {

@@ -1,9 +1,9 @@
 package com.company.Entity;
 import java.util.*;
 import java.time.*;
+import java.io.Serializable;
 
-
-public class Price {
+public class Price implements Serializable{
 	private static final int FRIDAY = 4;
 	private static final int SATURDAY= 5;
 	private static final int SUNDAY = 6;
