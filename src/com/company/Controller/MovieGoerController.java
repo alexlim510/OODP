@@ -8,14 +8,16 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Comparator;
 
 
 public class MovieGoerController extends Utils {
-
-	/* MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
-	User gets a glance of all movies available ----> getMovieListingView()
-	Then user will be prompted three choices ----> getHomeView()
+	/**
+	 * MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
+	 * User gets a glance of all movies available ----> getMovieListingView()
+	 * Then user will be prompted three choices ----> getHomeView()
 	 */
    public void MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
    {
@@ -320,5 +322,29 @@ public class MovieGoerController extends Utils {
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   }
+   }
+   public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
+
+		public int compare(Movie m1, Movie m2) {
+			int movieTicketSales1 = m1.getTicketSales();
+			int movieTicketSales2 = m2.getTicketSales();
+
+			//ascending order
+			//return StudentName1.compareTo(StudentName2);
+
+			//descending order
+			return movieTicketSales2-movieTicketSales1;
+		}
+   };
+   public ArrayList<Movie> getTop5MoviesList(){
+   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
+   	nowShowingMovies = getNowShowingMovieList();
+   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
+   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
+   	int top5 = 5;
+   	for (int i = 0; i < top5; i++){
+		top5Movies.add(nowShowingMovies.get(i));
+	}
+   	return top5Movies;
    }
 }
