@@ -77,8 +77,14 @@ public class MovieGoerController extends Utils {
 	   return allCineplex;
    }
    /* getMovieList(Cineplex cineplex)
-   Returns ArrayList of Movie Object with:
-
+   Iterates through the cinemas in Cineplex
+   		Iterates through the showtimes in cinemas
+   			if the movie residing in the showtime is now-showing movie
+   				add to the movieList
+   Returns ArrayList of Movie Objects:
+	1. Of a particular Cineplex
+	2. Of all cinemas
+	3. Of all showTimes with now-showing movies
     */
    public ArrayList<Movie> getMovieList(Cineplex cineplex){	   
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
@@ -95,7 +101,7 @@ public class MovieGoerController extends Utils {
 	   }
 	   return movieList;   		  	   
    }
-   
+
    public ArrayList<String> getMovieTitles(ArrayList<Movie> movies){
 	   ArrayList<String> movieList = new ArrayList<String>();
 	   String temp;
