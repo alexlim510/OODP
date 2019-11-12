@@ -75,8 +75,7 @@ public class HandleReviewMgr {
    }
 
    /**
-    * This deletes review from a Movie object. It allows customer, which is logged in, to delete
-    * his review of a movie he has reviewed before.
+    * This deletes review from a Movie object. It allows customer, which is logged in, to delete his review of a movie he has reviewed before.
     * @param movie Movie object
     */
    public static void deleteReview(Movie movie){
