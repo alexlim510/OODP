@@ -23,9 +23,7 @@ public class LoginController extends Utils {
                return true;
             }
          }
-      } catch (ClassNotFoundException | IOException e) {
-         System.out.println(e);
-      }
+      } catch (ClassNotFoundException | IOException e) {}
       return false;
    }
 	

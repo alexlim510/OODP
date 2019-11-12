@@ -96,7 +96,7 @@ public class MovieGoerController extends Utils {
 		   ArrayList<ShowTime> showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
-			   if(movie.getStatusType().equals("Now showing")) {
+			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
 				   movieList.add(movie);	   
 			   }
 		   }
@@ -271,6 +271,22 @@ public class MovieGoerController extends Utils {
 		   System.out.println("File not found!");
 		   return;
 	   }
+
+	   //update movie Total Sales
+	   try {
+		   ArrayList<Movie> movieData = (ArrayList<Movie>)Utils.readObject("movie.txt");
+		   for(Movie m: movieData){
+		   	if(m.getTitle().equals(movie.getTitle())){
+		   		m.increaseTotalSales(chosenSeats.size());
+		   		break;
+			}
+		   }
+		   Utils.writeObject("movie.txt",movieData);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   } catch (ClassNotFoundException e) {
+		   e.printStackTrace();
+	   }
    }
 
    public HashMap<String,Integer> getAgeCount(HashMap<String,String> chosenSeat){
@@ -326,8 +342,8 @@ public class MovieGoerController extends Utils {
    public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
 
 		public int compare(Movie m1, Movie m2) {
-			int movieTicketSales1 = m1.getTicketSales();
-			int movieTicketSales2 = m2.getTicketSales();
+			int movieTicketSales1 = m1.getTotalSales();
+			int movieTicketSales2 = m2.getTotalSales();
 
 			//ascending order
 			//return StudentName1.compareTo(StudentName2);

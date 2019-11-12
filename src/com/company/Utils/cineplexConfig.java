@@ -63,13 +63,10 @@ public class cineplexConfig {
         //check day of week of showtime
         System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.println(st3.getDateTime().format(formatter));
-        System.out.println(st2.getDateTime().format(formatter));
-        System.out.println(st1.getDateTime().format(formatter));
+        System.out.println(Utils.createDayOfWeekString(st1.getDateTime()));
+        System.out.println(Utils.createDayOfWeekString(st2.getDateTime()));
+        System.out.println(Utils.createDayOfWeekString(st3.getDateTime()));
         System.out.println(st1.getDateTime().format(formatter).equals(st2.getDateTime().format(formatter)));
-
-        ArrayList<ArrayList<Seat>> seats = c1.getShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10)).getSeats();
-        seats.get(1).get(1).assignSeat();
 
         // print seats
 

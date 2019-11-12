@@ -16,12 +16,13 @@ public class Movie implements Serializable{
    private int duration;
    private ArrayList<Review> reviews;
    public float overallReviewRating;
+   public int totalSales = 0;
 
    String[] movieClasses = {"Blockbuster", "3D"};
 
    String[] ageTypes = {"G", "PG", "PG13", "NC16", "M18", "R21"};
 
-   String[] statusTypes = {"Coming soon", "Now showing", "End of showing"};
+   String[] statusTypes = {"Coming soon", "Now showing", "End of showing", "Preview"};
 
 
    // Constructor used for getting movie functions like getmovieClaees / getAgeTypes / getstatusTypes
@@ -176,5 +177,12 @@ public class Movie implements Serializable{
 
    public String[] getStatusTypes() {
       return statusTypes;
+   }
+
+   public int getTotalSales(){return totalSales;}
+
+   public int increaseTotalSales(int increment){
+      this.totalSales = this.totalSales + increment;
+      return this.totalSales;
    }
 }

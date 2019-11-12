@@ -81,7 +81,7 @@ while (!end) {
    public void displayPublicRegisterPage() {
       Utils.displayHeader("Customer Register");
       LoginController logCtrl = new LoginController();
-      ArrayList<Customer> customers = null;
+      ArrayList<Customer> customers = new ArrayList<>();
 
       boolean  credentialCheck = false;
 
