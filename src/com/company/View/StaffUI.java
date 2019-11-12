@@ -166,11 +166,18 @@ public class StaffUI {
             break;
       }
    }
+
+   /**
+    * List top 5 movie based on num of ticket sales
+    */
    private void getTop5byTicketSales(){
       MovieGoerUI movieGoer = new MovieGoerUI();
       movieGoer.getTop5MoviesTicketView();
    }
 
+   /**
+    * List top 5 movies based on customer review rating
+    */
    private void getTop5byReviewRating(){
       MovieGoerUI movieGoer = new MovieGoerUI();
       movieGoer.getTop5MoviesRatingView();
