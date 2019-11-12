@@ -12,10 +12,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Comparator;
 
-
+/**
+ * Serve as the controller for Movie Goer's features
+ */
 public class MovieGoerController extends Utils {
 	/**
-	 * MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
 	 * User gets a glance of all movies available ----> getMovieListingView()
 	 * Then user will be prompted three choices ----> getHomeView()
 	 */
@@ -29,6 +30,11 @@ public class MovieGoerController extends Utils {
    /* getNowShowingMovieList()
    Returns and ArrayList of ALL 'Now showing' Movie objects
     */
+
+	/**
+	 * Returns and ArrayList of ALL 'Now showing' Movie objects
+	 * @return ArrayList of movie
+	 */
    public ArrayList<Movie> getNowShowingMovieList(){
 	   ArrayList<Movie> nowShowing = new ArrayList<Movie>();
 	   ArrayList<Movie> MovieArray = new ArrayList<Movie>();
@@ -49,10 +55,12 @@ public class MovieGoerController extends Utils {
        }
 	   return nowShowing;
    }
-   /* getAllMovieList()
-   Returns ArrayList of ALL Movie Objects residing in movie.txt file
-    */
-   public ArrayList<Movie> getAllMovieList(){
+
+	/**
+	 * Returns ArrayList of ALL Movie Objects residing in movie.txt file
+	 * @return ArrayList of movies
+	 */
+	public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
 	   int i = 0;
 	   try {
@@ -64,9 +72,11 @@ public class MovieGoerController extends Utils {
 	   }
 	   return allMovie;
    }
-   /* getCineplexList()
-   Returns ArrayList of ALL Cineplex Objects residing in cineplex.txt file
-    */
+
+	/**
+	 * Returns ArrayList of ALL Cineplex Objects residing in cineplex.txt file
+	 * @return  ArrayList of cineplex
+	 */
    public ArrayList<Cineplex> getCineplexList(){
 	   ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
 	   try {
@@ -88,6 +98,12 @@ public class MovieGoerController extends Utils {
 	2. Of all cinemas
 	3. Of all showTimes with now-showing movies
     */
+
+	/**
+	 * Returns movie shown in selected cineplex
+	 * @param cineplex selected cineplex
+	 * @return Arraylist of movies
+	 */
    public ArrayList<Movie> getMovieList(Cineplex cineplex){	   
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
 	   
@@ -104,6 +120,11 @@ public class MovieGoerController extends Utils {
 	   return movieList;   		  	   
    }
 
+	/**
+	 * Get array list of movie titles
+	 * @param movies movies shown in selected cineplex
+	 * @return array list of movie titles
+	 */
    public ArrayList<String> getMovieTitles(ArrayList<Movie> movies){
 	   ArrayList<String> movieList = new ArrayList<String>();
 	   String temp;
@@ -128,6 +149,12 @@ public class MovieGoerController extends Utils {
 	   return movieList;
    }
 
+	/**
+	 * Returns cinemas that plays selected movie from selected cineplex
+	 * @param cineplex cineplex selected by customer
+	 * @param movie cineplex selected by customer
+	 * @return array list of cinemas
+	 */
 	public ArrayList<Cinema> getCinemas(Cineplex cineplex, Movie movie){
 		ArrayList<ShowTime> showTimes = new ArrayList<>();
 		ArrayList<Cinema>  cinemaList = cineplex.getCinemas();
@@ -146,6 +173,11 @@ public class MovieGoerController extends Utils {
 		return cinemaResult;
 	}
 
+	/**
+	 * Returns array list of cinema types (Eg. Platinium Suites)
+	 * @param cinemas cinemas that plays selected movie from selected cineplex
+	 * @return array list of cinema types
+	 */
     public ArrayList<String> getCinemaTypes(ArrayList<Cinema> cinemas){
         ArrayList<String> cinemaTypes = new ArrayList<>();
         String cinemaType;
@@ -159,6 +191,12 @@ public class MovieGoerController extends Utils {
         return cinemaTypes;
     }
 
+	/**
+	 * Returns cinema that is playing the selected movie at the selected show time
+	 * @param cinemas cinemas that plays selected movie from selected cineplex
+	 * @param st selected showtime
+	 * @return cinema
+	 */
     public Cinema getCinema(ArrayList<Cinema> cinemas, ShowTime st){
         for (Cinema cinema: cinemas) {
             for(ShowTime s: cinema.getShowTime()){
@@ -170,6 +208,13 @@ public class MovieGoerController extends Utils {
         return null;
     }
 
+	/**
+	 * Returns array list of showtime after customer selects cineplex, movie and cinema type
+	 * @param cineplex selected cineplex
+	 * @param movie selected movie
+	 * @param cinemaType selected cinema type
+	 * @return arraylist of showtimes
+	 */
    public ArrayList<ShowTime> getShowTimes(Cineplex cineplex, Movie movie, String cinemaType){
 	   ArrayList<ShowTime> showTimes = new ArrayList<>();
 	   ArrayList<ShowTime> selectedShowTimes = new ArrayList<>();
@@ -186,6 +231,13 @@ public class MovieGoerController extends Utils {
 	   return selectedShowTimes;
    }
 
+	/**
+	 * Calculate base price of tickets after customer selects cineplex, movie, cinema type and showtime
+	 * @param movie selected movie
+	 * @param cinemaType selected cinema type
+	 * @param showtime selected show time
+	 * @return base price
+	 */
    public float calculateTicketBasePrice(Movie movie, String cinemaType, ShowTime showtime){
 	   ArrayList<String> categories = new ArrayList<>();
 	   String movieClass = movie.getMovieClass();
@@ -210,6 +262,12 @@ public class MovieGoerController extends Utils {
 	   else return 0;
    }
 
+	/**
+	 * calculates total price of all tickets ordered by the customer
+	 * @param chosenSeats hashmap with key seatID and value age category
+	 * @param basePrice base price of the tickets
+	 * @return total price
+	 */
    public float calculateTotalPrice(HashMap<String,String> chosenSeats,float basePrice){
        float totalPrice=0;
        Price p = new Price();
@@ -222,13 +280,22 @@ public class MovieGoerController extends Utils {
        return totalPrice;
    }
 
+	/**
+	 * Calculates the ticket price given the age category and base price
+	 * @param age selected age category
+	 * @param basePrice base price of the tickets
+	 * @return price of the ticket
+	 */
     public float calculateTicketPrice(String age, float basePrice){
        Price p = new Price();
        float ticketPrice = basePrice  + p.getPrice(age);
        return ticketPrice;
     }
 
-   public void seatSelection() {
+	/**
+	 * Serves as a controller between seat UIs and the entities
+	 */
+	public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
 	   	 
@@ -298,6 +365,11 @@ public class MovieGoerController extends Utils {
 	   }
    }
 
+	/**
+	 * Returns a hashmapwith key: age category and value: number of tickets in that age category
+	 * @param chosenSeat Seats chosen by the customer
+	 * @return hashmap with key:age category and value: number of tickets
+	 */
    public HashMap<String,Integer> getAgeCount(HashMap<String,String> chosenSeat){
 	   HashMap<String,Integer> ageCount = new HashMap<>();
 	   for(String age: chosenSeat.values()){
@@ -316,6 +388,13 @@ public class MovieGoerController extends Utils {
 	   return ageCount;
    }
 
+	/**
+	 * Set the selected seats as occupied
+	 * @param cineplex selected cineplex
+	 * @param cinema selected cinema
+	 * @param showTime selected show time
+	 * @param chosenSeats selected seats
+	 */
    public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){
 	   ArrayList<Cineplex> cineplexes = null;
 	   try {
@@ -348,7 +427,11 @@ public class MovieGoerController extends Utils {
 		   e.printStackTrace();
 	   }
    }
-   public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
+
+	/**
+	 * Creates a comparator which compares two different movies based on total sales
+	 */
+	public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
 
 		public int compare(Movie m1, Movie m2) {
 			int movieTicketSales1 = m1.getTotalSales();
@@ -361,6 +444,10 @@ public class MovieGoerController extends Utils {
 			return movieTicketSales2-movieTicketSales1;
 		}
    };
+
+	/**
+	 * Creates a comparator which compares two different movies based on review rating
+	 */
 	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
 
 		public int compare(Movie m1, Movie m2) {
@@ -374,6 +461,11 @@ public class MovieGoerController extends Utils {
 			return movieTicketSales2-movieTicketSales1;
 		}
 	};
+
+	/**
+	 * returns top 5 movies based on total sales
+	 * @return array list of movies
+	 */
    public ArrayList<Movie> getTop5MoviesListTicket(){
    	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
    	nowShowingMovies = getNowShowingMovieList();
@@ -391,6 +483,11 @@ public class MovieGoerController extends Utils {
 	}
    	return top5Movies;
    }
+
+	/**
+	 * returns top 5 movies based on review ratings
+	 * @return array list of movies
+	 */
 	public ArrayList<Movie> getTop5MoviesListRating(){
 		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
 		nowShowingMovies = getNowShowingMovieList();
