@@ -22,7 +22,7 @@ public class Person {
 
     /**
      * Gets the name of this person.
-     * @return this Person's name
+     * @return this Person's name.
      */
     public String getName() {
         return name;
