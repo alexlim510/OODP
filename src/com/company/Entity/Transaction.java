@@ -1,31 +1,36 @@
 package com.company.Entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.io.Serializable;
 
-class Transaction {
+public class Transaction implements Serializable{
    private String TID;
-   private String customerPhone;
    private String customerEmail;
    private String customerName;
-   private String movieTitle;
+   private Cineplex cineplex;
+   private Cinema cinema;
    private ShowTime showTime;
-   private ArrayList<Seat> seats;
-   private LocalDateTime dateTime;
+   private HashMap<Seat,String> seats;
    private float totalPrice;
    
-   public Transaction(String TID, Customer customer, Movie movie, float totalPrice, ArrayList<Seat> seats, LocalDateTime dateTime){
-      this.TID = TID;
-      this.customerPhone = customer.getPhone();
+   public Transaction(Customer customer,Cineplex cineplex, Cinema cinema, ShowTime showTime, float totalPrice,
+                       HashMap<String,String> chosenSeats){
+      this.TID = customer.getEmail()+showTime.getDateTime();
       this.customerEmail = customer.getEmail();
       this.customerName = customer.getName();
-      this.movieTitle = movie.getTitle();
+      this.cineplex = cineplex;
+      this.cinema = cinema;
+      this.showTime = showTime;
       this.totalPrice = totalPrice;
-      this.seats = seats;
-      this.dateTime = dateTime;
-   }
-   
-   public String getCustomerPhone(){
-      return this.customerPhone;
+      HashMap<Seat,String> seats = new HashMap<>();
+      for (Map.Entry<String, String> seat : chosenSeats.entrySet()) {
+         String seatID = seat.getKey();
+         String age = seat.getValue();
+         seats.put(showTime.getSeat(seatID),age);
+      }
+      this.seats=seats;
    }
 
    public String getCustomerName(){
@@ -34,36 +39,43 @@ class Transaction {
    
    public String getCustomerEmail(){
       return this.customerEmail;
-   }   
-
-   public String getMovieTitle(){
-      return this.movieTitle;
    }
    
    public ShowTime getShowTime(){
       return this.showTime;
    }   
    
-   public ArrayList<Seat> getSeats(){
+   public HashMap<Seat,String> getSeats(){
       return this.seats;
    }
    
-   public LocalDateTime getDateTime(){
-      return this.dateTime; 
-   }
-   
    //modifyCustomer()
-   //setMovieTitle()
    
    public void setShowTime(ShowTime showTime){
       this.showTime = showTime;
    }
    
-   public void setSeats(ArrayList<Seat> seats){
+   public void setSeats(HashMap<Seat,String> seats){
       this.seats = seats;
    }
-   
-   public void setDateTime(){
-      this.dateTime = LocalDateTime.now();
-   }     
+
+   public Cineplex getCineplex() {
+      return cineplex;
+   }
+
+   public void setCineplex(Cineplex cineplex) {
+      this.cineplex = cineplex;
+   }
+
+   public Cinema getCinema() {
+      return cinema;
+   }
+
+   public void setCinema(Cinema cinema) {
+      this.cinema = cinema;
+   }
+
+   public float getTotalPrice(){
+      return  this.totalPrice;
+   }
 }

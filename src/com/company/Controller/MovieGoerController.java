@@ -246,6 +246,47 @@ public class MovieGoerController extends Utils {
        sui.getTicketView(cineplex, chosenSeats,cinema,showtime);
        occupySeats(cineplex,cinema,showtime,chosenSeats);
 
+       //update user transaction history
+	   Customer customer = Utils.getCustomerCookie();
+	   ArrayList<Customer> customerData = new ArrayList<>();
+	   Transaction transaction = new Transaction(customer,cineplex,cinema,showtime,
+			   calculateTotalPrice(chosenSeats,basePrice),chosenSeats);
+	   customer.addTransactions(transaction);
+	   Utils.storeCustomerCookie(customer);
+
+	   try {
+		   customerData = (ArrayList<Customer>)Utils.readObject("customer.txt");
+		   for(Customer c: customerData){
+		   	if(customer.getEmail().equals(c.getEmail())){
+		   		c.addTransactions(transaction);
+			}
+		   }
+		   Utils.writeObject("customer.txt",customerData);
+	   } catch (IOException e) {
+		   System.out.println("File not found!");
+		   return;
+	   } catch (ClassNotFoundException e) {
+		   System.out.println("File not found!");
+		   return;
+	   }
+   }
+
+   public HashMap<String,Integer> getAgeCount(HashMap<String,String> chosenSeat){
+	   HashMap<String,Integer> ageCount = new HashMap<>();
+	   for(String age: chosenSeat.values()){
+		   if(ageCount.size()==0){
+			   ageCount.put(age,1);
+		   }
+		   else{
+			   if(ageCount.containsKey(age)){
+				   ageCount.put(age, ageCount.get(age)+1);
+			   }
+			   else{
+				   ageCount.put(age,1);
+			   }
+		   }
+	   }
+	   return ageCount;
    }
 
    public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){

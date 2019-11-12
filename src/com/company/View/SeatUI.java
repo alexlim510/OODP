@@ -4,6 +4,8 @@ package com.company.View;
 import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.Controller.MovieGoerController;
+
+import java.lang.reflect.Proxy;
 import java.util.*;
 import java.time.format.DateTimeFormatter;
 public class SeatUI {
@@ -33,10 +35,13 @@ public class SeatUI {
 
 	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
 		System.out.println("Please select Show Time: ");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		int i;
+		Price p = new Price();
 		for(i=0;i<showTimes.size();i++) {
-			System.out.println((i+1)+")"+showTimes.get(i).getDateTime().format(formatter));
+			if(p.isHoliday(showTimes.get(i).getDateTime()))
+				System.out.println((i+1)+")"+Utils.createDayOfWeekString(showTimes.get(i).getDateTime())+"(Holiday)");
+			else
+				System.out.println((i+1)+")"+Utils.createDayOfWeekString(showTimes.get(i).getDateTime()));
 		}
 		System.out.println((i+1)+")"+ "Return to main menu");
 
@@ -102,23 +107,10 @@ public class SeatUI {
 
 	public void getTicketPriceView(HashMap<String,String> chosenSeat, float basePrice){
 		MovieGoerController mgc = new MovieGoerController();
-		HashMap<String,Integer> agePrice = new HashMap<>();
-		for(String age: chosenSeat.values()){
-			if(agePrice.size()==0){
-				agePrice.put(age,1);
-			}
-			else{
-				if(agePrice.containsKey(age)){
-					agePrice.put(age, agePrice.get(age)+1);
-				}
-				else{
-					agePrice.put(age,1);
-				}
-			}
-		}
-		for(Map.Entry<String,Integer> ageprice : agePrice.entrySet()){
-			System.out.println(ageprice.getKey() + " x" + ageprice.getValue() + ": " +
-					(mgc.calculateTicketPrice(ageprice.getKey(),basePrice)*ageprice.getValue()));
+		HashMap<String,Integer> ageCount = mgc.getAgeCount(chosenSeat);
+		for(Map.Entry<String,Integer> ac : ageCount.entrySet()){
+			System.out.println(ac.getKey() + " x" + ac.getValue() + ": " +
+					(mgc.calculateTicketPrice(ac.getKey(),basePrice)*ac.getValue()));
 		}
 	}
 

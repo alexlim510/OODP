@@ -1,12 +1,11 @@
 package com.company.View;
 import com.company.Controller.MovieGoerController;
-import com.company.Entity.Cineplex;
-import com.company.Entity.Movie;
-import com.company.Entity.Review;
+import com.company.Entity.*;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -87,7 +86,8 @@ public class MovieGoerUI {
             System.out.println("1) Book Ticket");
             System.out.println("2) Movie Listing");
             System.out.println("3) Make a review");
-            System.out.println("4) Quit");
+			System.out.println("4) View booking history");
+            System.out.println("5) Quit");
             try {
                 int choice = sc.nextInt();
                 switch(choice) {
@@ -100,11 +100,14 @@ public class MovieGoerUI {
                 case 3:
                     getMakeAReviewView();
                     break;
-                    case 4:
-                  loop = false;
+                case 4:
+					getBookingHistoryView();
+					break;
+				case 5:
+					loop = false;
                     break;
                 default:
-                    System.out.println("Please input 1,2 or 3.");
+                    System.out.println("Please input 1,2,3,4 or 5.");
                     break;
                 }
             }
@@ -144,6 +147,36 @@ public class MovieGoerUI {
 		}
 	
 		HandleReviewUI.MakeReview(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+	}
+
+	public void getBookingHistoryView(){
+		Price p = new Price();
+		Customer customer = Utils.getCustomerCookie();
+		ArrayList<Transaction> transactions = customer.getTransactions();
+		if(transactions.size()==0){
+			System.out.println("No bookings have been made.");
+			return;
+		}
+
+		Utils.displayHeader("Booking History");
+
+		for(Transaction t: transactions){
+			System.out.println("Movie: " + t.getShowTime().getMovie().getTitle());
+			System.out.println("Cineplex: " + t.getCineplex().getCineplexName());
+			System.out.println("Cinema: " + t.getCinema().getCID());
+			if(p.isHoliday(t.getShowTime().getDateTime()))
+				System.out.println(Utils.createDayOfWeekString(t.getShowTime().getDateTime())+"(Holiday)");
+			else
+				System.out.println(Utils.createDayOfWeekString(t.getShowTime().getDateTime()));
+			System.out.println("Seats:");
+			for(Map.Entry<Seat,String> chosenSeat : t.getSeats().entrySet()){
+				Seat seat = chosenSeat.getKey();
+				String age = chosenSeat.getValue();
+				System.out.println(seat.getRow() + seat.getColumn() + ": " + age);
+			}
+			System.out.println("Total price: " + t.getTotalPrice());
+			System.out.println("-----------------------------------------");
+		}
 	}
 }
 

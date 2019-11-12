@@ -124,6 +124,12 @@ public class Utils {
       return LocalDateTime.parse(date, formatter);
    }
 
+   public static String createDayOfWeekString(LocalDateTime localDateTime){
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm (E)");
+      return localDateTime.format(formatter);
+
+   }
+
    public static float getFloatInput(String inputMessage){
       //just parse to get the integer
       float val = 0;
