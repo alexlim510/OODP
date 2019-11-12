@@ -16,11 +16,21 @@ import java.util.Date;
 
 import static com.company.Utils.Utils.createLocalDateTime;
 
+/**
+ * This is the main controller for the StaffUI.
+ * It handles the movie & show time creating, modification and deletion along with the configuration of system settings.
+ * @author Akarapu Bharadwaj
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class StaffControl {
     //    MovieGoerController movieController = new MovieGoerController();
 //    MovieGoerUI movieGoerUI = new MovieGoerUI();
     Movie movieFunctions = new Movie();
 
+    /**
+     * Adds a new movie to the movie.txt file
+     */
     public void addMovieListing() {
         String title;
         String synopsis;
@@ -115,6 +125,9 @@ public class StaffControl {
         // Todo print out the movie attribues?
     }
 
+    /**
+     * Edits an attribute of one of the movie from the movie.txt file
+     */
     public void editMovieListing() {
         String synopsis;
         String director;
@@ -265,6 +278,9 @@ public class StaffControl {
         }
     }
 
+    /**
+     * Deletes a movie from the movie.txt file
+     */
     public void deleteMovieListing() {
         ArrayList<Movie> movieList;
         try{
