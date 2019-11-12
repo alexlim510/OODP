@@ -1,17 +1,16 @@
 package com.company.Entity;
 import java.io.Serializable;
 
-public class Staff implements Serializable {
+public class Staff extends Person implements Serializable {
     private String staffID;
     private String userName;
     private String password;
-    private String staffName;
 
     public Staff(String staffID, String userName, String password, String staffName) {
+        super(staffName);
         this.staffID = staffID;
         this.userName = userName;
         this.password = password;
-        this.staffName = staffName;
     }
 
     public String getUserName() {
@@ -29,14 +28,4 @@ public class Staff implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
-
 }
