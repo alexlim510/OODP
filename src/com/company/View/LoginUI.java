@@ -10,9 +10,13 @@ import java.util.Scanner;
 
 import java.util.*;
 
-
+/**
+ *  Login UI to allow user to sign in as admin or movie goer
+ */
 public class LoginUI {
-
+    /**
+     * Display UI for user to choose user type ( Admin / Movie Goer )
+     */
    public void displayLoginPage() {
       System.out.println("Select User Type: ");
       System.out.println("1) Admin");
@@ -42,7 +46,9 @@ public class LoginUI {
       }
    }
 
-
+    /**
+     * Allow Movie Goer to login or register
+     */
    public void displayLoginRegisterPage()
    {
       Utils.displayHeader("Login/Register");
@@ -69,6 +75,9 @@ while (!end) {
 }
    }
 
+    /**
+     * Allow user goer to  register a new account
+     */
    public void displayPublicRegisterPage() {
       Utils.displayHeader("Customer Register");
       LoginController logCtrl = new LoginController();
@@ -109,8 +118,9 @@ while (!end) {
       //mui.getHomeView();
 
 
-
-
+    /**
+     *  Display Movie Goer Log in Page and allow them to login
+     */
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
       Utils.displayHeader("Customer Login");
@@ -129,7 +139,10 @@ while (!end) {
       MovieGoerUI mui = new MovieGoerUI();
       mui.getHomeView();
    }
-	
+
+    /**
+     * display admin Login page and allow user to log in
+     */
    public void displayAdminLoginPage() {
       LoginController logCtrl = new LoginController(); 
       Utils.displayHeader("Admin Login");				

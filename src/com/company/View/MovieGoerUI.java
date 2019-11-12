@@ -9,15 +9,20 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-
-
+/**
+ *  MovieGoerUI to generate User interface for movie goers
+ */
 public class MovieGoerUI {
 	
 	MovieGoerController movieController = new MovieGoerController();
-	/* getMovieDetailsView(Movie movie):
-	When a certain movie is passed in, this method will print out
-	All the details of that movie following the sequence
-	*/
+
+	/**
+	 *
+	 * 	When a certain movie is passed in, this method will print out
+	 * 	All the details of that movie following the sequence
+	 *
+	 * @param movie
+	 */
 	public void getMovieDetailsView(Movie movie) {
 		int n=0;
 		
@@ -55,9 +60,10 @@ public class MovieGoerUI {
 					n++;}
 
 		}
-	/* getMovieListingView()
-	Prints out all the movies available in the database
-	In the end, asks users which movie they wanna view the details
+
+	/**
+	*Prints out all the movies available in the database
+	*In the end, asks users which movie they wanna view the details
 	 */
 	public void getMovieListingView(){
 		int i=1;
@@ -71,7 +77,7 @@ public class MovieGoerUI {
 		}
 	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
-	/* getHomeView()
+	/** getHomeView()
 	Prints the choices available for the users
 	Asks for users' input
 	Once they choose, the method will execute to the intended method.
@@ -116,7 +122,7 @@ public class MovieGoerUI {
             }
         }
     }
-	/* getCineplexView()
+	/** getCineplexView()
 	Prints out all the Cineplexes available
 	 */
 	public void getCineplexView() {
@@ -130,7 +136,7 @@ public class MovieGoerUI {
 			i++;
 		}
 	}
-	/* getMakeAReviewView()
+	/** getMakeAReviewView()
 	Prints out only the movies with statusType = 'Now showing'
 	In the end, asks users which movie they want to make reviews
 	 */

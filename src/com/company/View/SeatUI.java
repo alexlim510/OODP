@@ -8,7 +8,19 @@ import com.company.Controller.MovieGoerController;
 import java.lang.reflect.Proxy;
 import java.util.*;
 import java.time.format.DateTimeFormatter;
+
+
+/**
+ * Show interfaces
+ */
 public class SeatUI {
+
+
+	/**
+	 *
+	 * @param cineplexes
+	 * @return
+	 */
 	public int getCineplexSelectionView(ArrayList<Cineplex> cineplexes) {
 		System.out.println("Please select cineplex: ");
 		for(int i=0;i<cineplexes.size();i++) {
