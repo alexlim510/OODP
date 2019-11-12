@@ -1,9 +1,11 @@
 package com.company.Controller;
 
 import com.company.Entity.Customer;
+import com.company.Entity.Movie;
 import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 
@@ -44,5 +46,19 @@ public class LoginController extends Utils {
          System.out.println(e);
       }
       return false;
+   }
+
+   public void updateMovieStatus(){
+      try {
+         ArrayList<Movie> movies = (ArrayList<Movie>)Utils.readObject("movie.txt");
+         for(Movie m: movies){
+            if(m.getShowTill().isBefore(LocalDateTime.now())){
+               m.setStatusType("End of showing");
+            }
+         }
+         Utils.writeObject("movie.txt",(Object)movies);
+      } catch (IOException e) {
+      } catch (ClassNotFoundException e) {
+      }
    }
 }
