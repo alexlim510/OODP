@@ -168,10 +168,11 @@ public class StaffUI {
    }
    private void getTop5byTicketSales(){
       MovieGoerUI movieGoer = new MovieGoerUI();
-      movieGoer.getTop5MoviesView();
+      movieGoer.getTop5MoviesTicketView();
    }
 
    private void getTop5byReviewRating(){
-
+      MovieGoerUI movieGoer = new MovieGoerUI();
+      movieGoer.getTop5MoviesRatingView();
    }
 }

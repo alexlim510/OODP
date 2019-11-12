@@ -352,7 +352,20 @@ public class MovieGoerController extends Utils {
 			return movieTicketSales2-movieTicketSales1;
 		}
    };
-   public ArrayList<Movie> getTop5MoviesList(){
+	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
+
+		public int compare(Movie m1, Movie m2) {
+			int movieTicketSales1 = m1.getTotalSales();
+			int movieTicketSales2 = m2.getTotalSales();
+
+			//ascending order
+			//return StudentName1.compareTo(StudentName2);
+
+			//descending order
+			return movieTicketSales2-movieTicketSales1;
+		}
+	};
+   public ArrayList<Movie> getTop5MoviesListTicket(){
    	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
    	nowShowingMovies = getNowShowingMovieList();
    	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
@@ -369,4 +382,21 @@ public class MovieGoerController extends Utils {
 	}
    	return top5Movies;
    }
+	public ArrayList<Movie> getTop5MoviesListRating(){
+		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
+		nowShowingMovies = getNowShowingMovieList();
+		ArrayList<Movie> top5Movies = new ArrayList<Movie>();
+		Collections.sort(nowShowingMovies, overallReviewRatingSalesComparator);
+		int top5;
+		if(nowShowingMovies.size() > 5) {
+			top5 = 5;
+		}
+		else{
+			top5 = nowShowingMovies.size();
+		}
+		for (int i = 0; i < top5; i++){
+			top5Movies.add(nowShowingMovies.get(i));
+		}
+		return top5Movies;
+	}
 }

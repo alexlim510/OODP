@@ -184,14 +184,23 @@ public class MovieGoerUI {
 			System.out.println("-----------------------------------------");
 		}
 	}
-    public void getTop5MoviesView(){
-        Utils.displayHeader("Top 5 Movie List");
-        ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
-        top5MovieList = movieController.getTop5MoviesList();
-        int i = 1;
-        for (Movie m: top5MovieList){
-            System.out.println("Top "+ i + ": " + m.getTitle());
-        }
-    }
+    public void getTop5MoviesTicketView(){
+		Utils.displayHeader("Top 5 Movie List");
+		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
+		top5MovieList = movieController.getTop5MoviesListTicket();
+		int i = 1;
+		for (Movie m: top5MovieList){
+			System.out.println("Top "+ i + ": " + m.getTitle());
+		}
+	}
+	public void getTop5MoviesRatingView(){
+		Utils.displayHeader("Top 5 Movie List");
+		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
+		top5MovieList = movieController.getTop5MoviesListRating();
+		int i = 1;
+		for (Movie m: top5MovieList){
+			System.out.println("Top "+ i + ": " + m.getTitle());
+		}
+	}
 }
 
