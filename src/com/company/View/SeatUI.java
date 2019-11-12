@@ -34,10 +34,15 @@ public class SeatUI {
 	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
 		System.out.println("Please select Show Time: ");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		for(int i=0;i<showTimes.size();i++) {
+		int i;
+		for(i=0;i<showTimes.size();i++) {
 			System.out.println((i+1)+")"+showTimes.get(i).getDateTime().format(formatter));
 		}
-		return Utils.getUserChoice(1, showTimes.size())-1;
+		System.out.println((i+1)+")"+ "Return to main menu");
+
+		int choice = Utils.getUserChoice(1, showTimes.size()+1)-1;
+		if(choice>=showTimes.size()) return -1;
+		else return choice;
 	}
 
 	public HashMap<String,String> getSeatSelectionMenu(ShowTime st, float basePrice) {
@@ -66,7 +71,8 @@ public class SeatUI {
 							totalPrice = mgc.calculateTotalPrice(chosenSeat,basePrice);
 						}
 					getSeatListing(st,chosenSeat);
-					System.out.println("Current price: "+ Float.toString(totalPrice));
+					getTicketPriceView(chosenSeat,basePrice);
+					System.out.println("Current total price: "+ Float.toString(totalPrice));
 					break;
 				case 2:
 					String removedSeat = getSeatSelectionView(st,chosenSeat);
@@ -82,7 +88,8 @@ public class SeatUI {
 					else
 						System.out.println("You have not chosen any seats!!!");
 					getSeatListing(st,chosenSeat);
-					System.out.println("Current price: "+ Float.toString(totalPrice));
+					getTicketPriceView(chosenSeat,basePrice);
+					System.out.println("Current price: "+ totalPrice);
 					break;
 				case 3:
 				    if(getPaymentView(chosenSeat,basePrice,st)) return chosenSeat;
@@ -92,13 +99,36 @@ public class SeatUI {
 			}
 		}		
 	}
-	
+
+	public void getTicketPriceView(HashMap<String,String> chosenSeat, float basePrice){
+		MovieGoerController mgc = new MovieGoerController();
+		HashMap<String,Integer> agePrice = new HashMap<>();
+		for(String age: chosenSeat.values()){
+			if(agePrice.size()==0){
+				agePrice.put(age,1);
+			}
+			else{
+				if(agePrice.containsKey(age)){
+					agePrice.put(age, agePrice.get(age)+1);
+				}
+				else{
+					agePrice.put(age,1);
+				}
+			}
+		}
+		for(Map.Entry<String,Integer> ageprice : agePrice.entrySet()){
+			System.out.println(ageprice.getKey() + " x" + ageprice.getValue() + ": " +
+					(mgc.calculateTicketPrice(ageprice.getKey(),basePrice)*ageprice.getValue()));
+		}
+	}
+
+
 	public String getAgeSelection() {
 		System.out.println("Select Age: ");
 		System.out.println(
 	             "1. Adult\n" +
 	             "2. Senior Citizen\n" +
-	             "3. Child\n");
+	             "3. Child");
 		int choice = Utils.getUserChoice(1, 3);
 		Price prices = new Price();
 		switch(choice) {
@@ -232,14 +262,15 @@ public class SeatUI {
        }
    }
 
-   public void getTicketView(HashMap<String,String> chosenSeats,Cinema cinema, ShowTime st){
-       MovieGoerController mgc = new MovieGoerController();
+   public void getTicketView(Cineplex cineplex, HashMap<String,String> chosenSeats,Cinema cinema, ShowTime st){
        Utils.displayHeader("Tickets");
        for (Map.Entry<String, String> seat : chosenSeats.entrySet()) {
            System.out.println("===========================================");
            String seatID = seat.getKey();
            String age = seat.getValue();
            System.out.println(st.getMovie().getTitle());
+		   System.out.println("Cineplex: " + cineplex.getCineplexName());
+		   System.out.println("Cinema: " + cinema.getCID());
            System.out.println("Seat: " + st.getSeat(seatID).getRow() + st.getSeat(seatID).getColumn());
            System.out.println(age);
            System.out.println("===========================================");

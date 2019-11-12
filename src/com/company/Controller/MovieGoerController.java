@@ -183,6 +183,7 @@ public class MovieGoerController extends Utils {
        Price p = new Price();
        if(chosenSeats.size()!=0){
            for(String age: chosenSeats.values()){
+
                totalPrice = basePrice + totalPrice + p.getPrice(age);
            }
        }
@@ -212,12 +213,16 @@ public class MovieGoerController extends Utils {
 	   String cinemaType = cinemaTypes.get(sui.getCinemaTypeSelectionView(cinemaTypes));
 
 	   ArrayList<ShowTime> showtimes = getShowTimes(cineplex,movie,cinemaType);
-	   ShowTime showtime = showtimes.get(sui.getShowTimeSelectionView(showtimes));
+	   choice = sui.getShowTimeSelectionView(showtimes);
+	   if(choice==-1){
+	   	return;
+	   }
+	   ShowTime showtime = showtimes.get(choice);
        Cinema cinema = getCinema(cinemas,showtime);
        float basePrice = calculateTicketBasePrice(movie,cinemaType,showtime);
 
        HashMap<String,String> chosenSeats = sui.getSeatSelectionMenu(showtime,basePrice);
-       sui.getTicketView(chosenSeats,cinema,showtime);
+       sui.getTicketView(cineplex, chosenSeats,cinema,showtime);
        occupySeats(cineplex,cinema,showtime,chosenSeats);
 
    }
