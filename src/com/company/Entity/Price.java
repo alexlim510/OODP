@@ -159,7 +159,7 @@ public class Price implements Serializable{
 
 	/**
 	 * Add weekend
-	 * @param weekend
+	 * @param weekend weekend constant
 	 */
 	public void addWeekend(int weekend) {
 		if(weekends.contains(weekend)) {
@@ -169,7 +169,11 @@ public class Price implements Serializable{
 			weekends.add(weekend);			
 		}
 	}
-	
+
+	/**
+	 * remove weekend
+	 * @param weekend weekend constant
+	 */
 	public void removeWeekend(int weekend) {
 		if(weekends.contains(weekend)) {
 			weekends.remove(weekend);
@@ -179,6 +183,11 @@ public class Price implements Serializable{
 		}
 	}
 
+	/**
+	 * check if day is weekend
+	 * @param day day constant
+	 * @return true or false depending if given day is a weekend
+	 */
 	public boolean isWeekend(int day){
 		if(weekends.contains(day)){
 			return true;
@@ -186,6 +195,11 @@ public class Price implements Serializable{
 		return false;
 	}
 
+	/**
+	 * checks if date is a holiday
+	 * @param date date
+	 * @return true or false depending if given day is a holiday
+	 */
 	public boolean isHoliday(LocalDateTime date){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String chosenDate = date.format(formatter);
