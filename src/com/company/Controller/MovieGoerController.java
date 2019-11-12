@@ -14,6 +14,9 @@ import java.util.Comparator;
 
 /**
  * Serve as the controller for Movie Goer's features
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-12-11
  */
 public class MovieGoerController extends Utils {
 	/**

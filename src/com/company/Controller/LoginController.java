@@ -9,9 +9,18 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Main controller for login
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-12-11
+ */
 public class LoginController extends Utils {
-	
-
+    /**
+     * checks customer credentials
+     * @param email email of customer
+     * @return boolean depending on whether the credentials are correct
+     */
    public boolean checkCustomer(String email) {
       try {
       	//create empty array of Staff
@@ -28,8 +37,13 @@ public class LoginController extends Utils {
       } catch (ClassNotFoundException | IOException e) {}
       return false;
    }
-	
 
+    /**
+     * checks staff credentials
+     * @param username username of staff
+     * @param password password of staff
+     * @return boolean depending on whether the credentials are correct
+     */
    public boolean checkAdmin(String username, String password) {
       try {
       	//create empty array of Staff
@@ -48,6 +62,10 @@ public class LoginController extends Utils {
       return false;
    }
 
+    /**
+     * On start of program, checks the end date of all movies and update their status to end of showing
+     * if the end date has passed
+     */
    public void updateMovieStatus(){
       try {
          ArrayList<Movie> movies = (ArrayList<Movie>)Utils.readObject("movie.txt");
