@@ -68,8 +68,16 @@ public class StaffControl {
         Movie movie = new Movie(title, synopsis, director, cast, genre, duration, movieClass, ageType, statusType);
 
         // read the movielist from text file
-        ArrayList<Movie> movieList;
-        movieList = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        ArrayList<Movie> movieList = new ArrayList<>();
+        try {
+            movieList = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        } catch (IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        } catch (ClassNotFoundException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
     }
 }
         /*catch (ClassNotFoundException e){
