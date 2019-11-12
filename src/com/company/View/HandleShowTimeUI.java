@@ -19,13 +19,18 @@ public class HandleShowTimeUI {
     public static void addShowTimeUI(){
         Utils.displayHeader("Add Show Time");
         Scanner sc = new Scanner(System.in);
+
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
         CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-        /*catch (ClassNotFoundException | IOException e) {
-            System.out.println("File is missing. Please try again");
-            return;
-        }*/
+
+//        try{
+//            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+//        }
+//        catch (ClassNotFoundException | IOException e) {
+//            System.out.println("File is missing. Please try again");
+//            return;
+//        }
 
         int cineplexChoice;
         try{
