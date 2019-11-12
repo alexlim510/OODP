@@ -10,9 +10,16 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-
+/**
+ * Helper class
+ */
 public class Utils {
-	
+
+    /**
+     * get Object output stream
+     * @param fileName file to get Object output stream from
+     * @return Object output stream
+     */
    public static ObjectOutputStream getObjectOutputStream(String fileName) {
       try {
          return new ObjectOutputStream(new FileOutputStream(fileName));
@@ -21,11 +28,21 @@ public class Utils {
       }
       return null;
    }
-	
+
+    /**
+     * Write object to file
+     * @param fileName file to write object to
+     * @param data Data to write to file
+     */
    public static void writeObject(String fileName, Object data) throws IOException {
       getObjectOutputStream(fileName).writeObject(data);
    }
-	
+
+    /**
+     * get Object input stream
+     * @param fileName file to get Object input stream from
+     * @return Object input stream
+     */
    public static ObjectInputStream getObjectInputStream(String fileName) {
       try {
          return new ObjectInputStream(new FileInputStream(fileName));
@@ -34,12 +51,20 @@ public class Utils {
       }
       return null;
    }
-	
 
+    /**
+     * Read object from file
+     * @param fileName file to read object from
+     * @return Data contained in the file
+     */
    public static Object readObject(String fileName) throws IOException, ClassNotFoundException {
       return (Object)getObjectInputStream(fileName).readObject();
    }
-	
+
+    /**
+     * Writes Customer object to usercookie.txt
+     * @param c Object of customer that is currently running the programming
+     */
    public static void storeCustomerCookie(Customer c) {
       try {
          ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
@@ -48,16 +73,11 @@ public class Utils {
          System.out.println(e);
       }
    }
-	
-   public static void storeAdminCookie(Staff s) {
-      try {
-         ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
-         oos.writeObject(s);
-      } catch (IOException e) {
-         System.out.println(e);
-      }
-   }
 
+    /**
+     * Get customer object from usercookie.txt
+     * @return Customer object
+     */
    public static Customer getCustomerCookie() {
       try {
          return (Customer)getObjectInputStream("usercookie.txt").readObject();

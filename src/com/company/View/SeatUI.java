@@ -2,6 +2,9 @@ package com.company.View;
 import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.Controller.MovieGoerController;
+import jdk.jshell.execution.Util;
+
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -57,7 +60,17 @@ public class SeatUI {
 	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
 		System.out.println("Please select Show Time: ");
 		int i;
-		Price p = new Price();
+		Price p = null;
+		try {
+			p = (Price) Utils.readObject("Price.txt");
+		} catch (IOException e) {
+			System.out.println("Invalid file");
+			return -1;
+		} catch (ClassNotFoundException e) {
+			System.out.println("Invalid file");
+			return -1;
+		}
+
 		for(i=0;i<showTimes.size();i++) {
 			if(p.isHoliday(showTimes.get(i).getDateTime()))
 				System.out.println((i+1)+")"+Utils.createDayOfWeekString(showTimes.get(i).getDateTime())+"(Holiday)");

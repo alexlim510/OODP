@@ -192,7 +192,16 @@ public class MovieGoerController extends Utils {
 	   if(movieClass!= null) categories.add(movieClass);
        categories.add(cinemaType);
 	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
-	   Price p = new Price();
+	   Price p = null;
+	   try {
+		   p = (Price) Utils.readObject("price.txt");
+	   } catch (IOException e) {
+		   System.out.println("Invalid file");
+		   return -1;
+	   } catch (ClassNotFoundException e) {
+		   System.out.println("Invalid file");
+		   return -1;
+	   }
 	   if(p.isWeekend(dayOfWeek)) categories.add("Weekend");
 	   if(p.isHoliday(showtime.getDateTime())) categories.add("Holiday");
 	   if(categories.size()!=0){
