@@ -32,6 +32,5 @@ public class HandleHolidayMgr {
             return false;
         }
         return HandlePricingMgr.modifyPriceDB(pricing);
-
     }
 }
