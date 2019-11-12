@@ -1,7 +1,7 @@
 package com.company.Entity;
 
 /**
- * This is a simple person Class
+ * Represents a person with a name.
  * @author Akarapu Bharadwaj
  * @version 1.0
  * @since 2019-11-12
