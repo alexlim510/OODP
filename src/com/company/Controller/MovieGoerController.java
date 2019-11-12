@@ -8,14 +8,16 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Comparator;
 
 
 public class MovieGoerController extends Utils {
-
-	/* MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
-	User gets a glance of all movies available ----> getMovieListingView()
-	Then user will be prompted three choices ----> getHomeView()
+	/**
+	 * MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
+	 * User gets a glance of all movies available ----> getMovieListingView()
+	 * Then user will be prompted three choices ----> getHomeView()
 	 */
    public void MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
    {
@@ -77,8 +79,14 @@ public class MovieGoerController extends Utils {
 	   return allCineplex;
    }
    /* getMovieList(Cineplex cineplex)
-   Returns ArrayList of Movie Object with:
-
+   Iterates through the cinemas in Cineplex
+   		Iterates through the showtimes in cinemas
+   			if the movie residing in the showtime is now-showing movie
+   				add to the movieList
+   Returns ArrayList of Movie Objects:
+	1. Of a particular Cineplex
+	2. Of all cinemas
+	3. Of all showTimes with now-showing movies
     */
    public ArrayList<Movie> getMovieList(Cineplex cineplex){	   
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
@@ -88,14 +96,14 @@ public class MovieGoerController extends Utils {
 		   ArrayList<ShowTime> showTimes = cinema.getShowTime();
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
-			   if(movie.getStatusType().equals("Now showing")) {
+			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
 				   movieList.add(movie);	   
 			   }
 		   }
 	   }
 	   return movieList;   		  	   
    }
-   
+
    public ArrayList<String> getMovieTitles(ArrayList<Movie> movies){
 	   ArrayList<String> movieList = new ArrayList<String>();
 	   String temp;
@@ -240,6 +248,63 @@ public class MovieGoerController extends Utils {
        sui.getTicketView(cineplex, chosenSeats,cinema,showtime);
        occupySeats(cineplex,cinema,showtime,chosenSeats);
 
+       //update user transaction history
+	   Customer customer = Utils.getCustomerCookie();
+	   ArrayList<Customer> customerData = new ArrayList<>();
+	   Transaction transaction = new Transaction(customer,cineplex,cinema,showtime,
+			   calculateTotalPrice(chosenSeats,basePrice),chosenSeats);
+	   customer.addTransactions(transaction);
+	   Utils.storeCustomerCookie(customer);
+
+	   try {
+		   customerData = (ArrayList<Customer>)Utils.readObject("customer.txt");
+		   for(Customer c: customerData){
+		   	if(customer.getEmail().equals(c.getEmail())){
+		   		c.addTransactions(transaction);
+			}
+		   }
+		   Utils.writeObject("customer.txt",customerData);
+	   } catch (IOException e) {
+		   System.out.println("File not found!");
+		   return;
+	   } catch (ClassNotFoundException e) {
+		   System.out.println("File not found!");
+		   return;
+	   }
+
+	   //update movie Total Sales
+	   try {
+		   ArrayList<Movie> movieData = (ArrayList<Movie>)Utils.readObject("movie.txt");
+		   for(Movie m: movieData){
+		   	if(m.getTitle().equals(movie.getTitle())){
+		   		m.increaseTotalSales(chosenSeats.size());
+		   		break;
+			}
+		   }
+		   Utils.writeObject("movie.txt",movieData);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   } catch (ClassNotFoundException e) {
+		   e.printStackTrace();
+	   }
+   }
+
+   public HashMap<String,Integer> getAgeCount(HashMap<String,String> chosenSeat){
+	   HashMap<String,Integer> ageCount = new HashMap<>();
+	   for(String age: chosenSeat.values()){
+		   if(ageCount.size()==0){
+			   ageCount.put(age,1);
+		   }
+		   else{
+			   if(ageCount.containsKey(age)){
+				   ageCount.put(age, ageCount.get(age)+1);
+			   }
+			   else{
+				   ageCount.put(age,1);
+			   }
+		   }
+	   }
+	   return ageCount;
    }
 
    public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){
@@ -273,5 +338,29 @@ public class MovieGoerController extends Utils {
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   }
+   }
+   public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
+
+		public int compare(Movie m1, Movie m2) {
+			int movieTicketSales1 = m1.getTotalSales();
+			int movieTicketSales2 = m2.getTotalSales();
+
+			//ascending order
+			//return StudentName1.compareTo(StudentName2);
+
+			//descending order
+			return movieTicketSales2-movieTicketSales1;
+		}
+   };
+   public ArrayList<Movie> getTop5MoviesList(){
+   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
+   	nowShowingMovies = getNowShowingMovieList();
+   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
+   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
+   	int top5 = 5;
+   	for (int i = 0; i < top5; i++){
+		top5Movies.add(nowShowingMovies.get(i));
+	}
+   	return top5Movies;
    }
 }

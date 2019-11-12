@@ -1,5 +1,7 @@
 package com.company.Entity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import com.company.Entity.Transaction;
 
 public class Customer implements Serializable{
 	
@@ -9,6 +11,7 @@ public class Customer implements Serializable{
    private int age;
    private boolean isStudent;
    private boolean isElderly;
+   private ArrayList<Transaction> transactions = new ArrayList<>();
 
    public Customer(String name, String phone, String email) {
       this.name = name;
@@ -63,5 +66,13 @@ public String getEmail() {
 
    public void setIsElderly(boolean isElderly) {
       this.isElderly = isElderly;
+   }
+
+   public ArrayList<Transaction> getTransactions() { return transactions; }
+
+   public void setTransactions(ArrayList<Transaction> transactions) { this.transactions = transactions; }
+
+   public void addTransactions(Transaction transaction){
+      this.transactions.add(transaction);
    }
 }
