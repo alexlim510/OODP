@@ -11,17 +11,18 @@ import java.util.Scanner;
 
 /**
  *  MovieGoerUI to generate User interface for movie goers
+ * @author Alexander Lim, Chean
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class MovieGoerUI {
 	
 	MovieGoerController movieController = new MovieGoerController();
 
 	/**
-	 *
 	 * 	When a certain movie is passed in, this method will print out
 	 * 	All the details of that movie following the sequence
-	 *
-	 * @param movie
+	 * @param movie movie selected by customer
 	 */
 	public void getMovieDetailsView(Movie movie) {
 		int n=0;
@@ -78,9 +79,9 @@ public class MovieGoerUI {
 	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 	/** getHomeView()
-	Prints the choices available for the users
-	Asks for users' input
-	Once they choose, the method will execute to the intended method.
+	 *Prints the choices available for the users
+	 *Asks for users' input
+	 *Once they choose, the method will execute to the intended method.
 	 */
 	public void getHomeView() {
 
@@ -126,8 +127,8 @@ public class MovieGoerUI {
             }
         }
     }
-	/** getCineplexView()
-	Prints out all the Cineplexes available
+	/**
+	 *Prints out all the Cineplexes available
 	 */
 	public void getCineplexView() {
 		int i=1;
@@ -140,9 +141,9 @@ public class MovieGoerUI {
 			i++;
 		}
 	}
-	/** getMakeAReviewView()
-	Prints out only the movies with statusType = 'Now showing'
-	In the end, asks users which movie they want to make reviews
+	/**
+	 *Prints out only the movies with statusType = 'Now showing'
+	 *In the end, asks users which movie they want to make reviews
 	 */
 	public void getMakeAReviewView() {
 		System.out.println("Please choose a movie to make review: ");
@@ -159,6 +160,9 @@ public class MovieGoerUI {
 		HandleReviewUI.MakeReview(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 
+	/**
+	 * Prints out all transaction history of customer
+	 */
 	public void getBookingHistoryView(){
 		Price p = new Price();
 		Customer customer = Utils.getCustomerCookie();
@@ -188,6 +192,10 @@ public class MovieGoerUI {
 			System.out.println("-----------------------------------------");
 		}
 	}
+
+	/**
+	 * Get user selection based on how they want to get top 5 movies
+	 */
 	public void listTopMovies() {
 		Utils.displayHeader("Top 5 Movies");
 		System.out.println(
@@ -202,6 +210,10 @@ public class MovieGoerUI {
 				break;
 		}
 	}
+
+	/**
+	 * prints out top 5 movies ordered by total sales
+	 */
     public void getTop5MoviesTicketView(){
 		Utils.displayHeader("Top 5 Movie List");
 		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
@@ -212,6 +224,10 @@ public class MovieGoerUI {
 			i++;
 		}
 	}
+
+	/**
+	 * prints out top 5 movies ordered by review ratings
+	 */
 	public void getTop5MoviesRatingView(){
 		Utils.displayHeader("Top 5 Movie List");
 		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();

@@ -2,13 +2,15 @@ package com.company.View;
 import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.Controller.MovieGoerController;
-import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 import java.util.*;
 
 /**
  * Generate User interface for seat selection, tickets and payment for movie goers
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class SeatUI {
 

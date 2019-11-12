@@ -11,7 +11,10 @@ import java.util.Scanner;
 
 
 /**
- * Helper class
+ * Helper class, contains static methods
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class Utils {
 
@@ -89,28 +92,22 @@ public class Utils {
       return null;
    }
 
-   public static Staff getAdminCookie() {
-      try {
-         return (Staff)getObjectInputStream("usercookie.txt").readObject();
-      } catch (ClassNotFoundException e) {
-         System.out.println(e);
-      } catch (IOException e) {
-         System.out.println(e);
-      }
-      return null;
-   }
-
-   public static void clearCookies() {
-      ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
-   }
-
+   /**
+    * Displays standard header for UI
+    * @param headerText text to be displayed in header
+    */
    public static void displayHeader(String headerText) {
       System.out.println("-------------------------------------------");
       System.out.println("   * * * * * * " + headerText + " * * * * * *    ");
       System.out.println("-------------------------------------------");
    }
 
-
+   /**
+    * Gets user choice
+    * @param startingNum number of first choice
+    * @param endingNum number of last choice
+    * @return user's choice
+    */
    public static int getUserChoice(int startingNum, int endingNum) {
       int choice = -1;
       Scanner scanner = new Scanner(System.in);
@@ -132,24 +129,48 @@ public class Utils {
       return choice;
    }
 
+   /**
+    * Gets string inputs
+    * @param inputMessage Message to be displayed before getting input
+    * @return user input
+    */
    public static String getStringInput(String inputMessage) {
       System.out.println(inputMessage);
       Scanner scanner = new Scanner(System.in);
       return scanner.nextLine();
    }
-    
+
+   /**
+    * Creates LocalDateTime object
+    * @param year year
+    * @param month month
+    * @param day day
+    * @param hour hour
+    * @param minute minute
+    * @return LocalDateTime
+    */
    public static LocalDateTime createLocalDateTime(int year, int month, int day, int hour, int minute) {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm");
       String date = String.format("%d.%d.%d %d:%d",year,month,day,hour,minute);
       return LocalDateTime.parse(date, formatter);
    }
 
+   /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
    public static String createDayOfWeekString(LocalDateTime localDateTime){
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm (E)");
       return localDateTime.format(formatter);
 
    }
 
+   /**
+    * Gets float input from user
+    * @param inputMessage message to be displayed before getting input
+    * @return user's float input
+    */
    public static float getFloatInput(String inputMessage){
       //just parse to get the integer
       float val = 0;
@@ -168,6 +189,13 @@ public class Utils {
       return val;
    }
 
+   /**
+    * Gets date input from user, restricts date to be within specified range
+    * @param message message to be displayed before getting user input
+    * @param lowerLimit lower limit of date
+    * @param upperLimit upper limit of date
+    * @return user input
+    */
    public static int getDateIntInput(String message, int lowerLimit, int upperLimit){
       Scanner sc = new Scanner(System.in);
       int input = 0;
@@ -190,6 +218,11 @@ public class Utils {
       return input;
    }
 
+   /**
+    * Asks user if he/she wants to retry and get's their input
+    * @param message message to be displayed before getting user's input
+    * @return boolean depending on whether the user wants to retry
+    */
    public static boolean retry(String message){
       Scanner sc = new Scanner(System.in);
       char ans;

@@ -12,6 +12,9 @@ import java.util.*;
 
 /**
  *  Login UI to allow user to sign in as admin or movie goer
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class LoginUI {
     /**
@@ -166,7 +169,6 @@ while (!end) {
             System.out.println("Invalid account.");
          }
       }
-      Staff s = Utils.getAdminCookie();
       StaffUI sui = new StaffUI();
       sui.displayMenu();
    }
