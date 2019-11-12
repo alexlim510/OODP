@@ -20,7 +20,7 @@ public class Price implements Serializable{
 		this.prices.put("Holiday", 3f);
 		this.prices.put("Weekend", 2f);
 		this.prices.put("Blockbuster", 2f);
-		this.prices.put("3D", 2f);
+		this.prices.put("3D", 4f);
 		this.prices.put("Platinum Movie Suites", 10f);
 		this.prices.put("Normal",2f);
 		this.holidays = new ArrayList<LocalDateTime>();
