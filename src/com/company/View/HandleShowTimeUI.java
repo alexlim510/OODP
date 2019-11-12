@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ShowTimeUI {
+public class HandleShowTimeUI {
     //SHOW TIME AREA =======================================
 
     public static void addShowTimeUI(){
