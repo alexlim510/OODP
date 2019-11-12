@@ -40,7 +40,14 @@ public class cineplexConfig {
             }
         }
 
-        ArrayList<Movie> movie = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        ArrayList<Movie> movie = null;
+        try {
+            movie = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
         ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 11, 10),movie.get(0));
         ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
@@ -70,10 +77,18 @@ public class cineplexConfig {
         ArrayList<String> chosen = new ArrayList<String>();
         chosen.add("rAc1");
         //sui.getSeatListing(st1,chosen);
-        Utils.writeObject("cineplex.txt", (Object)cp);
+        try {
+            Utils.writeObject("cineplex.txt", (Object)cp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Price p = new Price();
-        Utils.writeObject("price.txt", (Object)p);
+        try {
+            Utils.writeObject("price.txt", (Object)p);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 			/*
 			ArrayList<Cineplex> cpp = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
 			for(Cineplex c: cpp) {

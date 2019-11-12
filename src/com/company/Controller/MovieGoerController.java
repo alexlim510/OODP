@@ -44,12 +44,24 @@ public class MovieGoerController extends Utils {
    public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
 	   int i = 0;
-	   allMovie = (ArrayList<Movie>)Utils.readObject("movie.txt");
+	   try {
+		   allMovie = (ArrayList<Movie>)Utils.readObject("movie.txt");
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   } catch (ClassNotFoundException e) {
+		   e.printStackTrace();
+	   }
 	   return allMovie;
    }
    public ArrayList<Cineplex> getCineplexList(){
 	   ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
-	   allCineplex = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
+	   try {
+		   allCineplex = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   } catch (ClassNotFoundException e) {
+		   e.printStackTrace();
+	   }
 	   return allCineplex;
    }
    
@@ -211,8 +223,15 @@ public class MovieGoerController extends Utils {
    }
 
    public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){
-       ArrayList<Cineplex> cineplexes = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
-       Cineplex chosenCineplex = null;
+	   ArrayList<Cineplex> cineplexes = null;
+	   try {
+		   cineplexes = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   } catch (ClassNotFoundException e) {
+		   e.printStackTrace();
+	   }
+	   Cineplex chosenCineplex = null;
        for(int i = 0; i<cineplexes.size();i++){
            if(cineplexes.get(i).getCineplexName().equals(cineplex.getCineplexName())){
                chosenCineplex=cineplexes.get(i);
@@ -229,6 +248,10 @@ public class MovieGoerController extends Utils {
                }
            }
        }
-       Utils.writeObject("cineplex.txt", cineplexes);
+	   try {
+		   Utils.writeObject("cineplex.txt", cineplexes);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   }
    }
 }
