@@ -22,12 +22,8 @@ public class Utils {
       return null;
    }
 	
-   public static void writeObject(String fileName, Object data) {
-      try {
-         getObjectOutputStream(fileName).writeObject(data);
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+   public static void writeObject(String fileName, Object data) throws IOException {
+      getObjectOutputStream(fileName).writeObject(data);
    }
 	
    public static ObjectInputStream getObjectInputStream(String fileName) {
@@ -40,15 +36,8 @@ public class Utils {
    }
 	
 
-   public static Object readObject(String fileName) {
-      try {
-         return (Object)getObjectInputStream(fileName).readObject();
-      } catch (IOException e) {
-         e.printStackTrace();
-      } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-      }
-      return null;
+   public static Object readObject(String fileName) throws IOException, ClassNotFoundException {
+      return (Object)getObjectInputStream(fileName).readObject();
    }
 	
    public static void storeCustomerCookie(Customer c) {
