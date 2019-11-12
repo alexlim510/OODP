@@ -18,14 +18,13 @@ public class StaffUI {
    public boolean displayMenu() {
       Utils.displayHeader("Staff Portal");
       System.out.println(
-             "1. Create/Update/Remove movie listing\n" +
-                     "2. Create/Remove cinema showtimes\n" +
-                     "3. Configure system settings\n" +
-                     "4. List top 5 movies\n"+
-                     "5. Add Movie to Cineplex\n" +
-                     "6. Exit\n"
-              );
-      switch (Utils.getUserChoice(1, 6)) {
+              "1. Create/Update/Remove movie listing\n" +
+                      "2. Create/Remove cinema showtimes\n" +
+                      "3. Configure system settings\n" +
+                      "4. List top 5 movies\n"+
+                      "5. Exit\n"
+      );
+      switch (Utils.getUserChoice(1, 5)) {
          case 1:
             displayStaffMovieOptions();
             return false;
@@ -39,9 +38,6 @@ public class StaffUI {
             listTopMovies();
             return false;
          case 5:
-
-            return false;
-         case 6:
             return true;
       }
       return true;
@@ -50,15 +46,15 @@ public class StaffUI {
    public void displayStaffMovieOptions() {
       Utils.displayHeader("Modify Movie Listing");
       System.out.println(
-             "1. Create movie listing\n" +
-                     "2. Update movie listing\n" +
-                     "3. Remove movie listing");
+              "1. Create movie listing\n" +
+                      "2. Update movie listing\n" +
+                      "3. Remove movie listing");
       switch (Utils.getUserChoice(1, 3)) {
          case 1:
             staffControl.addMovieListing();
             break;
          case 2:
-           staffControl.editMovieListing();
+            staffControl.editMovieListing();
             break;
          case 3:
             staffControl.deleteMovieListing();
@@ -69,8 +65,8 @@ public class StaffUI {
    public void displayStaffShowtimeOptions() {
       Utils.displayHeader("Modify Showtimes");
       System.out.println(
-             "1. Create movie showtime\n" +
-                     "2. Delete movie showtime\n");
+              "1. Create movie showtime\n" +
+                      "2. Delete movie showtime\n");
 
       switch (Utils.getUserChoice(1, 2)) {
          case 1:
@@ -79,7 +75,7 @@ public class StaffUI {
          case 2:
             HandleShowTimeUI.deleteShowTimeUI();
             break;
-      } 
+      }
    }
 
    public void displayStaffConfigurationOptions(){
@@ -120,6 +116,6 @@ public class StaffUI {
       Utils.displayHeader("Top 5 Movies");
       System.out.println(
               "1. List top 5 ranking movies by ticket sales.\n" +
-               "2. List top 5 ranking movies by Overall reviewers' rating.\n");
+                      "2. List top 5 ranking movies by Overall reviewers' rating.\n");
    }
 }

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.company.Utils.Utils.createLocalDateTime;
+
 public class StaffControl {
     //    MovieGoerController movieController = new MovieGoerController();
 //    MovieGoerUI movieGoerUI = new MovieGoerUI();
@@ -29,6 +31,7 @@ public class StaffControl {
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
         int ageType; //age type {"G", "PG", "PG13", "NC16", "M18", "R21"}
+        LocalDateTime showTill = null;
         int i;
 
         title = Utils.getStringInput("Enter the movie title: ");
@@ -63,9 +66,25 @@ public class StaffControl {
             i++;
         }
         statusType = Utils.getUserChoice(1, i - 1) - 1;
+        // DATE Showtill
+        int year;
+        int month;
+        int day;
+        int hour;
+        int minute;
+
+        System.out.println("Insert date and time of show time of the movie");
+
+        day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+        month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+        year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+        hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
+        minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
+
+        showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
 
         // newly created movie object
-        Movie movie = new Movie( title, synopsis , director , cast , genre , duration , movieClass, ageType, statusType );
+        Movie movie = new Movie( title, synopsis , director , cast , genre , showTill , duration , movieClass, ageType, statusType );
 
         // read the movielist from text file
         ArrayList<Movie> movieList;
@@ -101,6 +120,7 @@ public class StaffControl {
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
         int ageType; //age type {"G", "PG", "PG13", "NC16", "M18", "R21"}
+        LocalDateTime showTill = null;
         int i = 0;
 
         int k = 1;
@@ -150,9 +170,9 @@ public class StaffControl {
                 System.out.print(movieCast[i] + ", ");
             else
                 System.out.print(movieCast[i] + ".\n");	}
-
+        System.out.print("9) Show Till: " + movie.getShowTill());
         System.out.println("Select detail to edit: ");
-        switch (Utils.getUserChoice(1, 8)) {
+        switch (Utils.getUserChoice(1, 9)) {
             case 1: // duration
                 System.out.println("Enter the movie duration in minutes: ");
                 duration = Utils.getUserChoice(1, 500);
@@ -201,11 +221,28 @@ public class StaffControl {
                 director = Utils.getStringInput("Enter the movie director: ");
                 movie.setDirector(director);
                 break;
-
             case 8: // cast
                 cast = Utils.getStringInput("Enter the cast names with a comma separating the cast names. \nCast names: ")
                         .split(",");
                 movie.setCast(cast);
+                break;
+            case 9: // show till
+                int year;
+                int month;
+                int day;
+                int hour;
+                int minute;
+
+                System.out.println("Insert date and time of show time of the movie");
+
+                day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+                month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+                year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+                hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
+                minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
+
+                showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
+                movie.setShowTill(showTill);
                 break;
             default:
                 break;
