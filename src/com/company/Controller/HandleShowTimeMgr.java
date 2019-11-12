@@ -30,13 +30,12 @@ public class HandleShowTimeMgr {
         CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).addShowTime(newShowTime);
 
         //Inserting new showtime to database
-        Utils.writeObject("cineplex.txt", CineplexArray);
-//        try{
-//            Utils.writeObject("cineplex.txt", CineplexArray);
-//        }catch (IOException e){
-//            System.out.println("File not found. please try again.");
-//            return false;
-//        }
+        try{
+            Utils.writeObject("cineplex.txt", CineplexArray);
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return false;
+        }
 
         return true;
     }
@@ -46,13 +45,12 @@ public class HandleShowTimeMgr {
         ShowTimeArray.remove(ShowTimeArray.get(showTimeChoice));
 
         //Inserting new showtime to database
-        Utils.writeObject("cineplex.txt", CineplexArray);
-//        try{
-//            Utils.writeObject("cineplex.txt", CineplexArray);
-//        }catch (IOException e){
-//            System.out.println("File not found. please try again.");
-//            return false;
-//        }
+        try{
+            Utils.writeObject("cineplex.txt", CineplexArray);
+        }catch (IOException e){
+            System.out.println("File not found. please try again.");
+            return false;
+        }
         return true;
     }
 }
