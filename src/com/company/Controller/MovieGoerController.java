@@ -12,8 +12,11 @@ import java.util.HashMap;
 
 
 public class MovieGoerController extends Utils {
-	 
- 
+
+	/* MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
+	User gets a glance of all movies available ----> getMovieListingView()
+	Then user will be prompted three choices ----> getHomeView()
+	 */
    public void MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
    {
       MovieGoerUI UI = new MovieGoerUI();
@@ -21,6 +24,9 @@ public class MovieGoerController extends Utils {
       UI.getMovieListingView();
       UI.getHomeView();
    }
+   /* getNowShowingMovieList()
+   Returns and ArrayList of ALL 'Now showing' Movie objects
+    */
    public ArrayList<Movie> getNowShowingMovieList(){
 	   ArrayList<Movie> nowShowing = new ArrayList<Movie>();
 	   ArrayList<Movie> MovieArray = new ArrayList<Movie>();
@@ -41,6 +47,9 @@ public class MovieGoerController extends Utils {
        }
 	   return nowShowing;
    }
+   /* getAllMovieList()
+   Returns ArrayList of ALL Movie Objects residing in movie.txt file
+    */
    public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
 	   int i = 0;
@@ -53,6 +62,9 @@ public class MovieGoerController extends Utils {
 	   }
 	   return allMovie;
    }
+   /* getCineplexList()
+   Returns ArrayList of ALL Cineplex Objects residing in cineplex.txt file
+    */
    public ArrayList<Cineplex> getCineplexList(){
 	   ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
 	   try {
@@ -64,7 +76,10 @@ public class MovieGoerController extends Utils {
 	   }
 	   return allCineplex;
    }
-   
+   /* getMovieList(Cineplex cineplex)
+   Returns ArrayList of Movie Object with:
+
+    */
    public ArrayList<Movie> getMovieList(Cineplex cineplex){	   
 	   ArrayList<Movie> movieList = new ArrayList<Movie>();
 	   

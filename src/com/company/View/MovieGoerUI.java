@@ -15,7 +15,10 @@ import java.util.Scanner;
 public class MovieGoerUI {
 	
 	MovieGoerController movieController = new MovieGoerController();
-	
+	/* getMovieDetailsView(Movie movie):
+	When a certain movie is passed in, this method will print out
+	All the details of that movie following the sequence
+	*/
 	public void getMovieDetailsView(Movie movie) {
 		int n=0;
 		
@@ -53,6 +56,10 @@ public class MovieGoerUI {
 					n++;}
 
 		}
+	/* getMovieListingView()
+	Prints out all the movies available in the database
+	In the end, asks users which movie they wanna view the details
+	 */
 	public void getMovieListingView(){
 		int i=1;
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
@@ -65,6 +72,11 @@ public class MovieGoerUI {
 		}
 	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
+	/* getHomeView()
+	Prints the choices available for the users
+	Asks for users' input
+	Once they choose, the method will execute to the intended method.
+	 */
 	public void getHomeView() {
 
 		boolean loop = true;
@@ -101,7 +113,9 @@ public class MovieGoerUI {
             }
         }
     }
-	
+	/* getCineplexView()
+	Prints out all the Cineplexes available
+	 */
 	public void getCineplexView() {
 		int i=1;
 		ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
@@ -113,7 +127,10 @@ public class MovieGoerUI {
 			i++;
 		}
 	}
-	
+	/* getMakeAReviewView()
+	Prints out only the movies with statusType = 'Now showing'
+	In the end, asks users which movie they want to make reviews
+	 */
 	public void getMakeAReviewView() {
 		System.out.println("Please choose a movie to make review: ");
 		int i=1;
