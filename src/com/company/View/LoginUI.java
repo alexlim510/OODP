@@ -1,21 +1,23 @@
 package com.company.View;
 import com.company.Controller.LoginController;
 import com.company.Entity.Customer;
+import com.company.Entity.Movie;
 import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.*;
 
 
 public class LoginUI {
-	
+
    public void displayLoginPage() {
       System.out.println("Select User Type: ");
       System.out.println("1) Admin");
       System.out.println("2) Movie Goer");
-   	
+
       boolean exit = false;
       while(!exit) {
          Scanner sc = new Scanner(System.in);
@@ -27,7 +29,7 @@ public class LoginUI {
                   exit=true;
                   break;
                case 2:
-                  displayPublicLoginPage();
+                  displayLoginRegisterPage();
                   exit=true;
                   break;
                default:
@@ -36,10 +38,79 @@ public class LoginUI {
          }
          catch (InputMismatchException e) {
             System.out.println("Please input an integer.");
-         }			
+         }
       }
    }
-	 
+
+
+   public void displayLoginRegisterPage()
+   {
+      Utils.displayHeader("Login/Register");
+      boolean end= false;
+
+while (!end) {
+   System.out.println("Please make a selection");
+   System.out.println("1) Log In");
+   System.out.println("2) Register");
+
+   int select = Utils.getUserChoice(1,2);
+   switch (select) {
+      case 1:
+         displayPublicLoginPage();
+         end = true;
+         break;
+      case 2:
+         displayPublicRegisterPage();
+         break;
+      default:
+         System.out.println("Please select 1 or 2");
+   }
+
+}
+   }
+
+   public void displayPublicRegisterPage() {
+      Utils.displayHeader("Customer Register");
+      LoginController logCtrl = new LoginController();
+      ArrayList<Customer> customers = null;
+
+      boolean  credentialCheck = false;
+
+         System.out.println("Please input Email:");
+         Scanner sc = new Scanner(System.in);
+         String email = sc.nextLine();
+         credentialCheck = logCtrl.checkCustomer(email);
+         if(credentialCheck) {
+            System.out.println("Account already exist!");
+            displayLoginRegisterPage();
+         }
+         else
+         {
+            try {
+               customers= (ArrayList<Customer>) Utils.readObject("customer.txt");
+            } catch (IOException e) {
+               e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+               e.printStackTrace();
+            }
+
+            Customer newcustomer = new Customer(null,null, email);
+            customers.add(newcustomer);
+            try {
+               Utils.writeObject("customer.txt", customers);
+            } catch (IOException e) {
+               e.printStackTrace();
+               return;
+            }
+            System.out.println("Successfully Registered!");
+         }
+      }
+      //MovieGoerUI mui = new MovieGoerUI();
+      //mui.getHomeView();
+
+
+
+
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
       Utils.displayHeader("Customer Login");
