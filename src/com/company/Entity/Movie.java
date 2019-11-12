@@ -64,7 +64,7 @@ public class Movie implements Serializable{
     */
    public int totalSales = 0;
 
-   String[] movieClasses = {"Blockbuster", "3D"};
+   String[] movieClasses = {"Normal", "Blockbuster", "3D"};
 
    String[] ageTypes = {"G", "PG", "PG13", "NC16", "M18", "R21"};
 

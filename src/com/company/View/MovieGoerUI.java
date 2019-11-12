@@ -209,6 +209,7 @@ public class MovieGoerUI {
 		int i = 1;
 		for (Movie m: top5MovieList){
 			System.out.println("Top "+ i + ": " + m.getTitle());
+			i++;
 		}
 	}
 	public void getTop5MoviesRatingView(){
@@ -218,6 +219,7 @@ public class MovieGoerUI {
 		int i = 1;
 		for (Movie m: top5MovieList){
 			System.out.println("Top "+ i + ": " + m.getTitle());
+			i++;
 		}
 	}
 }
