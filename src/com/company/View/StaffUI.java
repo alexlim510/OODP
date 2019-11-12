@@ -157,5 +157,21 @@ public class StaffUI {
       System.out.println(
               "1. List top 5 ranking movies by ticket sales.\n" +
                       "2. List top 5 ranking movies by Overall reviewers' rating.\n");
+      switch (Utils.getUserChoice(1, 2)) {
+         case 1:
+            getTop5byTicketSales();
+            break;
+         case 2:
+            getTop5byReviewRating();
+            break;
+      }
+   }
+   private void getTop5byTicketSales(){
+      MovieGoerUI movieGoer = new MovieGoerUI();
+      movieGoer.getTop5MoviesView();
+   }
+
+   private void getTop5byReviewRating(){
+
    }
 }

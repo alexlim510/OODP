@@ -357,7 +357,13 @@ public class MovieGoerController extends Utils {
    	nowShowingMovies = getNowShowingMovieList();
    	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
    	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
-   	int top5 = 5;
+   	int top5;
+   	if(nowShowingMovies.size() > 5) {
+		top5 = 5;
+	}
+   	else{
+		top5 = nowShowingMovies.size();
+	}
    	for (int i = 0; i < top5; i++){
 		top5Movies.add(nowShowingMovies.get(i));
 	}
