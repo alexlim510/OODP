@@ -1,8 +1,6 @@
 package com.company.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-public class Customer extends Person implements Serializable{
 	
 /**
  * This is the Entity Class of Customer
@@ -10,7 +8,7 @@ public class Customer extends Person implements Serializable{
  * @version 1.0
  * @since 2019-11-13
  */
-public class Customer implements Serializable{
+public class Customer extends Person implements Serializable{
    private String email;
    private String name;
    private String phone;
