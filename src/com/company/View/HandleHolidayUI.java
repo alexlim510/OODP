@@ -1,7 +1,6 @@
 package com.company.View;
 
 import com.company.Controller.HandleHolidayMgr;
-import com.company.Entity.Cineplex;
 import com.company.Entity.Price;
 import com.company.Utils.Utils;
 
@@ -10,11 +9,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HandleHolidayUI {
-    public static void main(String[] args){
-        deleteHolidayUI();
-    }
+/**
+ * This is the class to configure holiday dates used for special pricing.
+ * The class is a part of StaffUI.
+ * @author GROUP 2
+ * @version 1.0
+ */
 
+public class HandleHolidayUI {
+    /**
+     * This is the method to add holiday date
+     */
     public static void addHolidayUI(){
         Utils.displayHeader("Adding Holiday/Special Date");
         Scanner sc = new Scanner(System.in);
@@ -48,6 +53,9 @@ public class HandleHolidayUI {
         }
     }
 
+    /**
+     * This is the method to delete holiday date
+     */
     public static void deleteHolidayUI(){
         Utils.displayHeader("Adding Holiday/Special Date");
         Scanner sc = new Scanner(System.in);
@@ -55,7 +63,7 @@ public class HandleHolidayUI {
         boolean tryAgain = true;
         int choice;
 
-        Price pricing = null;
+        Price pricing;
         try {
             pricing = (Price) Utils.readObject("price.txt");
         } catch (IOException e) {

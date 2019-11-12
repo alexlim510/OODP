@@ -9,6 +9,10 @@ public class HandleHolidayMgr {
     public static boolean addHolidayMgr(int year, int month, int day){
         Price pricing = HandlePricingMgr.readPriceFile();
         try{
+            if(LocalDateTime.of(year, month, day, 0, 0).isBefore(LocalDateTime.now())){
+                System.out.println("The date has passed. Please insert future date.");
+                return false;
+            }
             pricing.addHoliday(LocalDateTime.of(year, month, day, 0, 0));
         }catch (IllegalArgumentException e){
             System.out.println("Parameter is not date/time. Please try again");

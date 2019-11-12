@@ -31,7 +31,7 @@ public class HandlePricingMgr {
         try{
             pricing.addPrice(Utils.getStringInput("Insert the name of the category: "), Utils.getFloatInput("Insert the price of the category: "));
         }catch (IllegalArgumentException e){
-            System.out.println("Parameters incorrect");
+            System.out.println(e.getMessage());
             return false;
         }catch (NullPointerException e){
             System.out.println("Cannot retrieve data from database");
@@ -45,7 +45,7 @@ public class HandlePricingMgr {
         try{
             pricing.deletePrice(catName);
         }catch (IllegalArgumentException e){
-            System.out.println("Parameters incorrect");
+            System.out.println(e.getMessage());
             return false;
         }catch (NullPointerException e){
             System.out.println("Cannot retrieve data from database");

@@ -11,10 +11,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
-
+/**
+ * This is the UI for staff
+ * @author GROUP 2
+ * @version 1.0
+ */
 public class StaffUI {
-   StaffControl staffControl = new StaffControl();
+   /**
+    * Initialize new StaffControl Class
+    */
+   private StaffControl staffControl = new StaffControl();
 
+   /**
+    * Main menu of StaffUI
+    * @return boolean will return true if user choose to Exit
+    */
    public boolean displayMenu() {
       Utils.displayHeader("Staff Portal");
       System.out.println(
@@ -43,6 +54,9 @@ public class StaffUI {
       return true;
    }
 
+   /**
+    * Movie menu for staff
+    */
    public void displayStaffMovieOptions() {
       Utils.displayHeader("Modify Movie Listing");
       System.out.println(
@@ -62,6 +76,9 @@ public class StaffUI {
       }
    }
 
+   /**
+    * ShowTime menu for staff
+    */
    public void displayStaffShowtimeOptions() {
       Utils.displayHeader("Modify Showtimes");
       System.out.println(
@@ -77,7 +94,9 @@ public class StaffUI {
             break;
       } 
    }
-
+   /**
+    * System Configuration for staff
+    */
    public void displayStaffConfigurationOptions(){
       Utils.displayHeader("System Configuration");
       System.out.println(
@@ -88,11 +107,13 @@ public class StaffUI {
             displayStaffConfigurationOptionsPricing();
             break;
          case 2:
-            //TO DO configure holiday
+            displayStaffConfigurationOptionsHoliday();
             break;
       }
    }
-
+   /**
+    * Pricing menu for staff (Sub-category of System Configuration)
+    */
    public void displayStaffConfigurationOptionsPricing(){
       Utils.displayHeader("Change ticket price");
       System.out.println(
@@ -111,7 +132,26 @@ public class StaffUI {
             break;
       }
    }
-
+   /**
+    * Holidays/Special Dates menu for staff (Sub-category of System Configuration)
+    */
+   public void displayStaffConfigurationOptionsHoliday(){
+      Utils.displayHeader("Change Holidays/Special Price");
+      System.out.println(
+              "1. Add new category\n" +
+                      "2. Delete category\n");
+      switch (Utils.getUserChoice(1, 2)) {
+         case 1:
+            HandleHolidayUI.addHolidayUI();
+            break;
+         case 2:
+            HandleHolidayUI.deleteHolidayUI();
+            break;
+      }
+   }
+   /**
+    * Listing Top Movies for staff
+    */
    public void listTopMovies() {
       Utils.displayHeader("Top 5 Movies");
       System.out.println(

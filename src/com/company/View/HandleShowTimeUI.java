@@ -13,9 +13,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the class to configure showtime in a cinema in a cineplex.
+ * The class is a part of StaffUI.
+ * @author GROUP 2
+ * @version 1.0
+ */
 public class HandleShowTimeUI {
     //SHOW TIME AREA =======================================
-
+    /**
+     * This is the method to add new showtime to a cinema in a cineplex
+     */
     public static void addShowTimeUI(){
         Utils.displayHeader("Add Show Time");
         Scanner sc = new Scanner(System.in);
@@ -126,6 +134,9 @@ public class HandleShowTimeUI {
         }
     }
 
+    /**
+     * This is the method to delete showtime in a cinema in a cineplex
+     */
     public static void deleteShowTimeUI(){
         Utils.displayHeader("Delete Show Time");
         Scanner sc = new Scanner(System.in);

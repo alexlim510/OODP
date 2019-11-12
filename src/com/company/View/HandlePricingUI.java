@@ -1,15 +1,20 @@
 package com.company.View;
 
 import com.company.Controller.HandlePricingMgr;
-import com.company.Entity.Price;
 import com.company.Utils.Utils;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Set;
 
+/**
+ * This is the class to configure pricing based on categories.
+ * The class is a part of StaffUI.
+ * @author GROUP 2
+ * @version 1.0
+ */
 public class HandlePricingUI {
+    /**
+     * This is the method to add new price category
+     */
     public static void addPriceCategoryUI(){
         Utils.displayHeader("Adding Price Category");
         boolean successful = false;
@@ -25,6 +30,9 @@ public class HandlePricingUI {
         }
     }
 
+    /**
+     * This is the method to delete price category
+     */
     public static void deletePriceCategoryUI(){
         Utils.displayHeader("Delete Price Category");
         int userChoice;
@@ -53,6 +61,9 @@ public class HandlePricingUI {
         }
     }
 
+    /**
+     * This is the method to edit price category
+     */
     public static void editPriceCategoryUI(){
         Utils.displayHeader("Edit Price Category");
         int userChoice;
