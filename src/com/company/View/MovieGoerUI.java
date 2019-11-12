@@ -93,7 +93,8 @@ public class MovieGoerUI {
             System.out.println("2) Movie Listing");
             System.out.println("3) Make a review");
 			System.out.println("4) View booking history");
-            System.out.println("5) Quit");
+			System.out.println("5) Top 5 Movies");
+            System.out.println("6) Quit");
             try {
                 int choice = sc.nextInt();
                 switch(choice) {
@@ -110,6 +111,9 @@ public class MovieGoerUI {
 					getBookingHistoryView();
 					break;
 				case 5:
+					listTopMovies();
+					break;
+				case 6:
 					loop = false;
                     break;
                 default:
@@ -182,6 +186,20 @@ public class MovieGoerUI {
 			}
 			System.out.println("Total price: " + t.getTotalPrice());
 			System.out.println("-----------------------------------------");
+		}
+	}
+	public void listTopMovies() {
+		Utils.displayHeader("Top 5 Movies");
+		System.out.println(
+				"1. List top 5 ranking movies by ticket sales.\n" +
+						"2. List top 5 ranking movies by Overall reviewers' rating.\n");
+		switch (Utils.getUserChoice(1, 2)) {
+			case 1:
+				getTop5MoviesTicketView();
+				break;
+			case 2:
+				getTop5MoviesRatingView();
+				break;
 		}
 	}
     public void getTop5MoviesTicketView(){
