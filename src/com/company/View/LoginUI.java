@@ -95,6 +95,12 @@ while (!end) {
          }
          else
          {
+            System.out.println("Please enter your name");
+            String name = sc.nextLine();
+            System.out.println("Please enter mobile phone number");
+            String hpnum = sc.nextLine();
+
+
             try {
                customers= (ArrayList<Customer>) Utils.readObject("customer.txt");
             } catch (IOException e) {
@@ -103,7 +109,7 @@ while (!end) {
                e.printStackTrace();
             }
 
-            Customer newcustomer = new Customer(null,null, email);
+            Customer newcustomer = new Customer(name,hpnum, email);
             customers.add(newcustomer);
             try {
                Utils.writeObject("customer.txt", customers);
