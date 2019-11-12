@@ -3,14 +3,44 @@ package com.company.Entity;
 import java.util.*;
 import java.time.*;
 import java.io.Serializable;
+
+/**
+ * Represents the show time of a movie in a cineplex
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class ShowTime implements Serializable {
+	/**
+	 * Date and time of show time
+	 */
     private LocalDateTime dateTime;
-    private Movie movie;
+	/**
+	 * Movie assigned to show time
+	 */
+	private Movie movie;
+	/**
+	 * Seats allocated to show time
+	 */
     private ArrayList<ArrayList<Seat>> seats;
-    private int numRows = 9;
+	/**
+	 * Number of rows of seats in show time
+	 */
+	private int numRows = 9;
+	/**
+	 * Number of columns of seats in show time
+	 */
     private int numColumns = 17;
+	/**
+	 * Array of rows in show time
+	 */
 	private String[] rowID = {"A","B","C","D","E","F","G","H","I"};
-	
+
+	/**
+	 * Creates showtime given a LocalDateTime and movie
+	 * @param time
+	 * @param movie
+	 */
     public ShowTime(LocalDateTime time, Movie movie) {
         this.dateTime = time;
         this.movie = movie;
@@ -38,31 +68,36 @@ public class ShowTime implements Serializable {
 		this.seats = seats;
     }
 
-
+	/**
+	 * Gets date and time of showtime
+	 * @return date and time of showtime
+	 */
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-    
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
-    public Movie getMovie() {
+	/**
+	 * Get movie being played at this show time
+	 * @return movie
+	 */
+	public Movie getMovie() {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
+	/**
+	 * Set movie played at this show time
+	 * @param movie movie
+	 */
+	public void setMovie(Movie movie) {
         this.movie = movie;
     }
 
-    public ArrayList<ArrayList<Seat>> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(ArrayList<ArrayList<Seat>> seats) {
-        this.seats = seats;
-    }
-
+	/**
+	 * Get seat given the row and column
+	 * @param row row of seat
+	 * @param column column of seat
+	 * @return Seat
+	 */
     public Seat getSeat(String row, int column) {
     	int r = Arrays.asList(this.rowID).indexOf(row);
     	ArrayList<Seat> rowSeats = seats.get(r);
@@ -73,8 +108,14 @@ public class ShowTime implements Serializable {
     	}
     	return null;
     }
-    
-    public Seat getSeat(int row, int column) {
+
+	/**
+	 * Get seat given the row and column
+	 * @param row row of seat
+	 * @param column column of seat
+	 * @return Seat
+	 */
+	public Seat getSeat(int row, int column) {
     	ArrayList<Seat> rowSeats = seats.get(row);
     	for(Seat s: rowSeats) {
     		if(s.getRow().equals(rowID[row])&&s.getColumn()==column) {
@@ -83,6 +124,12 @@ public class ShowTime implements Serializable {
     	}
     	return null;
     }
+
+	/**
+	 * Get seat given the id of the seat
+	 * @param seatID ID of seat
+	 * @return Seat
+	 */
 	public Seat getSeat(String seatID) {
 		for(ArrayList<Seat> row : this.seats){
 			for(Seat seat : row){
@@ -94,6 +141,10 @@ public class ShowTime implements Serializable {
 		return null;
 	}
 
+	/**
+	 * Occupies seat given the seat id
+	 * @param seatID seatID
+	 */
 	public void occupySeat(String seatID){
 		for(ArrayList<Seat> row : this.seats){
 			for(Seat seat : row){
@@ -104,32 +155,63 @@ public class ShowTime implements Serializable {
 		}
 	}
 
+	/**
+	 * compares the date of this show time with given show time
+	 * @param st show time
+	 * @return boolean
+	 */
 	public boolean isEqual(ShowTime st){
     	if(st.getDateTime().isEqual(this.dateTime) && st.movie.getTitle().equals(this.movie.getTitle())){
     		return true;
 		}
     	return false;
 	}
+
+	/**
+	 * gets rowID of this seat
+	 * @return rowID
+	 */
     public String[] getRowID() {
     	return rowID;
     }
-    
-    public String getRowID(int i) {
+
+	/**
+	 * get rowID given an index
+	 * @param i index
+	 * @return rowID
+	 */
+	public String getRowID(int i) {
     	return rowID[i];
     }
-    
+
+	/**
+	 * get number of rows of seats in this show time
+	 * @return number of rows
+	 */
 	public int getNumRows() {
 		return numRows;
 	}
 
+	/**
+	 * set number of rows of seats in this show time
+	 * @param numRows number of rows
+	 */
 	public void setNumRows(int numRows) {
 		this.numRows = numRows;
 	}
 
+	/**
+	 * get number of columns of seats in this show time
+	 * @return number of columns
+	 */
 	public int getNumColumns() {
 		return numColumns;
 	}
 
+	/**
+	 * sets number of columns of seats in this show time
+	 * @param numColumns number of columns
+	 */
 	public void setNumColumns(int numColumns) {
 		this.numColumns = numColumns;
 	}
