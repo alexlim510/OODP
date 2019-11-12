@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 /**
- * This is the UI for staff
+ * This is the main UI Class for staff
  * @author GROUP 2
  * @version 1.0
  */
