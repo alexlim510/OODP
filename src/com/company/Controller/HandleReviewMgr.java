@@ -19,11 +19,15 @@ public class HandleReviewMgr {
       }
 
       //Check if the user has provided a review;
-      for(int i = 0; i<movie.getReviews().size(); i++){
-         if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
-            System.out.println("You have provided a review.");
-            return;
+      try{
+         for(int i = 0; i<movie.getReviews().size(); i++){
+            if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
+               System.out.println("You have provided a review.");
+               return;
+            }
          }
+      }catch(NullPointerException e){
+
       }
 
       Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());
@@ -32,7 +36,15 @@ public class HandleReviewMgr {
       movie.insertMovieReview(userReview);
 
       //modifying database
-      movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      try {
+         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      } catch (IOException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      } catch (ClassNotFoundException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      }
 
       for(int i = 0; i<movies.size(); i++){
          if(movies.get(i).getTitle().equals(movie.getTitle())){
@@ -40,7 +52,12 @@ public class HandleReviewMgr {
          }
       }
 
-      Utils.writeObject("movie.txt", movies);
+      try {
+         Utils.writeObject("movie.txt", movies);
+      } catch (IOException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      }
    }
 
 
@@ -62,7 +79,15 @@ public class HandleReviewMgr {
          }
       }
 
-      movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      try {
+         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+      } catch (IOException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      } catch (ClassNotFoundException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      }
 
       //changing the value of ArrayList
       for(int j = 0; j<movies.size(); j++){
@@ -72,7 +97,12 @@ public class HandleReviewMgr {
       }
 
       //Inserting to database
-      Utils.writeObject("movie.txt", movies);
+      try {
+         Utils.writeObject("movie.txt", movies);
+      } catch (IOException e) {
+         System.out.println("File is missing. Please try again");
+         return;
+      }
 
       System.out.println("Review deleted");
    }
