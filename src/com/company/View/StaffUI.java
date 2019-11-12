@@ -22,9 +22,10 @@ public class StaffUI {
                      "2. Create/Remove cinema showtimes\n" +
                      "3. Configure system settings\n" +
                      "4. List top 5 movies\n"+
-                     "5. Exit\n"
+                     "5. Add Movie to Cineplex\n" +
+                     "6. Exit\n"
               );
-      switch (Utils.getUserChoice(1, 5)) {
+      switch (Utils.getUserChoice(1, 6)) {
          case 1:
             displayStaffMovieOptions();
             return false;
@@ -38,6 +39,9 @@ public class StaffUI {
             listTopMovies();
             return false;
          case 5:
+
+            return false;
+         case 6:
             return true;
       }
       return true;
@@ -54,10 +58,10 @@ public class StaffUI {
             staffControl.addMovieListing();
             break;
          case 2:
-           //staffControl.editMovieListing();
+           staffControl.editMovieListing();
             break;
          case 3:
-            //staffControl.deleteMovieListing();
+            staffControl.deleteMovieListing();
             break;
       }
    }
