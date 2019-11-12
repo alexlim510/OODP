@@ -1,7 +1,6 @@
 package com.company.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import com.company.Entity.Transaction;
 
 public class Customer extends Person implements Serializable{
 	

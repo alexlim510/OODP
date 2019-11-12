@@ -1,12 +1,12 @@
 package com.company.Entity;
-
+import java.io.Serializable;
 /**
  * Represents a person with a name.
  * @author Akarapu Bharadwaj
  * @version 1.0
  * @since 2019-11-12
  */
-public class Person {
+public class Person implements Serializable{
     /**
      * The name of this person.
      */
