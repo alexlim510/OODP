@@ -16,11 +16,21 @@ import java.util.Date;
 
 import static com.company.Utils.Utils.createLocalDateTime;
 
+/**
+ * This is the main controller for the StaffUI.
+ * It handles the movie & show time creating, modification and deletion along with the configuration of system settings.
+ * @author Akarapu Bharadwaj
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class StaffControl {
     //    MovieGoerController movieController = new MovieGoerController();
 //    MovieGoerUI movieGoerUI = new MovieGoerUI();
     Movie movieFunctions = new Movie();
 
+    /**
+     * Adds a new movie to the movie.txt file
+     */
     public void addMovieListing() {
         String title;
         String synopsis;
@@ -70,18 +80,22 @@ public class StaffControl {
         int year;
         int month;
         int day;
-        int hour;
-        int minute;
 
-        System.out.println("Insert date and time of show time of the movie");
+        boolean loop = true;
+        while(loop) {
+            System.out.println("Insert end date and time of the movie");
+            day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+            month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+            year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
 
-        day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-        month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-        year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-        hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-        minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
-
-        showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
+            showTill = Utils.createLocalDateTime(year, month, day, 0,0);
+            if(showTill.isAfter(LocalDateTime.now())){
+                loop = false;
+            }
+            else{
+                System.out.println("Sorry you cant enter a date from the past, please try again.");
+            }
+        }
 
         // newly created movie object
         Movie movie = new Movie( title, synopsis , director , cast , genre , showTill , duration , movieClass, ageType, statusType );
@@ -111,6 +125,9 @@ public class StaffControl {
         // Todo print out the movie attribues?
     }
 
+    /**
+     * Edits an attribute of one of the movie from the movie.txt file
+     */
     public void editMovieListing() {
         String synopsis;
         String director;
@@ -230,19 +247,22 @@ public class StaffControl {
                 int year;
                 int month;
                 int day;
-                int hour;
-                int minute;
 
-                System.out.println("Insert date and time of show time of the movie");
+                boolean loop = true;
+                while(loop) {
+                    System.out.println("Insert end date and time of the movie");
+                    day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+                    month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+                    year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
 
-                day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-                month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-                year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-                hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-                minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
-
-                showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
-                movie.setShowTill(showTill);
+                    showTill = Utils.createLocalDateTime(year, month, day, 0, 0);
+                    if(showTill.isAfter(LocalDateTime.now())){
+                        loop = false;
+                    }
+                    else{
+                        System.out.println("Sorry you cant enter a date from the past, please try again.");
+                    }
+                }
                 break;
             default:
                 break;
@@ -258,6 +278,9 @@ public class StaffControl {
         }
     }
 
+    /**
+     * Deletes a movie from the movie.txt file
+     */
     public void deleteMovieListing() {
         ArrayList<Movie> movieList;
         try{

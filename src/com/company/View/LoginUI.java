@@ -11,7 +11,10 @@ import java.util.Scanner;
 import java.util.*;
 
 /**
- *  Login UI to allow user to sign in as admin or movie goer
+ * Login UI to allow user to sign in as admin or movie goer
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class LoginUI {
     /**
@@ -95,6 +98,12 @@ while (!end) {
          }
          else
          {
+            System.out.println("Please enter your name");
+            String name = sc.nextLine();
+            System.out.println("Please enter mobile phone number");
+            String hpnum = sc.nextLine();
+
+
             try {
                customers= (ArrayList<Customer>) Utils.readObject("customer.txt");
             } catch (IOException e) {
@@ -103,7 +112,7 @@ while (!end) {
                e.printStackTrace();
             }
 
-            Customer newcustomer = new Customer(null,null, email);
+            Customer newcustomer = new Customer(name,hpnum, email);
             customers.add(newcustomer);
             try {
                Utils.writeObject("customer.txt", customers);
@@ -160,7 +169,6 @@ while (!end) {
             System.out.println("Invalid account.");
          }
       }
-      Staff s = Utils.getAdminCookie();
       StaffUI sui = new StaffUI();
       sui.displayMenu();
    }

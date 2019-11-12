@@ -10,9 +10,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-
+/**
+ * Helper class, contains static methods
+ * @author Alexander Lim
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class Utils {
-	
+
+    /**
+     * get Object output stream
+     * @param fileName file to get Object output stream from
+     * @return Object output stream
+     */
    public static ObjectOutputStream getObjectOutputStream(String fileName) {
       try {
          return new ObjectOutputStream(new FileOutputStream(fileName));
@@ -21,11 +31,21 @@ public class Utils {
       }
       return null;
    }
-	
+
+    /**
+     * Write object to file
+     * @param fileName file to write object to
+     * @param data Data to write to file
+     */
    public static void writeObject(String fileName, Object data) throws IOException {
       getObjectOutputStream(fileName).writeObject(data);
    }
-	
+
+    /**
+     * get Object input stream
+     * @param fileName file to get Object input stream from
+     * @return Object input stream
+     */
    public static ObjectInputStream getObjectInputStream(String fileName) {
       try {
          return new ObjectInputStream(new FileInputStream(fileName));
@@ -34,12 +54,20 @@ public class Utils {
       }
       return null;
    }
-	
 
+    /**
+     * Read object from file
+     * @param fileName file to read object from
+     * @return Data contained in the file
+     */
    public static Object readObject(String fileName) throws IOException, ClassNotFoundException {
       return (Object)getObjectInputStream(fileName).readObject();
    }
-	
+
+    /**
+     * Writes Customer object to usercookie.txt
+     * @param c Object of customer that is currently running the programming
+     */
    public static void storeCustomerCookie(Customer c) {
       try {
          ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
@@ -48,16 +76,11 @@ public class Utils {
          System.out.println(e);
       }
    }
-	
-   public static void storeAdminCookie(Staff s) {
-      try {
-         ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
-         oos.writeObject(s);
-      } catch (IOException e) {
-         System.out.println(e);
-      }
-   }
 
+    /**
+     * Get customer object from usercookie.txt
+     * @return Customer object
+     */
    public static Customer getCustomerCookie() {
       try {
          return (Customer)getObjectInputStream("usercookie.txt").readObject();
@@ -69,28 +92,22 @@ public class Utils {
       return null;
    }
 
-   public static Staff getAdminCookie() {
-      try {
-         return (Staff)getObjectInputStream("usercookie.txt").readObject();
-      } catch (ClassNotFoundException e) {
-         System.out.println(e);
-      } catch (IOException e) {
-         System.out.println(e);
-      }
-      return null;
-   }
-
-   public static void clearCookies() {
-      ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
-   }
-
+   /**
+    * Displays standard header for UI
+    * @param headerText text to be displayed in header
+    */
    public static void displayHeader(String headerText) {
       System.out.println("-------------------------------------------");
       System.out.println("   * * * * * * " + headerText + " * * * * * *    ");
       System.out.println("-------------------------------------------");
    }
 
-
+   /**
+    * Gets user choice
+    * @param startingNum number of first choice
+    * @param endingNum number of last choice
+    * @return user's choice
+    */
    public static int getUserChoice(int startingNum, int endingNum) {
       int choice = -1;
       Scanner scanner = new Scanner(System.in);
@@ -112,24 +129,58 @@ public class Utils {
       return choice;
    }
 
+   /**
+    * Gets string inputs
+    * @param inputMessage Message to be displayed before getting input
+    * @return user input
+    */
    public static String getStringInput(String inputMessage) {
       System.out.println(inputMessage);
       Scanner scanner = new Scanner(System.in);
       return scanner.nextLine();
    }
-    
+
+   /**
+    * Creates LocalDateTime object
+    * @param year year
+    * @param month month
+    * @param day day
+    * @param hour hour
+    * @param minute minute
+    * @return LocalDateTime
+    */
    public static LocalDateTime createLocalDateTime(int year, int month, int day, int hour, int minute) {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm");
       String date = String.format("%d.%d.%d %d:%d",year,month,day,hour,minute);
       return LocalDateTime.parse(date, formatter);
    }
 
+   /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
    public static String createDayOfWeekString(LocalDateTime localDateTime){
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm (E)");
       return localDateTime.format(formatter);
 
    }
 
+   /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
+   public static String createTransactionDateString(LocalDateTime localDateTime){
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+      return localDateTime.format(formatter);
+   }
+
+   /**
+    * Gets float input from user
+    * @param inputMessage message to be displayed before getting input
+    * @return user's float input
+    */
    public static float getFloatInput(String inputMessage){
       //just parse to get the integer
       float val = 0;
@@ -148,6 +199,13 @@ public class Utils {
       return val;
    }
 
+   /**
+    * Gets date input from user, restricts date to be within specified range
+    * @param message message to be displayed before getting user input
+    * @param lowerLimit lower limit of date
+    * @param upperLimit upper limit of date
+    * @return user input
+    */
    public static int getDateIntInput(String message, int lowerLimit, int upperLimit){
       Scanner sc = new Scanner(System.in);
       int input = 0;
@@ -170,6 +228,11 @@ public class Utils {
       return input;
    }
 
+   /**
+    * Asks user if he/she wants to retry and get's their input
+    * @param message message to be displayed before getting user's input
+    * @return boolean depending on whether the user wants to retry
+    */
    public static boolean retry(String message){
       Scanner sc = new Scanner(System.in);
       char ans;

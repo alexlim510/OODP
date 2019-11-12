@@ -1,25 +1,68 @@
 package com.company.Entity;
+import com.company.Utils.Utils;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 
+/**
+ * Represents the transaction which a customer made
+ */
 public class Transaction implements Serializable{
+   /**
+    * Transaction ID in the format XXXYYYYMMDDHHMM where XXX is the cinema ID
+    */
    private String TID;
+   /**
+    * Customer's email
+    */
    private String customerEmail;
+   /**
+    * customer's name
+    */
    private String customerName;
+   /**
+    * Customers phone number
+    */
+   private String customerPhone;
+   /**
+    * Selected cineplex
+    */
    private Cineplex cineplex;
+   /**
+    * selected cinema
+    */
    private Cinema cinema;
+   /**
+    * selected show time
+    */
    private ShowTime showTime;
+   /**
+    * hashmap with key:Seat and value: age category
+    */
    private HashMap<Seat,String> seats;
+   /**
+    * total amount paid for this transaction
+    */
    private float totalPrice;
-   
+
+   /**
+    * Creates transaction after user has made payment
+    * @param customer customer of transaction
+    * @param cineplex cineplex of transaction
+    * @param cinema cinema of transaction
+    * @param showTime showtime of transaction
+    * @param totalPrice totalprice of transaction
+    * @param chosenSeats chosen seats of transaction
+    */
    public Transaction(Customer customer,Cineplex cineplex, Cinema cinema, ShowTime showTime, float totalPrice,
                        HashMap<String,String> chosenSeats){
-      this.TID = customer.getEmail()+showTime.getDateTime();
+      this.TID = cinema.getCID() + Utils.createTransactionDateString(LocalDateTime.now());
       this.customerEmail = customer.getEmail();
       this.customerName = customer.getName();
+      this.customerPhone = customer.getPhone();
       this.cineplex = cineplex;
       this.cinema = cinema;
       this.showTime = showTime;
@@ -33,48 +76,72 @@ public class Transaction implements Serializable{
       this.seats=seats;
    }
 
+   /**
+    * Gets transaction ID
+    * @return transaction ID
+    */
+   public String getTID() {return this.TID;}
+
+   /**
+    * Gets customer name
+    * @return customer name
+    */
    public String getCustomerName(){
       return this.customerName;
-   }   
-   
+   }
+
+   /**
+    * Gets customer email
+    * @return customer email
+    */
    public String getCustomerEmail(){
       return this.customerEmail;
    }
-   
+
+   /**
+    * Gets customer phone
+    * @return phone number
+    */
+   public String getCustomerPhone(){
+      return this.customerPhone;
+   }
+
+   /**
+    * Gets show time
+    * @return show time
+    */
    public ShowTime getShowTime(){
       return this.showTime;
-   }   
-   
+   }
+
+   /**
+    * Gets seats chosen
+    * @return seats
+    */
    public HashMap<Seat,String> getSeats(){
       return this.seats;
    }
-   
-   //modifyCustomer()
-   
-   public void setShowTime(ShowTime showTime){
-      this.showTime = showTime;
-   }
-   
-   public void setSeats(HashMap<Seat,String> seats){
-      this.seats = seats;
-   }
 
+   /**
+    * Gets Cineplex
+    * @return cineplex
+    */
    public Cineplex getCineplex() {
       return cineplex;
    }
 
-   public void setCineplex(Cineplex cineplex) {
-      this.cineplex = cineplex;
-   }
-
+   /**
+    * Gets cinema
+    * @return cinema
+    */
    public Cinema getCinema() {
       return cinema;
    }
 
-   public void setCinema(Cinema cinema) {
-      this.cinema = cinema;
-   }
-
+   /**
+    * Gets total price
+    * @return total price
+    */
    public float getTotalPrice(){
       return  this.totalPrice;
    }

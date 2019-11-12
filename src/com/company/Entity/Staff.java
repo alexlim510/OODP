@@ -1,42 +1,60 @@
 package com.company.Entity;
 import java.io.Serializable;
 
-public class Staff implements Serializable {
+/**
+ * This is a Staff Class which inherits from the Person Class
+ * @author Akarapu Bharadwaj
+ * @version 1.0
+ * @since 2019-11-12
+ */
+public class Staff extends Person implements Serializable {
     private String staffID;
     private String userName;
     private String password;
-    private String staffName;
 
+    /**
+     * Creates a new Staff object with the given staffID, userName, password and staffName.
+     * @param staffID This Staff's staffID
+     * @param userName This Staff's userName
+     * @param password This Staff's password
+     * @param staffName This Staff's staffName
+     */
     public Staff(String staffID, String userName, String password, String staffName) {
+        super(staffName);
         this.staffID = staffID;
         this.userName = userName;
         this.password = password;
-        this.staffName = staffName;
     }
 
+    /**
+     * Gets the name of this Staff.
+     * @return This staff's name.
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Changes the userName of this Staff.
+     * @param userName This Staff new userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * Gets the password of this Staff.
+     * @return This staff's password.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Changes the password of this Staff.
+     * @param password This Staff new password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
-
 }

@@ -1,8 +1,9 @@
 package com.company.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import com.company.Entity.Transaction;
 
+public class Customer extends Person implements Serializable{
+	
 /**
  * This is the Entity Class of Customer
  * @author Group 2 - SS6
@@ -25,7 +26,7 @@ public class Customer implements Serializable{
     * @param email Email of the customer
     */
    public Customer(String name, String phone, String email) {
-      this.name = name;
+      super(name);
       this.phone = phone;
       this.email = email;
    }

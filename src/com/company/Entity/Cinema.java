@@ -40,7 +40,7 @@ public class Cinema implements Serializable{
     * Create a new cinema.
     * The constructor will initialize an empty list for
     * movies and showtimes.
-    * @param CID CID is the ID of cinema
+    * @param CID  the ID of cinema
     */
    public Cinema(String CID) {
       this.CID = CID;
@@ -48,14 +48,28 @@ public class Cinema implements Serializable{
       this.movies = new ArrayList<Movie>();
    }
 
-
+   /**
+    * get array of cinema types
+    * @return Types of cinema
+    */
    public String[] getCinemaTypes(){
       return this.cinemaTypes;
    }
+
+   /**
+    * Set array of cinema types
+    * @param cinemaTypes Array of cinema types
+    */
    public void setCinemaTypes(String[] cinemaTypes){
       this.cinemaTypes = cinemaTypes;
    }
 
+
+   /**
+    * Delete show time from cinema
+    * @param dateTime Date time of movie
+    * @param movie Movie object
+    */
    public void deleteShowTime(LocalDateTime dateTime, Movie movie){
       for(int i = 0; i<this.showTime.size(); i++){
          if(
@@ -67,32 +81,62 @@ public class Cinema implements Serializable{
       }
    }
 
+   /**
+    * Get Movies from cinema
+    * @return ArrayList of movies in cinema
+    */
    public ArrayList<Movie> getMovies() {
       return movies;
    }
 
+   /**
+    * set Movies into cinema
+    * @param movies Arraylist of movies
+    */
    public void setMovies(ArrayList<Movie> movies) {
       this.movies = movies;
    }
 
-
+   /**
+    * Get Cinema ID
+    * @return Cinema ID
+    */
    public String getCID() {
       return CID;
    }
 
+   /**
+    * get cinema types
+    * @return cinema type
+    */
    public String getCinemaType() {
       return cinemaType;
    }
 
-
+   /**
+    * Set cinema Type
+    * @param cinemaType Type of Cinema
+    */
    public void setCinemaType(String cinemaType) {
       this.cinemaType = cinemaType;
    }
 
+
+   /**
+    * Get Showtime of cinema
+    * @return Showtime of cinema
+    */
    public ArrayList<ShowTime> getShowTime() {
       return showTime;
    }
-	
+
+
+   /**
+    *
+    * Get Showtime Object of specific datetime
+    * @param datetime Date and time of Showtime
+    * @return Showtime Object
+    */
    public ShowTime getShowTime(LocalDateTime datetime) {
       for(ShowTime st: this.showTime) {
          if(st.getDateTime().isEqual(datetime)) {
@@ -101,7 +145,11 @@ public class Cinema implements Serializable{
       }
       return null;
    }
-	
+
+   /**
+    * Add showtime To cinema
+    * @param showTime Showtime SLots
+    */
    public void addShowTime(ShowTime showTime) {
       for(ShowTime st : this.showTime) {
          if(st.getDateTime().isEqual(showTime.getDateTime())) {
