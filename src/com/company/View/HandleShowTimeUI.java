@@ -22,15 +22,14 @@ public class HandleShowTimeUI {
 
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
-        CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
 
-//        try{
-//            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-//        }
-//        catch (ClassNotFoundException | IOException e) {
-//            System.out.println("File is missing. Please try again");
-//            return;
-//        }
+        try{
+            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        }
+        catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
 
         int cineplexChoice;
         try{
@@ -76,7 +75,15 @@ public class HandleShowTimeUI {
 //            System.out.println("Movie file is missing. Please try again");
 //            return;
 //        }
-        MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        try {
+            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        } catch (IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        } catch (ClassNotFoundException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
         try{
             if(MovieArray.size() == 0){
                 System.out.println("Movie does not exist!");
@@ -124,11 +131,12 @@ public class HandleShowTimeUI {
         Scanner sc = new Scanner(System.in);
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
-        CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
-        /*catch (ClassNotFoundException | IOException e) {
+        try {
+            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        } catch (ClassNotFoundException | IOException e) {
             System.out.println("File is missing. Please try again");
             return;
-        }*/
+        }
 
         int cineplexChoice;
         try{

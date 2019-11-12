@@ -4,7 +4,6 @@ import com.company.Controller.HandleHolidayMgr;
 import com.company.Entity.Cineplex;
 import com.company.Entity.Price;
 import com.company.Utils.Utils;
-import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -25,7 +24,15 @@ public class HandleHolidayUI {
         int month;
         int year;
 
-        Price pricing = (Price) Utils.readObject("price.txt");
+        try {
+            Price pricing = (Price) Utils.readObject("price.txt");
+        } catch (IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        } catch (ClassNotFoundException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
 
         while(!successful && tryAgain){
             System.out.println("Insert the date of holiday/special day");
@@ -48,7 +55,16 @@ public class HandleHolidayUI {
         boolean tryAgain = true;
         int choice;
 
-        Price pricing = (Price) Utils.readObject("price.txt");
+        Price pricing = null;
+        try {
+            pricing = (Price) Utils.readObject("price.txt");
+        } catch (IOException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        } catch (ClassNotFoundException e) {
+            System.out.println("File is missing. Please try again");
+            return;
+        }
         ArrayList<LocalDateTime> holidayArray = pricing.getHolidays();
 
         while(!successful && tryAgain){
