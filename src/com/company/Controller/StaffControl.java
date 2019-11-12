@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class StaffControl {
-//    MovieGoerController movieController = new MovieGoerController();
+    //    MovieGoerController movieController = new MovieGoerController();
 //    MovieGoerUI movieGoerUI = new MovieGoerUI();
     Movie movieFunctions = new Movie();
 
@@ -65,11 +65,13 @@ public class StaffControl {
         statusType = Utils.getUserChoice(1, i - 1) - 1;
 
         // newly created movie object
-        Movie movie = new Movie( title, synopsis , director , cast , genre , duration , movieClass, ageType, statusType );
+        Movie movie = new Movie(title, synopsis, director, cast, genre, duration, movieClass, ageType, statusType);
 
         // read the movielist from text file
         ArrayList<Movie> movieList;
-        movieList = (ArrayList<Movie>)Utils.readObject("movie.txt");
+        movieList = (ArrayList<Movie>) Utils.readObject("movie.txt");
+    }
+}
         /*catch (ClassNotFoundException e){
             System.out.println("File not found. please try again.");
             return;
@@ -244,3 +246,4 @@ public class StaffControl {
         System.out.println("Movie deleted successfully!");
     }
 }
+*/

@@ -65,12 +65,13 @@ public class ShowTimeUI {
         //selecting movie
         int movieChoice;
         ArrayList<Movie> MovieArray;
-        try {
-            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
-        } catch (ClassNotFoundException | IOException e) {
-            System.out.println("Movie file is missing. Please try again");
-            return;
-        }
+//        try {
+//            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+//        } catch (ClassNotFoundException | IOException e) {
+//            System.out.println("Movie file is missing. Please try again");
+//            return;
+//        }
+        MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
         try{
             if(MovieArray.size() == 0){
                 System.out.println("Movie does not exist!");

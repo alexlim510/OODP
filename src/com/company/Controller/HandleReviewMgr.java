@@ -19,11 +19,15 @@ public class HandleReviewMgr {
       }
 
       //Check if the user has provided a review;
-      for(int i = 0; i<movie.getReviews().size(); i++){
-         if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
-            System.out.println("You have provided a review.");
-            return;
+      try{
+         for(int i = 0; i<movie.getReviews().size(); i++){
+            if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
+               System.out.println("You have provided a review.");
+               return;
+            }
          }
+      }catch(NullPointerException e){
+
       }
 
       Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());

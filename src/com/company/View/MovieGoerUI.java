@@ -126,7 +126,7 @@ public class MovieGoerUI {
 			i++;
 		}
 	
-		MakeReviewUI.MakeReview(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+		HandleReviewUI.MakeReview(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 }
 

@@ -7,11 +7,7 @@ import com.company.Utils.Utils;
 
 import java.util.Scanner;
 
-
-
-public class MakeReviewUI {
-	
-	
+public class HandleReviewUI {
    public static void MakeReview(Movie movie){
       float rating = 1.0f;
       String review;
@@ -25,5 +21,9 @@ public class MakeReviewUI {
       review = sc.nextLine();
       
       HandleReviewMgr.insertReview(review, rating , movie);
+   }
+
+   public static void deleteReview(Movie movie){
+      HandleReviewMgr.deleteReview(movie);
    }
 }
