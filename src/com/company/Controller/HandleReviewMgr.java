@@ -9,7 +9,21 @@ import java.io.IOException;
 import java.util.*;
 import java.time.LocalDateTime;
 
+/**
+ * This is the controller of the review of a movie.
+ * The class is a part of StaffControl.
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-13
+ */
 public class HandleReviewMgr {
+   /**
+    * This method inserts review to a Movie object. It allows customer, which is logged in, to give a review
+    * to a movie. One person can only give one review for one movie.
+    * @param review Content of review for the movie
+    * @param rating Rating (1-5) for the movie
+    * @param movie Movie object to be reviewed
+    */
    public static void insertReview(String review, float rating, Movie movie){
       ArrayList<Movie> movies = null;
       //Retrieving customer
@@ -27,7 +41,8 @@ public class HandleReviewMgr {
             }
          }
       }catch(NullPointerException e){
-
+         System.out.println(e.getMessage());
+         return;
       }
 
       Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());
@@ -56,13 +71,16 @@ public class HandleReviewMgr {
          Utils.writeObject("movie.txt", movies);
       } catch (IOException e) {
          System.out.println("File is missing. Please try again");
-         return;
       }
    }
 
-
+   /**
+    * This deletes review from a Movie object. It allows customer, which is logged in, to delete
+    * his review of a movie he has reviewed before.
+    * @param movie Movie object
+    */
    public static void deleteReview(Movie movie){
-      ArrayList<Movie> movies = null;
+      ArrayList<Movie> movies;
       //Retrieving customer
       Customer customer = Utils.getCustomerCookie();
       if(customer == null){
@@ -106,10 +124,4 @@ public class HandleReviewMgr {
 
       System.out.println("Review deleted");
    }
-
-   public static void editReview(Movie movie, int index, String review, float rating){
-      deleteReview(movie);
-      insertReview(review, rating, movie);
-   }
-
 }

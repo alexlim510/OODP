@@ -16,13 +16,13 @@ import java.util.Scanner;
 /**
  * This is the class to configure showtime in a cinema in a cineplex.
  * The class is a part of StaffUI.
- * @author GROUP 2
+ * @author Group 2 - SS6
  * @version 1.0
+ * @since 2019-11-13
  */
 public class HandleShowTimeUI {
-    //SHOW TIME AREA =======================================
     /**
-     * This is the method to add new showtime to a cinema in a cineplex
+     * This is the UI to add new showtime to a cinema in a cineplex
      */
     public static void addShowTimeUI(){
         Utils.displayHeader("Add Show Time");
@@ -77,12 +77,6 @@ public class HandleShowTimeUI {
         //selecting movie
         int movieChoice;
         ArrayList<Movie> MovieArray;
-//        try {
-//            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
-//        } catch (ClassNotFoundException | IOException e) {
-//            System.out.println("Movie file is missing. Please try again");
-//            return;
-//        }
         try {
             MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
         } catch (IOException e) {
@@ -135,7 +129,7 @@ public class HandleShowTimeUI {
     }
 
     /**
-     * This is the method to delete showtime in a cinema in a cineplex
+     * This is the UI to delete showtime in a cinema in a cineplex
      */
     public static void deleteShowTimeUI(){
         Utils.displayHeader("Delete Show Time");
@@ -216,6 +210,4 @@ public class HandleShowTimeUI {
             }
         }
     }
-
-    //SHOW TIME AREA =====================================
 }

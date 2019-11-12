@@ -8,12 +8,13 @@ import java.util.ArrayList;
 /**
  * This is the class to configure pricing based on categories.
  * The class is a part of StaffUI.
- * @author GROUP 2
+ * @author Group 2 - SS6
  * @version 1.0
+ * @since 2019-11-13
  */
 public class HandlePricingUI {
     /**
-     * This is the method to add new price category
+     * This is the UI to add new price category
      */
     public static void addPriceCategoryUI(){
         Utils.displayHeader("Adding Price Category");
@@ -31,7 +32,7 @@ public class HandlePricingUI {
     }
 
     /**
-     * This is the method to delete price category
+     * This is the UI to delete price category
      */
     public static void deletePriceCategoryUI(){
         Utils.displayHeader("Delete Price Category");
@@ -62,7 +63,7 @@ public class HandlePricingUI {
     }
 
     /**
-     * This is the method to edit price category
+     * This is the UI to to edit price category
      */
     public static void editPriceCategoryUI(){
         Utils.displayHeader("Edit Price Category");

@@ -3,7 +3,18 @@ package com.company.Controller;
 import com.company.Entity.Price;
 import com.company.Utils.Utils;
 
+/**
+ * This is the controller of the configuration of pricing.
+ * The class is a part of StaffControl.
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-13
+ */
 public class HandlePricingMgr {
+    /**
+     * This method reads the Price database
+     * @return Price object, which is read from the database. Return null instead if the read action is unsuccessful.
+     */
     public static Price readPriceFile(){
         Price pricing;
         try{
@@ -16,6 +27,11 @@ public class HandlePricingMgr {
         return pricing;
     }
 
+    /**
+     * This method modifies the Price database
+     * @param pricing Price object is used to overwrite the current database.
+     * @return true if the modification of the database is successful.
+     */
     public static boolean modifyPriceDB(Price pricing){
         try{
             Utils.writeObject("price.txt", pricing);
@@ -26,6 +42,10 @@ public class HandlePricingMgr {
         return true;
     }
 
+    /**
+     * This method adds price category to the database
+     * @return true if the addition is successful.
+     */
     public static boolean addPriceCategoryMgr(){
         Price pricing = readPriceFile();
         try{
@@ -40,6 +60,10 @@ public class HandlePricingMgr {
         return modifyPriceDB(pricing);
     }
 
+    /**
+     * This method deletes price category to the database
+     * @return true if the deletion is successful.
+     */
     public static boolean deletePriceCategoryMgr(String catName){
         Price pricing = readPriceFile();
         try{
@@ -54,6 +78,10 @@ public class HandlePricingMgr {
         return modifyPriceDB(pricing);
     }
 
+    /**
+     * This method edits price category to the database
+     * @return true if the modification is successful.
+     */
     public static boolean editPriceCategoryMgr(String catName, float newPrice){
         Price pricing = readPriceFile();
         try{

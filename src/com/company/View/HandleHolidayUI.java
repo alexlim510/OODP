@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This is the class to configure holiday dates used for special pricing.
+ * This is the UI to configure holiday dates used for special pricing.
  * The class is a part of StaffUI.
- * @author GROUP 2
+ * @author Group 2 - SS6
  * @version 1.0
+ * @since 2019-11-13
  */
 
 public class HandleHolidayUI {
     /**
-     * This is the method to add holiday date
+     * This method displays the UI to add a new Date to holiday database
      */
     public static void addHolidayUI(){
         Utils.displayHeader("Adding Holiday/Special Date");
@@ -54,7 +55,7 @@ public class HandleHolidayUI {
     }
 
     /**
-     * This is the method to delete holiday date
+     * This method displays the UI to delete a new Date to holiday database
      */
     public static void deleteHolidayUI(){
         Utils.displayHeader("Adding Holiday/Special Date");
