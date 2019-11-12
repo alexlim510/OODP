@@ -241,16 +241,23 @@ public class StaffControl {
                 int hour;
                 int minute;
 
-                System.out.println("Insert date and time of show time of the movie");
+                boolean loop = true;
+                while(loop) {
+                    System.out.println("Insert end date and time of the movie");
+                    day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+                    month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+                    year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+                    hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
+                    minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
 
-                day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-                month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-                year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-                hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-                minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
-
-                showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
-                movie.setShowTill(showTill);
+                    showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
+                    if(showTill.isAfter(LocalDateTime.now())){
+                        loop = false;
+                    }
+                    else{
+                        System.out.println("Sorry you cant enter a date from the past, please try again.");
+                    }
+                }
                 break;
             default:
                 break;
