@@ -70,8 +70,6 @@ public class StaffControl {
         int year;
         int month;
         int day;
-        int hour;
-        int minute;
 
         boolean loop = true;
         while(loop) {
@@ -79,10 +77,8 @@ public class StaffControl {
             day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
             month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
             year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-            hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-            minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
 
-            showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
+            showTill = Utils.createLocalDateTime(year, month, day, 0,0);
             if(showTill.isAfter(LocalDateTime.now())){
                 loop = false;
             }
@@ -238,8 +234,6 @@ public class StaffControl {
                 int year;
                 int month;
                 int day;
-                int hour;
-                int minute;
 
                 boolean loop = true;
                 while(loop) {
@@ -247,10 +241,8 @@ public class StaffControl {
                     day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
                     month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
                     year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-                    hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-                    minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
 
-                    showTill = Utils.createLocalDateTime(year, month, day, hour, minute);
+                    showTill = Utils.createLocalDateTime(year, month, day, 0, 0);
                     if(showTill.isAfter(LocalDateTime.now())){
                         loop = false;
                     }
