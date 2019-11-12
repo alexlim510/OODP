@@ -54,10 +54,10 @@ public class StaffUI {
             staffControl.addMovieListing();
             break;
          case 2:
-            staffControl.editMovieListing();
+           //staffControl.editMovieListing();
             break;
          case 3:
-            staffControl.deleteMovieListing();
+            //staffControl.deleteMovieListing();
             break;
       }
    }
@@ -70,10 +70,10 @@ public class StaffUI {
 
       switch (Utils.getUserChoice(1, 2)) {
          case 1:
-            ShowTimeUI.addShowTimeUI();
+            HandleShowTimeUI.addShowTimeUI();
             break;
          case 2:
-            ShowTimeUI.deleteShowTimeUI();
+            HandleShowTimeUI.deleteShowTimeUI();
             break;
       } 
    }

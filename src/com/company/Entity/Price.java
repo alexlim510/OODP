@@ -30,6 +30,8 @@ public class Price implements Serializable{
 	public Set<String> getKeys(){
 		return this.prices.keySet();
 	}
+
+	public ArrayList<LocalDateTime> getHolidays() { return this.holidays; }
 	
 	public void addPrice(String category, float price) {
 		if(prices.containsKey(category)) {

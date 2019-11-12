@@ -51,8 +51,6 @@ public class Movie implements Serializable{
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
                 int duration , ArrayList<Review> reviews  , float overallReviewRating,int movieClass,
                 int ageType, int statusType ) {
-
-
       this.title= title;
       this.synopsis= synopsis;
       this.director=director;
@@ -115,7 +113,7 @@ public class Movie implements Serializable{
    }
 
    public void insertMovieReview(Review review) {
-      this.reviews.add(reviews.size(), review);
+      this.reviews.add(this.reviews.size(), review);
    }
 
    public void setOverallReviewRating(float overallReviewRating) {
