@@ -10,8 +10,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 /**
- * This is the controller of the review of a movie.
- * The class is a part of StaffControl.
+ * This is the controller of the review of a movie. The class is a part of StaffControl.
  * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-13
