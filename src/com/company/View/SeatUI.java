@@ -5,7 +5,7 @@ import com.company.Controller.MovieGoerController;
 import java.util.*;
 
 /**
- * Show interfaces
+ * Generate User interface for seat selection, tickets and payment for movie goers
  */
 public class SeatUI {
 
