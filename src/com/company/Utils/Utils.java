@@ -167,6 +167,16 @@ public class Utils {
    }
 
    /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
+   public static String createTransactionDateString(LocalDateTime localDateTime){
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+      return localDateTime.format(formatter);
+   }
+
+   /**
     * Gets float input from user
     * @param inputMessage message to be displayed before getting input
     * @return user's float input

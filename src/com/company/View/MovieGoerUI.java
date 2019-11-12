@@ -78,7 +78,7 @@ public class MovieGoerUI {
 		}
 	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
-	/** getHomeView()
+	/**
 	 *Prints the choices available for the users
 	 *Asks for users' input
 	 *Once they choose, the method will execute to the intended method.
@@ -171,10 +171,14 @@ public class MovieGoerUI {
 			System.out.println("No bookings have been made.");
 			return;
 		}
-
+		Transaction curTransaction = transactions.get(0);
 		Utils.displayHeader("Booking History");
-
+		System.out.println("Customer name: " + curTransaction.getCustomerName());
+		System.out.println("Customer email: " + curTransaction.getCustomerEmail());
+		System.out.println("Customer phone: " + curTransaction.getCustomerPhone());
+		System.out.println("-----------------------------------------");
 		for(Transaction t: transactions){
+			System.out.println("TID: "+t.getTID());
 			System.out.println("Movie: " + t.getShowTime().getMovie().getTitle());
 			System.out.println("Cineplex: " + t.getCineplex().getCineplexName());
 			System.out.println("Cinema: " + t.getCinema().getCID());

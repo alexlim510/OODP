@@ -1,14 +1,23 @@
 package com.company.Entity;
+import com.company.Utils.Utils;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 
+/**
+ * Represents the transaction which a customer made
+ */
 public class Transaction implements Serializable{
+   /**
+    * Transaction ID in the format XXXYYYYMMDDHHMM where XXX is the cinema ID
+    */
    private String TID;
    private String customerEmail;
    private String customerName;
+   private String customerPhone;
    private Cineplex cineplex;
    private Cinema cinema;
    private ShowTime showTime;
@@ -17,9 +26,10 @@ public class Transaction implements Serializable{
    
    public Transaction(Customer customer,Cineplex cineplex, Cinema cinema, ShowTime showTime, float totalPrice,
                        HashMap<String,String> chosenSeats){
-      this.TID = customer.getEmail()+showTime.getDateTime();
+      this.TID = cinema.getCID() + Utils.createTransactionDateString(LocalDateTime.now());
       this.customerEmail = customer.getEmail();
       this.customerName = customer.getName();
+      this.customerPhone = customer.getPhone();
       this.cineplex = cineplex;
       this.cinema = cinema;
       this.showTime = showTime;
@@ -33,12 +43,18 @@ public class Transaction implements Serializable{
       this.seats=seats;
    }
 
+   public String getTID() {return this.TID;}
+
    public String getCustomerName(){
       return this.customerName;
    }   
    
    public String getCustomerEmail(){
       return this.customerEmail;
+   }
+
+   public String getCustomerPhone(){
+      return this.customerPhone;
    }
    
    public ShowTime getShowTime(){
