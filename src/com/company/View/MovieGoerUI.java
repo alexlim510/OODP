@@ -219,7 +219,7 @@ public class MovieGoerUI {
 	 * prints out top 5 movies ordered by total sales
 	 */
     public void getTop5MoviesTicketView(){
-		Utils.displayHeader("Top 5 Movie List");
+		Utils.displayHeader("Top 5 Movie List based on tickets sold");
 		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
 		top5MovieList = movieController.getTop5MoviesListTicket();
 		int i = 1;
@@ -233,7 +233,7 @@ public class MovieGoerUI {
 	 * prints out top 5 movies ordered by review ratings
 	 */
 	public void getTop5MoviesRatingView(){
-		Utils.displayHeader("Top 5 Movie List");
+		Utils.displayHeader("Top 5 Movie List based on customers rating");
 		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
 		top5MovieList = movieController.getTop5MoviesListRating();
 		int i = 1;
