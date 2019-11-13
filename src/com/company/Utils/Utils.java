@@ -112,7 +112,7 @@ public class Utils {
       int choice = -1;
       Scanner scanner = new Scanner(System.in);
    
-      System.out.print("Choice: ");
+      System.out.print("Input: ");
       try {
          choice = scanner.nextInt();
       } catch (InputMismatchException e) {
