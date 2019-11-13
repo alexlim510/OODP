@@ -150,9 +150,9 @@ public class Utils {
     * @return LocalDateTime
     */
    public static LocalDateTime createLocalDateTime(int year, int month, int day, int hour, int minute) {
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm");
-      String date = String.format("%d.%d.%d %d:%d",year,month,day,hour,minute);
-      return LocalDateTime.parse(date, formatter);
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm");
+       String date = String.format("%d.%d.%d %02d:%02d",year,month,day,hour,minute);
+       return LocalDateTime.parse(date, formatter);
    }
 
    /**
