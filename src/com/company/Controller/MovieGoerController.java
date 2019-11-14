@@ -15,7 +15,7 @@ import java.util.Comparator;
 
 /**
  * Serve as the controller for Movie Goer's features
- * @author Alexander Lim
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-12-11
  */

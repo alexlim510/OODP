@@ -1,8 +1,14 @@
 package com.company.Entity;
 
 import java.util.Date;
-
+/**
+ * Represents the price to be charged on the tickets
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class Ticket {
+
 
     private float ticketPrice;
     private Date date;

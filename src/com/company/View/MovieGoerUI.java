@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *  MovieGoerUI to generate User interface for movie goers
- * @author Alexander Lim, Chean
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

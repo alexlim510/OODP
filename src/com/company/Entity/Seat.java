@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
  * Represents a seat in a movie shaw time
- * @author Alexander Lim
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

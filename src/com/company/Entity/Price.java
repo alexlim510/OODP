@@ -4,8 +4,12 @@ import java.util.*;
 import java.time.*;
 import java.io.Serializable;
 
+
 /**
  * Represents the price to be charged on the tickets
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
  */
 public class Price implements Serializable{
 	/**

@@ -2,7 +2,7 @@ package com.company.Entity;
 import java.io.Serializable;
 /**
  * Represents a person with a name.
- * @author Akarapu Bharadwaj
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */
