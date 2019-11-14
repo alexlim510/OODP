@@ -2,18 +2,18 @@ package com.company.Utils;
 
 import com.company.Entity.Staff;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class staffConfig {
     public static void main(String[] args){
-        Staff theStaff = new Staff("s1", "Staff1", "Staff1", "Staff Name");
-        ArrayList<Staff> theStaffs= new ArrayList<Staff>();
-        theStaffs.add(theStaff);
-
-        try{
-            Utils.writeObject("staff.txt", theStaffs);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        try {
+            Staff staff1 = new Staff("S001", "admin", "password", "SuperAdmin");
+            ArrayList<Staff> staffList = new ArrayList<Staff>();
+            staffList.add(staff1);
+            Utils.writeObject("staff.txt", (Object)staffList);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
