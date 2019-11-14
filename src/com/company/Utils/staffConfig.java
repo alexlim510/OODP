@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class staffConfig {
     public static void main(String[] args){
+        //Staff configuration
         try {
             Staff staff1 = new Staff("S001", "admin", "password", "SuperAdmin");
             ArrayList<Staff> staffList = new ArrayList<Staff>();
