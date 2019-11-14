@@ -1,6 +1,7 @@
 package com.company.View;
 import com.company.Controller.MovieGoerController;
 import com.company.Entity.*;
+import com.company.Utils.Lister;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
@@ -66,17 +67,12 @@ public class MovieGoerUI implements GeneralUI{
 	*Prints out all the movies available in the database
 	*In the end, asks users which movie they want to view the details
 	 */
+
 	public void getMovieListingView(){
-		int i=1;
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		movieList = movieController.getAllMovieList();
-		Utils.displayHeader("Movie List");
-		for (Movie m: movieList) //MovieLists is initiated in main
-		{
-			System.out.println(i + ": " + m.getTitle() + ", movie status: " + m.getStatusType());
-			i++;
-		}
-	getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+		Lister.list(movieList);
+		getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 	/**
 	 *Prints the choices available for the users

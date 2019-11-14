@@ -1,5 +1,7 @@
 package com.company.Entity;
 
+import com.company.Utils.ListerInterface;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-13
  */
-public class Movie implements Serializable{
+public class Movie implements Serializable, ListerInterface {
    private String title;
    private String movieClass; // 3D, blockbuster etc..
    private String statusType; //now showing, etc..
@@ -349,4 +351,13 @@ public class Movie implements Serializable{
       this.totalSales = this.totalSales + increment;
       return this.totalSales;
    }
+
+   /**
+    * This method implements the interface to list itself
+    * since this class is often listed in the UI
+    */
+   public void listItself(){
+      System.out.println("Title: "+this.title+" - Status: "+this.statusType);
+   }
+
 }
