@@ -133,7 +133,6 @@ public class LoginUI implements GeneralUI {
       LoginController logCtrl = new LoginController();
       Utils.displayHeader("Customer Login");
       boolean  credentialCheck = false;
-      while(!credentialCheck) {
          System.out.println("Please input Email:");
          Scanner sc = new Scanner(System.in);
          String email = sc.nextLine();
@@ -141,12 +140,18 @@ public class LoginUI implements GeneralUI {
          if(!credentialCheck) {
             System.out.println("Invalid account.");
          }
+
+      if (credentialCheck == true) {
+         Customer c = Utils.getCustomerCookie();
+
+         System.out.println("Hi " + c.getName() + "!");
+         MovieGoerUI mui = new MovieGoerUI();
+         UIDisplay uid = new UIDisplay(mui);
+         uid.displayHomePage();
       }
-      Customer c = Utils.getCustomerCookie();
-      System.out.println("Your email: " + c.getEmail());
-      MovieGoerUI mui = new MovieGoerUI();
-      UIDisplay uid = new UIDisplay(mui);
-      uid.displayHomePage();
+      else{
+         displayLoginRegisterPage();
+      }
    }
 
     /**
