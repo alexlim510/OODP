@@ -144,7 +144,7 @@ public class LoginUI implements GeneralUI {
       if (credentialCheck == true) {
          Customer c = Utils.getCustomerCookie();
 
-         System.out.println("Your email: " + c.getEmail());
+         System.out.println("Hi " + c.getName() + "!");
          MovieGoerUI mui = new MovieGoerUI();
          UIDisplay uid = new UIDisplay(mui);
          uid.displayHomePage();
