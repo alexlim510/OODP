@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class Customer extends Person implements Serializable{
    private String email;
-   private String name;
    private String phone;
    private int age;
    private boolean isStudent;
@@ -43,22 +42,6 @@ public class Customer extends Person implements Serializable{
     */
    public void setEmail(String email) {
       this.email = email;
-   }
-
-   /**
-    * This method gets the name of the customer
-    * @return Name of the customer
-    */
-   public String getName() {
-      return this.name;
-   }
-
-   /**
-    * This method sets the name of the customer
-    * @param name Name of the customer
-    */
-   public void setName(String name) {
-      this.name = name;
    }
 
    /**
