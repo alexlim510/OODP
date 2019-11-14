@@ -82,46 +82,50 @@ public class MovieGoerUI implements GeneralUI{
 
 		boolean loop = true;
 
-        while(loop) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Select What to do: ");
-            System.out.println("1) Book Ticket");
-            System.out.println("2) Movie Listing");
-            System.out.println("3) Make a review");
-			System.out.println("4) View booking history");
-			System.out.println("5) Top 5 Movies");
-            System.out.println("6) Quit");
-            try {
-                int choice = sc.nextInt();
-                switch(choice) {
-                case 1:
-                    movieController.seatSelection();
-                    break;
-                case 2:
-                    getMovieListingView();
-                    break;
-                case 3:
-                    getMakeAReviewView();
-                    break;
-                case 4:
-					getBookingHistoryView();
-					break;
-				case 5:
-					listTopMovies();
-					break;
-				case 6:
-					loop = false;
-                    break;
-                default:
-                    System.out.println("Please input 1,2,3,4 or 5.");
-                    break;
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("Please input an integer.");
-            }
-        }
-    }
+		while (loop) {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Select What to do: ");
+			System.out.println("1) Book Ticket");
+			System.out.println("2) Movie Listing");
+			System.out.println("3) Search Movie detail");
+			System.out.println("4) Make a review");
+			System.out.println("5) View booking history");
+			System.out.println("6) Top 5 Movies");
+			System.out.println("7) Quit");
+			try {
+				int choice = sc.nextInt();
+				switch (choice) {
+					case 1:
+						movieController.seatSelection();
+						break;
+					case 2:
+						getMovieListingView();
+						break;
+					case 3:
+						searchMovieUI();
+						break;
+
+					case 4:
+						getMakeAReviewView();
+						break;
+					case 5:
+						getBookingHistoryView();
+						break;
+					case 6:
+						searchMovieUI();
+						break;
+					case 7:
+						loop = false;
+						break;
+					default:
+						System.out.println("Please input 1,2,3,4,5,6 or 7.");
+						break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please input an integer.");
+			}
+		}
+	}
 	/**
 	 *Prints out all the Cineplexes available
 	 */
@@ -237,5 +241,41 @@ public class MovieGoerUI implements GeneralUI{
 			i++;
 		}
 	}
-}
 
+	public void searchMovieUI() {
+		boolean found = false;
+		Utils.displayHeader("Search movie");
+
+		ArrayList<Movie> movieList = new ArrayList<Movie>();
+		ArrayList<Movie> selected = new ArrayList<Movie>();
+		movieList = movieController.getAllMovieList();
+
+		System.out.println("Please type in movie name");
+		Scanner sc = new Scanner(System.in);
+		String input = sc.next();
+		for (Movie m : movieList) {
+			if (m.getTitle().contains(input)) {
+				selected.add(m);
+				selectedMovieDetailView(selected);
+				found = true;
+			}
+		}
+		if (!found)
+			System.out.println("Movie not found");
+
+	}
+
+	public void selectedMovieDetailView(ArrayList<Movie> Selectedlist) {
+		int i=1;
+		int select=0;
+
+
+			System.out.println("Movies found: ");
+			Utils.list(Selectedlist);
+			System.out.println("Please select movie: ");
+
+		select = Utils.getUserChoice(1,Selectedlist.size());
+
+	getMovieDetailsView(Selectedlist.get((select-1)));
+	}
+}
