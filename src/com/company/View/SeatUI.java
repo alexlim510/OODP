@@ -13,8 +13,6 @@ import java.util.*;
  * @since 2019-11-12
  */
 public class SeatUI {
-
-
 	/**
 	 * gets user input of cineplex
 	 * @param cineplexes All cineplexes

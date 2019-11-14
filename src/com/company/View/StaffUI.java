@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @author GROUP 2
  * @version 1.0
  */
-public class StaffUI {
+public class StaffUI implements GeneralUI{
    /**
     * Initialize new StaffControl Class
     */
@@ -26,32 +26,34 @@ public class StaffUI {
     * Main menu of StaffUI
     * @return boolean will return true if user choose to Exit
     */
-   public boolean displayMenu() {
-      Utils.displayHeader("Staff Portal");
-      System.out.println(
-              "1. Create/Update/Remove movie listing\n" +
-                      "2. Create/Remove cinema showtimes\n" +
-                      "3. Configure system settings\n" +
-                      "4. List top 5 movies\n"+
-                      "5. Exit\n"
-      );
-      switch (Utils.getUserChoice(1, 5)) {
-         case 1:
-            displayStaffMovieOptions();
-            return false;
-         case 2:
-            displayStaffShowtimeOptions();
-            return false;
-         case 3:
-            displayStaffConfigurationOptions();
-            return false;
-         case 4:
-            listTopMovies();
-            return false;
-         case 5:
-            return true;
-      }
-      return true;
+   public void displayHomePage() {
+       boolean exit = false;
+       while(!exit){
+           Utils.displayHeader("Staff Portal");
+           System.out.println(
+                   "1. Create/Update/Remove movie listing\n" +
+                           "2. Create/Remove cinema showtimes\n" +
+                           "3. Configure system settings\n" +
+                           "4. List top 5 movies\n"+
+                           "5. Exit\n"
+           );
+           switch (Utils.getUserChoice(1, 5)) {
+               case 1:
+                   displayStaffMovieOptions();
+                   break;
+               case 2:
+                   displayStaffShowtimeOptions();
+                   break;
+               case 3:
+                   displayStaffConfigurationOptions();
+                   break;
+               case 4:
+                   listTopMovies();
+                   break;
+               case 5:
+                   exit = true;
+           }
+       }
    }
 
    /**

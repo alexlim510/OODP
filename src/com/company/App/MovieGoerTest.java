@@ -3,8 +3,10 @@ import com.company.Entity.Cineplex;
 import com.company.Entity.Movie;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
+import com.company.View.UIDisplay;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,7 +24,8 @@ public class MovieGoerTest {
          ArrayList<Cineplex> CineplexArray = (ArrayList<Cineplex>)Utils.getObjectInputStream("cineplex.txt").readObject();
          Cineplex[] array1 = CineplexArray.toArray(new Cineplex[CineplexArray.size()]);*/
       MovieGoerUI UI = new MovieGoerUI();
-         UI.getHomeView();
+      UIDisplay uid = new UIDisplay(UI);
+      uid.displayHomePage();
      /* }
       catch (IOException e) {
          e.printStackTrace();

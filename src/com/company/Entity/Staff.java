@@ -27,6 +27,12 @@ public class Staff extends Person implements Serializable {
     }
 
     /**
+     * Gets staff id
+     * @return staff id
+     */
+    public String getStaffID(){ return this.staffID;}
+
+    /**
      * Gets the name of this Staff.
      * @return This staff's name.
      */
@@ -43,18 +49,20 @@ public class Staff extends Person implements Serializable {
     }
 
     /**
-     * Gets the password of this Staff.
-     * @return This staff's password.
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
      * Changes the password of this Staff.
      * @param password This Staff new password.
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Validates Staff password
+     * @param password password
+     * @return boolean
+     */
+    public boolean validateCredentials(String password) {
+        if(this.password.equals(password)) return true;
+        else return false;
     }
 }

@@ -3,6 +3,7 @@ import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
+import com.company.View.UIDisplay;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -25,10 +26,10 @@ public class MovieGoerController extends Utils {
 	 */
    public void MainMenu(Movie[] MovieArray, Cineplex[] CineplexList)
    {
-      MovieGoerUI UI = new MovieGoerUI();
-    
-      UI.getMovieListingView();
-      UI.getHomeView();
+      MovieGoerUI mui = new MovieGoerUI();
+      mui.getMovieListingView();
+      UIDisplay uid = new UIDisplay(mui);
+      uid.displayHomePage();
    }
    /* getNowShowingMovieList()
    Returns and ArrayList of ALL 'Now showing' Movie objects

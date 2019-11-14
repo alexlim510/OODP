@@ -1,8 +1,6 @@
 package com.company.View;
 import com.company.Controller.LoginController;
 import com.company.Entity.Customer;
-import com.company.Entity.Movie;
-import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
@@ -16,11 +14,13 @@ import java.util.*;
  * @version 1.0
  * @since 2019-11-12
  */
-public class LoginUI {
+public class LoginUI implements GeneralUI {
     /**
      * Display UI for user to choose user type ( Admin / Movie Goer )
      */
-   public void displayLoginPage() {
+   public void displayHomePage() {
+      LoginController lc = new LoginController();
+      lc.updateMovieStatus();
       System.out.println("Select User Type: ");
       System.out.println("1) Admin");
       System.out.println("2) Movie Goer");
@@ -52,30 +52,29 @@ public class LoginUI {
     /**
      * Allow Movie Goer to login or register
      */
-   public void displayLoginRegisterPage()
-   {
+   public void displayLoginRegisterPage() {
       Utils.displayHeader("Login/Register");
       boolean end= false;
 
-while (!end) {
-   System.out.println("Please make a selection");
-   System.out.println("1) Log In");
-   System.out.println("2) Register");
+      while (!end) {
+         System.out.println("Please make a selection");
+         System.out.println("1) Log In");
+         System.out.println("2) Register");
 
-   int select = Utils.getUserChoice(1,2);
-   switch (select) {
-      case 1:
-         displayPublicLoginPage();
-         end = true;
-         break;
-      case 2:
-         displayPublicRegisterPage();
-         break;
-      default:
-         System.out.println("Please select 1 or 2");
-   }
+         int select = Utils.getUserChoice(1,2);
+         switch (select) {
+            case 1:
+               displayPublicLoginPage();
+               end = true;
+               break;
+            case 2:
+               displayPublicRegisterPage();
+               break;
+            default:
+               System.out.println("Please select 1 or 2");
+         }
 
-}
+      }
    }
 
     /**
@@ -128,7 +127,7 @@ while (!end) {
 
 
     /**
-     *  Display Movie Goer Log in Page and allow them to login
+     *  Display Movie Goer Log in Page and allow them to login with their email address
      */
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
@@ -146,7 +145,8 @@ while (!end) {
       Customer c = Utils.getCustomerCookie();
       System.out.println("Your email: " + c.getEmail());
       MovieGoerUI mui = new MovieGoerUI();
-      mui.getHomeView();
+      UIDisplay uid = new UIDisplay(mui);
+      uid.displayHomePage();
    }
 
     /**
@@ -170,6 +170,7 @@ while (!end) {
          }
       }
       StaffUI sui = new StaffUI();
-      sui.displayMenu();
+      UIDisplay uid = new UIDisplay(sui);
+      uid.displayHomePage();
    }
 }

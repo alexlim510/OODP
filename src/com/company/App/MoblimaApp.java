@@ -1,5 +1,5 @@
 package com.company.App;
-import com.company.View.LoginUI;
+import com.company.View.*;
 
 /**
  * MoblimaApp enables customers to purchase movie tickets and also allows staff to configure
@@ -11,6 +11,7 @@ import com.company.View.LoginUI;
 public class MoblimaApp{
    public static void main(String[] args) {
       LoginUI log = new LoginUI();
-      log.displayLoginPage();
+      UIDisplay ui = new UIDisplay(log);
+      ui.displayHomePage();
    }
 }

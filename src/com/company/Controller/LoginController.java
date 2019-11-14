@@ -52,8 +52,8 @@ public class LoginController extends Utils {
          staffArray = (ArrayList<Staff>)getObjectInputStream("staff.txt").readObject();
       	
          for(Staff s : staffArray) {
-            if(s.getUserName().equals(username) && s.getPassword().equals(password)) {
-               return true;
+            if(s.getUserName().equals(username)) {
+               return s.validateCredentials(password);
             }
          }
       } catch (ClassNotFoundException | IOException e) {
@@ -69,9 +69,11 @@ public class LoginController extends Utils {
    public void updateMovieStatus(){
       try {
          ArrayList<Movie> movies = (ArrayList<Movie>)Utils.readObject("movie.txt");
-         for(Movie m: movies){
-            if(m.getShowTill().isBefore(LocalDateTime.now())){
-               m.setStatusType("End of showing");
+         if(movies.size()!=0){
+            for(Movie m: movies){
+               if(m.getShowTill()!=null && m.getShowTill().isBefore(LocalDateTime.now())){
+                  m.setStatusType("End of showing");
+               }
             }
          }
          Utils.writeObject("movie.txt",(Object)movies);

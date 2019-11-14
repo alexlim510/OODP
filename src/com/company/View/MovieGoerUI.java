@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2019-11-12
  */
-public class MovieGoerUI {
+public class MovieGoerUI implements GeneralUI{
 	
 	MovieGoerController movieController = new MovieGoerController();
 
@@ -64,7 +64,7 @@ public class MovieGoerUI {
 
 	/**
 	*Prints out all the movies available in the database
-	*In the end, asks users which movie they wanna view the details
+	*In the end, asks users which movie they want to view the details
 	 */
 	public void getMovieListingView(){
 		int i=1;
@@ -83,7 +83,7 @@ public class MovieGoerUI {
 	 *Asks for users' input
 	 *Once they choose, the method will execute to the intended method.
 	 */
-	public void getHomeView() {
+	public void displayHomePage() {
 
 		boolean loop = true;
 
@@ -204,7 +204,7 @@ public class MovieGoerUI {
 		Utils.displayHeader("Top 5 Movies");
 		System.out.println(
 				"1. List top 5 ranking movies by ticket sales.\n" +
-						"2. List top 5 ranking movies by Overall reviewers' rating.\n");
+						"2. List top 5 ranking movies by Overall reviewers' rating.");
 		switch (Utils.getUserChoice(1, 2)) {
 			case 1:
 				getTop5MoviesTicketView();

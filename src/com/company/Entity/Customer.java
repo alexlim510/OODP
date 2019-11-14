@@ -18,7 +18,7 @@ public class Customer extends Person implements Serializable{
    private ArrayList<Transaction> transactions = new ArrayList<>();
 
    /**
-    * This method construcs Customer object. It takes 3 arguments.
+    * This method constructs Customer object. It takes 3 arguments.
     * @param name Name of the customer
     * @param phone Phone number of the customer
     * @param email Email of the customer
@@ -147,4 +147,5 @@ public class Customer extends Person implements Serializable{
    public void addTransactions(Transaction transaction){
       this.transactions.add(transaction);
    }
+
 }
