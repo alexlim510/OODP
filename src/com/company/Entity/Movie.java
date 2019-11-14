@@ -1,10 +1,9 @@
 package com.company.Entity;
 
-import com.company.Utils.ListerInterface;
+import com.company.View.ListerInterface;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.ArrayList;
 
 /**

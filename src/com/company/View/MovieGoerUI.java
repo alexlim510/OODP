@@ -1,7 +1,6 @@
 package com.company.View;
 import com.company.Controller.MovieGoerController;
 import com.company.Entity.*;
-import com.company.Utils.Lister;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class MovieGoerUI implements GeneralUI{
 	public void getMovieListingView(){
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		movieList = movieController.getAllMovieList();
-		Lister.list(movieList);
+		Utils.list(movieList);
 		getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 	/**

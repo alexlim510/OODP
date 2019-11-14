@@ -1,6 +1,7 @@
 package com.company.Utils;
 import com.company.Entity.Customer;
 import com.company.Entity.Staff;
+import com.company.View.ListerInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -73,7 +74,7 @@ public class Utils {
          ObjectOutputStream oos = getObjectOutputStream("usercookie.txt");
          oos.writeObject(c);
       } catch (IOException e) {			
-         System.out.println(e);
+         System.out.println(e.getMessage());
       }
    }
 
@@ -85,9 +86,9 @@ public class Utils {
       try {
          return (Customer)getObjectInputStream("usercookie.txt").readObject();
       } catch (ClassNotFoundException e) {
-         System.out.println(e);
+         System.out.println(e.getMessage());
       } catch (IOException e) {
-         System.out.println(e);
+         System.out.println(e.getMessage());
       }
       return null;
    }
@@ -109,7 +110,7 @@ public class Utils {
     * @return user's choice
     */
    public static int getUserChoice(int startingNum, int endingNum) {
-      int choice = -1;
+      int choice;
       Scanner scanner = new Scanner(System.in);
    
       System.out.print("Input: ");
@@ -241,7 +242,21 @@ public class Utils {
          ans = (sc.nextLine()).charAt(0);
       }while(ans != 'y' && ans != 'n');
 
-      return ans == 'y' ? true : false;
+      return ans == 'y';
+   }
+
+   /**
+    * This method lists individual object from
+    * an array of a Class extended from ListerInterface
+    * @param array Array of an extended ListerInterface Class
+    */
+   public static void list (ArrayList<? extends ListerInterface> array){
+      int i = 1;
+      for(ListerInterface li: array){
+         System.out.print(i+". ");
+         li.listItself();
+         i++;
+      }
    }
 }
 
