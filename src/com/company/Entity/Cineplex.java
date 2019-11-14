@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * This is the Entity Class of Cineplex
- * @author GROUP 2
+ * @author Group 2 - SS6
  * @version 1.0
  */
 public class Cineplex implements Serializable{

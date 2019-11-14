@@ -7,9 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 
+
 /**
  * Represents the transaction which a customer made
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
  */
+
 public class Transaction implements Serializable{
    /**
     * Transaction ID in the format XXXYYYYMMDDHHMM where XXX is the cinema ID

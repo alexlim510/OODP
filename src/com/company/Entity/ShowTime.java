@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * Represents the show time of a movie in a cineplex
- * @author Alexander Lim
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

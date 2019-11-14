@@ -19,7 +19,7 @@ import static com.company.Utils.Utils.createLocalDateTime;
 /**
  * This is the main controller for the StaffUI.
  * It handles the movie & show time creating, modification and deletion along with the configuration of system settings.
- * @author Akarapu Bharadwaj
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

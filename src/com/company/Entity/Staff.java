@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * This is a Staff Class which inherits from the Person Class
- * @author Akarapu Bharadwaj
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

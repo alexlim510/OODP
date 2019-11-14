@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * Login UI to allow user to sign in as admin or movie goer
- * @author Alexander Lim
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */

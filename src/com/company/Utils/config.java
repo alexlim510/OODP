@@ -29,7 +29,7 @@ public static void main(String[] args) {
 			Movie movie1 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
 					new String[]{"Jay" , "Chean" ,"Alfredo","Bharat"},new String[]{ "Sci-fi" , "Cartoon" }
 					  , 2 ,null , 3.6f,1,2 ,1);
-			Movie movie2 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
+			Movie movie2 = new Movie("Spiderman" ,"Sticky stuff coming out of a guy's hand" , "Alex" ,
 					new String[]{"Jay" , "Chean" },new String[]{ "Sci-fi" , "Cartoon" }  ,
 					2 ,null , 3.6f,1,2 ,1);
 			

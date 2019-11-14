@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  * This is the main UI Class for staff
- * @author GROUP 2
+ * @author Group 2 - SS6
  * @version 1.0
  */
 public class StaffUI implements GeneralUI{
