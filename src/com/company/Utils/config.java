@@ -55,8 +55,8 @@ public static void main(String[] args) {
 					new String[]{"Alex" , "Johnny" },new String[]{ "Drama" , "Action" }  ,
 					155 ,null ,2,2 ,2);
 			
-			Review review1 = new Review(  Customer1, "WTF bad movie" , 1.52f, now);
-			Review review2 = new Review(Customer1, "niceeeeee" , 4.1f, now);
+			Review review1 = new Review(  Customer1, "WTF bad movie" , 2f, now);
+			Review review2 = new Review(Customer1, "niceeeeee" , 3f, now);
 			reviewlist.add(review1);
 			reviewlist.add(review2);
 

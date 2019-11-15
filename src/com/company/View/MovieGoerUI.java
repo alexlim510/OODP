@@ -64,7 +64,7 @@ public class MovieGoerUI implements GeneralUI{
 		if (movieReviews.isEmpty())
 			System.out.println("7) Review Rating: No reviews yet");
 		else{for (Review r : movieReviews) {
-			System.out.println("   (" +(n+1)+ ") " + r.getContent());
+			System.out.println("   (" +(n+1)+ ") Rating: "  + r.getRating() + ", " + r.getContent());
 					n++;}}
 
 		}
