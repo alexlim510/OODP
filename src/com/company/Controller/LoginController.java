@@ -5,7 +5,7 @@ import com.company.Entity.Movie;
 import com.company.Entity.Staff;
 import com.company.Utils.Utils;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
@@ -71,7 +71,7 @@ public class LoginController extends Utils {
          ArrayList<Movie> movies = (ArrayList<Movie>)Utils.readObject("movie.txt");
          if(movies.size()!=0){
             for(Movie m: movies){
-               if(m.getShowTill()!=null && m.getShowTill().isBefore(LocalDateTime.now())){
+               if(m.getShowTill()!=null && m.getShowTill().isBefore(LocalDate.now())){
                   m.setStatusType("End of showing");
                }
             }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 
 /**
@@ -58,10 +59,16 @@ public class MovieGoerUI implements GeneralUI{
 				System.out.print(movieCast[i] + ", ");
 			else
 				System.out.print(movieCast[i] + ".\n");	}
-		
-		System.out.println("11) Reviews: ");
+		LocalDate showTill = movie.getShowTill();
+		if (showTill!= null){
+			System.out.println("11) Show Till: " + showTill);
+		}
+		else{
+			System.out.println("11) Show Till: " + "Not specified.");
+		}
+		System.out.println("12) Reviews: ");
 		if (movieReviews.isEmpty())
-			System.out.println("7) Review Rating: No reviews yet");
+			System.out.println("12) Review Rating: No reviews yet");
 		else{for (Review r : movieReviews) {
 			System.out.println("   (" +(n+1)+ ") Rating: "  + r.getRating() + ", " + r.getContent());
 					n++;}}

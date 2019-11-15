@@ -3,7 +3,8 @@ package com.company.Controller;
 
 import com.company.Entity.*;
 import com.company.Utils.Utils;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class StaffControl {
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
         int ageType; //age type {"G", "PG", "PG13", "NC16", "M18", "R21"}
-        LocalDateTime showTill = null;
+        LocalDate showTill = null;
         int i;
 
         title = Utils.getStringInput("Enter the movie title: ");
@@ -81,10 +82,9 @@ public class StaffControl {
             System.out.println("Insert end date and time of the movie");
             day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
             month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-            year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-
-            showTill = LocalDateTime.of(year, month, day, 0, 0);
-            if(showTill.isAfter(LocalDateTime.now())){
+            year = Utils.getDateIntInput("Insert the year (in number)", LocalDate.now().getYear(), 9999);
+            showTill = LocalDate.of(year, month, day);
+            if(showTill.isAfter(LocalDate.now())){
                 loop = false;
             }
             else{
@@ -132,7 +132,7 @@ public class StaffControl {
         int movieClass; // 3D, blockbuster etc..
         int statusType; //now showing, etc..
         int ageType; //age type {"G", "PG", "PG13", "NC16", "M18", "R21"}
-        LocalDateTime showTill = null;
+        LocalDate showTill = null;
         int i = 0;
 
         int k = 1;
@@ -182,7 +182,13 @@ public class StaffControl {
                 System.out.print(movieCast[i] + ", ");
             else
                 System.out.print(movieCast[i] + ".\n");	}
-        System.out.print("9) Show Till: " + movie.getShowTill());
+        showTill = movie.getShowTill();
+        if (showTill!= null){
+            System.out.println("9) Show Till: " + showTill);
+        }
+        else{
+            System.out.println("9) Show Till: " + "Not specified.");
+        }
         System.out.println("Select detail to edit: ");
         switch (Utils.getUserChoice(1, 9)) {
             case 1: // duration
@@ -246,12 +252,13 @@ public class StaffControl {
                 boolean loop = true;
                 while(loop) {
                     System.out.println("Insert end date and time of the movie");
-                    day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-                    month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-                    year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+                    day = Utils.getDateIntInput("Insert the day (in number) e.g. 09: ", 1, 31);
+                    month = Utils.getDateIntInput("Insert the month (in number) e.g 08: ", 1, 12);
+                    year = Utils.getDateIntInput("Insert the year (in number) e.g 2019: ", LocalDate.now().getYear(), 9999);
 
-                    showTill = LocalDateTime.of(year, month, day, 0, 0);
-                    if(showTill.isAfter(LocalDateTime.now())){
+                    showTill = LocalDate.of(year, month, day);
+                    if(showTill.isAfter(LocalDate.now())){
+                        movie.setShowTill(showTill);
                         loop = false;
                     }
                     else{
