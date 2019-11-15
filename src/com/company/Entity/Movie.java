@@ -24,7 +24,6 @@ public class Movie implements Serializable, ListerInterface {
    private int duration;
    private LocalDateTime showTill;
    private ArrayList<Review> reviews;
-   private float overallReviewRating;
    private int totalSales = 0;
 
    String[] movieClasses = {"Normal", "Blockbuster", "3D"};
@@ -89,7 +88,7 @@ public class Movie implements Serializable, ListerInterface {
     */
    // This constructor is used for creating dummy data.
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
-                int duration , ArrayList<Review> reviews  , float overallReviewRating,int movieClass,
+                int duration , ArrayList<Review> reviews ,int movieClass,
                 int ageType, int statusType ) {
       this.title= title;
       this.synopsis= synopsis;
@@ -98,7 +97,6 @@ public class Movie implements Serializable, ListerInterface {
       this.genre = genre;
       this.duration = duration;
       this.reviews = reviews;
-      this.overallReviewRating = overallReviewRating;
       this.movieClass = movieClasses[movieClass];
       this.ageType = ageTypes[ageType];
       this.statusType = statusTypes[statusType];
