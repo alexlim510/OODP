@@ -76,9 +76,9 @@ public static void main(String[] args) {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
+
+
 		
 		//Read
 	ArrayList<Movie> moviei = null;

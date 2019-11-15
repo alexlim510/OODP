@@ -17,8 +17,8 @@ public class TopRatingMovies extends Top5CurrentMovies{
             public int compare(Movie o1, Movie o2) {
                 float change1 = o1.getOverallReviewRating();
                 float change2 = o2.getOverallReviewRating();
-                if (change1 < change2) return -1;
-                if (change1 > change2) return 1;
+                if (change1 > change2) return -1;
+                if (change1 < change2) return 1;
                 return 0;
             }
         });
@@ -31,6 +31,7 @@ public class TopRatingMovies extends Top5CurrentMovies{
         int i = 1;
         for (Movie m: getCurrentShowingMovieList()){
             System.out.println("Top "+ i + ": " + m.getTitle());
+            System.out.println("Top "+ i + ": " + m.getOverallReviewRating());
             i++;
             if(i == 4){
                 break;

@@ -19,7 +19,6 @@ public class CurrentShowingMovies {
                     currentShowingMovieList.add(m);
                 }
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();
