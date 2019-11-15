@@ -1,7 +1,9 @@
 package com.company.View;
 import com.company.Controller.LoginController;
 import com.company.Entity.Customer;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
+import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -53,7 +55,7 @@ public class LoginUI implements GeneralUI {
      * Allow Movie Goer to login or register
      */
    public void displayLoginRegisterPage() {
-      Utils.displayHeader("Login/Register");
+      UserInputOutput.displayHeader("Login/Register");
       boolean end= false;
 
       while (!end) {
@@ -61,7 +63,7 @@ public class LoginUI implements GeneralUI {
          System.out.println("1) Log In");
          System.out.println("2) Register");
 
-         int select = Utils.getUserChoice(1,2);
+         int select = UserInputOutput.getUserChoice(1,2);
          switch (select) {
             case 1:
                displayPublicLoginPage();
@@ -81,7 +83,7 @@ public class LoginUI implements GeneralUI {
      * Allow user goer to  register a new account
      */
    public void displayPublicRegisterPage() {
-      Utils.displayHeader("Customer Register");
+      UserInputOutput.displayHeader("Customer Register");
       LoginController logCtrl = new LoginController();
       ArrayList<Customer> customers = new ArrayList<>();
 
@@ -131,7 +133,7 @@ public class LoginUI implements GeneralUI {
      */
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
-      Utils.displayHeader("Customer Login");
+      UserInputOutput.displayHeader("Customer Login");
       boolean  credentialCheck = false;
          System.out.println("Please input Email:");
          Scanner sc = new Scanner(System.in);
@@ -159,7 +161,7 @@ public class LoginUI implements GeneralUI {
      */
    public void displayAdminLoginPage() {
       LoginController logCtrl = new LoginController(); 
-      Utils.displayHeader("Admin Login");				
+      UserInputOutput.displayHeader("Admin Login");
    	
    	//Check password
       boolean credentialCheck = false;

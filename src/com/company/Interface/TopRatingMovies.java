@@ -1,6 +1,7 @@
 package com.company.Interface;
 
 import com.company.Entity.Movie;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class TopRatingMovies extends Top5CurrentMovies{
 
     @Override
     public void printTop5Movies() {
-        Utils.displayHeader("Top 5 Movie List based on customers rating");
+        UserInputOutput.displayHeader("Top 5 Movie List based on customers rating");
         int i = 1;
         for (Movie m: getCurrentShowingMovieList()){
             System.out.println("Top "+ i + ": " + m.getTitle());

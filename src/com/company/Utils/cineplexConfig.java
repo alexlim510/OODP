@@ -48,9 +48,9 @@ public class cineplexConfig {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ShowTime st1 = new ShowTime(Utils.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
-        ShowTime st2 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 11, 10),movie.get(0));
-        ShowTime st3 = new ShowTime(Utils.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
+        ShowTime st1 = new ShowTime(UserInputOutput.createLocalDateTime(2019, 12, 10, 12, 10),movie.get(0));
+        ShowTime st2 = new ShowTime(UserInputOutput.createLocalDateTime(2019, 12, 11, 11, 10),movie.get(0));
+        ShowTime st3 = new ShowTime(UserInputOutput.createLocalDateTime(2019, 12, 11, 12, 10),movie.get(0));
         try {
             c1.addShowTime(st1);
             c2.addShowTime(st2);
@@ -63,9 +63,9 @@ public class cineplexConfig {
         //check day of week of showtime
         System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.println(Utils.createDayOfWeekString(st1.getDateTime()));
-        System.out.println(Utils.createDayOfWeekString(st2.getDateTime()));
-        System.out.println(Utils.createDayOfWeekString(st3.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st1.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st2.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st3.getDateTime()));
         System.out.println(st1.getDateTime().format(formatter).equals(st2.getDateTime().format(formatter)));
 
         // print seats

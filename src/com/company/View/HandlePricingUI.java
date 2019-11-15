@@ -1,6 +1,7 @@
 package com.company.View;
 
 import com.company.Controller.HandlePricingMgr;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ public class HandlePricingUI {
      * This is the UI to add new price category
      */
     public static void addPriceCategoryUI(){
-        Utils.displayHeader("Adding Price Category");
+        UserInputOutput.displayHeader("Adding Price Category");
         boolean successful = false;
         boolean retry = true;
         while(retry && !successful){
             successful = HandlePricingMgr.addPriceCategoryMgr();
             if(!successful){
-                retry = Utils.retry("Retry");
+                retry = UserInputOutput.retry("Retry");
             }
         }
         if(successful){
@@ -35,7 +36,7 @@ public class HandlePricingUI {
      * This is the UI to delete price category
      */
     public static void deletePriceCategoryUI(){
-        Utils.displayHeader("Delete Price Category");
+        UserInputOutput.displayHeader("Delete Price Category");
         int userChoice;
         boolean successful = false;
         boolean retry = true;
@@ -51,10 +52,10 @@ public class HandlePricingUI {
             for(int i = 0; i<priceKeys.size(); i++){
                 System.out.println(i+1+". "+priceKeys.get(i));
             }
-            userChoice = Utils.getUserChoice(1, priceKeys.size()) - 1;
+            userChoice = UserInputOutput.getUserChoice(1, priceKeys.size()) - 1;
             successful = HandlePricingMgr.deletePriceCategoryMgr(priceKeys.get(userChoice));
             if(!successful){
-                retry = Utils.retry("Retry");
+                retry = UserInputOutput.retry("Retry");
             }
         }
         if(successful){
@@ -66,7 +67,7 @@ public class HandlePricingUI {
      * This is the UI to to edit price category
      */
     public static void editPriceCategoryUI(){
-        Utils.displayHeader("Edit Price Category");
+        UserInputOutput.displayHeader("Edit Price Category");
         int userChoice;
         float newPrice;
         boolean successful = false;
@@ -83,11 +84,11 @@ public class HandlePricingUI {
             for(int i = 0; i<priceKeys.size(); i++){
                 System.out.println(i+1+". "+priceKeys.get(i));
             }
-            userChoice = Utils.getUserChoice(1, priceKeys.size()) - 1;
-            newPrice = Utils.getFloatInput("Insert the new price for the category: ");
+            userChoice = UserInputOutput.getUserChoice(1, priceKeys.size()) - 1;
+            newPrice = UserInputOutput.getFloatInput("Insert the new price for the category: ");
             successful = HandlePricingMgr.editPriceCategoryMgr(priceKeys.get(userChoice), newPrice);
             if(!successful){
-                retry = Utils.retry("Retry");
+                retry = UserInputOutput.retry("Retry");
             }
         }
         if(successful){

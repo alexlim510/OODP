@@ -3,6 +3,7 @@ import com.company.Controller.MovieGoerController;
 import com.company.Entity.*;
 import com.company.Interface.Top5CurrentMovies;
 import com.company.Interface.TopMovieFactory;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.text.DecimalFormat;
@@ -30,7 +31,7 @@ public class MovieGoerUI implements GeneralUI{
 	public void getMovieDetailsView(Movie movie) {
 		int n = 0;
 		ArrayList<Review> movieReviews = movie.getMovieReview();
-		Utils.displayHeader("Movie Details");
+		UserInputOutput.displayHeader("Movie Details");
 		System.out.println("The details of " + movie.getTitle() + " :");
 		System.out.println("1) Duration: " + movie.getDuration());
 		System.out.println("2) Synopsis: " + movie.getSynopsis());
@@ -77,7 +78,7 @@ public class MovieGoerUI implements GeneralUI{
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		movieList = movieController.getAllMovieList();
 		Utils.list(movieList);
-		getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+		getMovieDetailsView(movieList.get(UserInputOutput.getUserChoice(1, movieList.size())-1));
 	}
 	/**
 	 *Prints the choices available for the users
@@ -140,7 +141,7 @@ public class MovieGoerUI implements GeneralUI{
 		int i=1;
 		ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
 		cineplexList = movieController.getCineplexList();
-		Utils.displayHeader("Cineplex List");	
+		UserInputOutput.displayHeader("Cineplex List");
 		for (Cineplex c: cineplexList)//CineplexList is initiated in main
 		{
 			System.out.println(i + ") " + c.getCineplexName());
@@ -156,14 +157,14 @@ public class MovieGoerUI implements GeneralUI{
 		int i=1;
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		movieList = movieController.getNowShowingMovieList();
-		Utils.displayHeader("Movie List");
+		UserInputOutput.displayHeader("Movie List");
 		for (Movie m: movieList) //MovieLists is initiated in main
 		{
 			System.out.println(i + ": " + m.getTitle());
 			i++;
 		}
 	
-		HandleReviewUI.MakeReview(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+		HandleReviewUI.MakeReview(movieList.get(UserInputOutput.getUserChoice(1, movieList.size())-1));
 	}
 
 	/**
@@ -178,7 +179,7 @@ public class MovieGoerUI implements GeneralUI{
 			return;
 		}
 		Transaction curTransaction = transactions.get(0);
-		Utils.displayHeader("Booking History");
+		UserInputOutput.displayHeader("Booking History");
 		System.out.println("Customer name: " + curTransaction.getCustomerName());
 		System.out.println("Customer email: " + curTransaction.getCustomerEmail());
 		System.out.println("Customer phone: " + curTransaction.getCustomerPhone());
@@ -189,9 +190,9 @@ public class MovieGoerUI implements GeneralUI{
 			System.out.println("Cineplex: " + t.getCineplex().getCineplexName());
 			System.out.println("Cinema: " + t.getCinema().getCID());
 			if(p.isHoliday(t.getShowTime().getDateTime()))
-				System.out.println(Utils.createDayOfWeekString(t.getShowTime().getDateTime())+"(Holiday)");
+				System.out.println(UserInputOutput.createDayOfWeekString(t.getShowTime().getDateTime())+"(Holiday)");
 			else
-				System.out.println(Utils.createDayOfWeekString(t.getShowTime().getDateTime()));
+				System.out.println(UserInputOutput.createDayOfWeekString(t.getShowTime().getDateTime()));
 			System.out.println("Seats:");
 			for(Map.Entry<Seat,String> chosenSeat : t.getSeats().entrySet()){
 				Seat seat = chosenSeat.getKey();
@@ -203,13 +204,13 @@ public class MovieGoerUI implements GeneralUI{
 		}
 	}
 	public void listTopMoviesUI() {
-		Utils.displayHeader("Top 5 Movies");
+		UserInputOutput.displayHeader("Top 5 Movies");
 		System.out.println(
 				"1. List top 5 ranking movies by ticket sales.\n" +
 						"2. List top 5 ranking movies by Overall reviewers' rating.");
 		TopMovieFactory movieFactory = new TopMovieFactory();
 		Top5CurrentMovies top5CurrentMovies = null;
-		switch (Utils.getUserChoice(1, 2)) {
+		switch (UserInputOutput.getUserChoice(1, 2)) {
 			case 1:
 				top5CurrentMovies = movieFactory.makeTop5Movie("ticket");
 				top5CurrentMovies.printTop5Movies();
@@ -269,7 +270,7 @@ public class MovieGoerUI implements GeneralUI{
 
 	public void searchMovieUI() {
 		boolean found = false;
-		Utils.displayHeader("Search movie");
+		UserInputOutput.displayHeader("Search movie");
 
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		ArrayList<Movie> selected = new ArrayList<Movie>();
@@ -299,7 +300,7 @@ public class MovieGoerUI implements GeneralUI{
 			Utils.list(Selectedlist);
 			System.out.println("Please select movie: ");
 
-		select = Utils.getUserChoice(1,Selectedlist.size());
+		select = UserInputOutput.getUserChoice(1,Selectedlist.size());
 
 	getMovieDetailsView(Selectedlist.get((select-1)));
 	}

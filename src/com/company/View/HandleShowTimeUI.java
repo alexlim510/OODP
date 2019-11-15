@@ -6,6 +6,7 @@ import com.company.Entity.Cinema;
 import com.company.Entity.Cineplex;
 import com.company.Entity.Movie;
 import com.company.Entity.ShowTime;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class HandleShowTimeUI {
      * This is the UI to add new showtime to a cinema in a cineplex
      */
     public static void addShowTimeUI(){
-        Utils.displayHeader("Add Show Time");
+        UserInputOutput.displayHeader("Add Show Time");
         Scanner sc = new Scanner(System.in);
 
         //Selecting the cineplex
@@ -53,7 +54,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<CineplexArray.size(); i++){
             System.out.println(i+1+". "+CineplexArray.get(i).getCineplexName());
         }
-        cineplexChoice = Utils.getUserChoice(1, CineplexArray.size()) - 1;
+        cineplexChoice = UserInputOutput.getUserChoice(1, CineplexArray.size()) - 1;
         ArrayList<Cinema> CinemaArray = CineplexArray.get(cineplexChoice).getCinemas();
 
         //Selecting the cinema
@@ -72,7 +73,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<CinemaArray.size(); i++){
             System.out.println(i+1+". "+ CinemaArray.get(i).getCID());
         }
-        cinemaChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        cinemaChoice = UserInputOutput.getUserChoice(1, CinemaArray.size()) - 1;
 
         //selecting movie
         int movieChoice;
@@ -99,7 +100,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<MovieArray.size(); i++){
             System.out.println(i+1+". "+ MovieArray.get(i).getTitle());
         }
-        movieChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        movieChoice = UserInputOutput.getUserChoice(1, CinemaArray.size()) - 1;
 
         int year;
         int month;
@@ -112,18 +113,18 @@ public class HandleShowTimeUI {
         while(!successful && tryAgain){
             System.out.println("Insert date and time of show time of the movie");
 
-            day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
-            month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
-            year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
-            hour = Utils.getDateIntInput("Insert the hour (in number)", 0, 24);
-            minute = Utils.getDateIntInput("Insert the minute (in number)", 0, 59);
+            day = UserInputOutput.getDateIntInput("Insert the day (in number)", 1, 31);
+            month = UserInputOutput.getDateIntInput("Insert the month (in number)", 1, 12);
+            year = UserInputOutput.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+            hour = UserInputOutput.getDateIntInput("Insert the hour (in number)", 0, 24);
+            minute = UserInputOutput.getDateIntInput("Insert the minute (in number)", 0, 59);
 
             successful = HandleShowTimeMgr.addShowTimeMgr(CineplexArray, MovieArray, cineplexChoice, cinemaChoice, movieChoice, year, month, day, hour, minute);
             if(successful){
                 System.out.println("Showtime was created.");
             }else{
                 System.out.println("Showtime was not created. Please try again");
-                tryAgain = Utils.retry("Retry");
+                tryAgain = UserInputOutput.retry("Retry");
             }
         }
     }
@@ -132,7 +133,7 @@ public class HandleShowTimeUI {
      * This is the UI to delete showtime in a cinema in a cineplex
      */
     public static void deleteShowTimeUI(){
-        Utils.displayHeader("Delete Show Time");
+        UserInputOutput.displayHeader("Delete Show Time");
         Scanner sc = new Scanner(System.in);
         //Selecting the cineplex
         ArrayList<Cineplex> CineplexArray;
@@ -157,7 +158,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<CineplexArray.size(); i++){
             System.out.println(i+1+". "+CineplexArray.get(i).getCineplexName());
         }
-        cineplexChoice = Utils.getUserChoice(1, CineplexArray.size()) - 1;
+        cineplexChoice = UserInputOutput.getUserChoice(1, CineplexArray.size()) - 1;
         ArrayList<Cinema> CinemaArray = CineplexArray.get(cineplexChoice).getCinemas();
 
         //Selecting the cinema
@@ -176,7 +177,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<CinemaArray.size(); i++){
             System.out.println(i+1+". "+ CinemaArray.get(i).getCID());
         }
-        cinemaChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        cinemaChoice = UserInputOutput.getUserChoice(1, CinemaArray.size()) - 1;
         ArrayList<ShowTime> ShowTimeArray = CinemaArray.get(cinemaChoice).getShowTime();
 
         //selecting showtime
@@ -195,7 +196,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<ShowTimeArray.size(); i++){
             System.out.println(i+1+". "+ ShowTimeArray.get(i).getMovie().getTitle()+": "+ShowTimeArray.get(i).getDateTime().getHour()+":"+ShowTimeArray.get(i).getDateTime().getMinute());
         }
-        showTimeChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        showTimeChoice = UserInputOutput.getUserChoice(1, CinemaArray.size()) - 1;
 
         boolean successful=false;
         boolean tryAgain = true;
@@ -206,7 +207,7 @@ public class HandleShowTimeUI {
                 System.out.println("Showtime was deleted.");
             }else{
                 System.out.println("Showtime was not deleted. Please try again");
-                tryAgain = Utils.retry("Retry");
+                tryAgain = UserInputOutput.retry("Retry");
             }
         }
     }
