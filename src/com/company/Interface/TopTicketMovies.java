@@ -27,7 +27,7 @@ public class TopTicketMovies extends Top5CurrentMovies{
         UserInputOutput.displayHeader("Top 5 Movie List based on Ticket Sales");
         int i = 1;
         for (Movie m: getCurrentShowingMovieList()){
-            System.out.println("Top "+ i + ": " + m.getTitle());
+            System.out.println("Top "+ i + ": " + m.getTitle() + "(" + m.getTotalSales() + ")");
             i++;
             if(i == 4){
                 break;

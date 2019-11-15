@@ -31,8 +31,7 @@ public class TopRatingMovies extends Top5CurrentMovies{
         UserInputOutput.displayHeader("Top 5 Movie List based on customers rating");
         int i = 1;
         for (Movie m: getCurrentShowingMovieList()){
-            System.out.println("Top "+ i + ": " + m.getTitle());
-            System.out.println("Top "+ i + ": " + m.getOverallReviewRating());
+            System.out.println("Top "+ i + ": " + m.getTitle() + "(" + m.getOverallReviewRating() + ")");
             i++;
             if(i == 4){
                 break;
