@@ -4,6 +4,8 @@ package com.company.View;
 import com.company.App.StaffTest;
 import com.company.Controller.StaffControl;
 import com.company.Entity.Cineplex;
+import com.company.Interface.Top5CurrentMovies;
+import com.company.Interface.TopMovieFactory;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
@@ -159,29 +161,17 @@ public class StaffUI implements GeneralUI{
       System.out.println(
               "1. List top 5 ranking movies by ticket sales.\n" +
                       "2. List top 5 ranking movies by Overall reviewers' rating.\n");
+      TopMovieFactory movieFactory = new TopMovieFactory();
+      Top5CurrentMovies top5CurrentMovies = null;
       switch (Utils.getUserChoice(1, 2)) {
          case 1:
-            getTop5byTicketSales();
+            top5CurrentMovies = movieFactory.makeTop5Movie("ticket");
+            top5CurrentMovies.printTop5Movies();
             break;
          case 2:
-            getTop5byReviewRating();
+            top5CurrentMovies = movieFactory.makeTop5Movie("rating");
+            top5CurrentMovies.printTop5Movies();
             break;
       }
-   }
-
-   /**
-    * List top 5 movie based on num of ticket sales
-    */
-   private void getTop5byTicketSales(){
-      MovieGoerUI movieGoer = new MovieGoerUI();
-      movieGoer.getTop5MoviesTicketView();
-   }
-
-   /**
-    * List top 5 movies based on customer review rating
-    */
-   private void getTop5byReviewRating(){
-      MovieGoerUI movieGoer = new MovieGoerUI();
-      movieGoer.getTop5MoviesRatingView();
    }
 }

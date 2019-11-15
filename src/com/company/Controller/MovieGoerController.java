@@ -435,78 +435,73 @@ public class MovieGoerController extends Utils {
 	/**
 	 * Creates a comparator which compares two different movies based on total sales
 	 */
-	public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
-
-		public int compare(Movie m1, Movie m2) {
-			int movieTicketSales1 = m1.getTotalSales();
-			int movieTicketSales2 = m2.getTotalSales();
-
-			//ascending order
-			//return StudentName1.compareTo(StudentName2);
-
-			//descending order
-			return movieTicketSales2-movieTicketSales1;
-		}
-   };
-
-	/**
-	 * Creates a comparator which compares two different movies based on review rating
-	 */
-	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
-
-		public int compare(Movie m1, Movie m2) {
-			int movieTicketSales1 = m1.getTotalSales();
-			int movieTicketSales2 = m2.getTotalSales();
-
-			//ascending order
-			//return StudentName1.compareTo(StudentName2);
-
-			//descending order
-			return movieTicketSales2-movieTicketSales1;
-		}
-	};
+//	public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
+//
+//		public int compare(Movie m1, Movie m2) {
+//			int movieTicketSales1 = m1.getTotalSales();
+//			int movieTicketSales2 = m2.getTotalSales();
+//			return movieTicketSales2-movieTicketSales1;
+//		}
+//   };
+//
+//	/**
+//	 * Creates a comparator which compares two different movies based on review rating
+//	 */
+//	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
+//
+//		public int compare(Movie m1, Movie m2) {
+//			int movieTicketSales1 = m1.getTotalSales();
+//			int movieTicketSales2 = m2.getTotalSales();
+//
+//			//ascending order
+//			//return StudentName1.compareTo(StudentName2);
+//
+//			//descending order
+//			return movieTicketSales2-movieTicketSales1;
+//		}
+//	};
 
 	/**
 	 * returns top 5 movies based on total sales
 	 * @return array list of movies
 	 */
-   public ArrayList<Movie> getTop5MoviesListTicket(){
-   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-   	nowShowingMovies = getNowShowingMovieList();
-   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
-   	int top5;
-   	if(nowShowingMovies.size() > 5) {
-		top5 = 5;
-	}
-   	else{
-		top5 = nowShowingMovies.size();
-	}
-   	for (int i = 0; i < top5; i++){
-		top5Movies.add(nowShowingMovies.get(i));
-	}
-   	return top5Movies;
-   }
-
-	/**
-	 * returns top 5 movies based on review ratings
-	 * @return array list of movies
-	 */
-	public ArrayList<Movie> getTop5MoviesListRating(){
-		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-		nowShowingMovies = getNowShowingMovieList();
-		ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-		Collections.sort(nowShowingMovies, overallReviewRatingSalesComparator);
-		int top5;
-		if(nowShowingMovies.size() > 5) {
-			top5 = 5;
-		}
-		else{
-			top5 = nowShowingMovies.size();
-		}
-		for (int i = 0; i < top5; i++){
-			top5Movies.add(nowShowingMovies.get(i));
-		}
-		return top5Movies;
-	}
+//   public ArrayList<Movie> getTop5MoviesListTicket(){
+//   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
+//   	nowShowingMovies = getNowShowingMovieList();
+//   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
+//   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
+//   	int top5;
+//   	if(nowShowingMovies.size() > 5) {
+//		top5 = 5;
+//	}
+//   	else{
+//		top5 = nowShowingMovies.size();
+//	}
+//   	for (int i = 0; i < top5; i++){
+//		top5Movies.add(nowShowingMovies.get(i));
+//	}
+//   	return top5Movies;
+//   }
+//
+//	/**
+//	 * returns top 5 movies based on review ratings
+//	 * @return array list of movies
+//	 */
+//	public ArrayList<Movie> getTop5MoviesListRating(){
+//		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
+//		nowShowingMovies = getNowShowingMovieList();
+//		ArrayList<Movie> top5Movies = new ArrayList<Movie>();
+//		Collections.sort(nowShowingMovies, overallReviewRatingSalesComparator);
+//		int top5;
+//		if(nowShowingMovies.size() > 5) {
+//			top5 = 5;
+//		}
+//		else{
+//			top5 = nowShowingMovies.size();
+//		}
+//		for (int i = 0; i < top5; i++){
+//			top5Movies.add(nowShowingMovies.get(i));
+//		}
+//		return top5Movies;
+//	}
 }

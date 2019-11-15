@@ -1,6 +1,8 @@
 package com.company.View;
 import com.company.Controller.MovieGoerController;
 import com.company.Entity.*;
+import com.company.Interface.Top5CurrentMovies;
+import com.company.Interface.TopMovieFactory;
 import com.company.Utils.Utils;
 
 import java.util.ArrayList;
@@ -195,52 +197,70 @@ public class MovieGoerUI implements GeneralUI{
 			System.out.println("-----------------------------------------");
 		}
 	}
-
-	/**
-	 * Get user selection based on how they want to get top 5 movies
-	 */
-	public void listTopMovies() {
+	public void listTopMoviesUI() {
 		Utils.displayHeader("Top 5 Movies");
 		System.out.println(
 				"1. List top 5 ranking movies by ticket sales.\n" +
 						"2. List top 5 ranking movies by Overall reviewers' rating.");
+		TopMovieFactory movieFactory = new TopMovieFactory();
+		Top5CurrentMovies top5CurrentMovies = null;
 		switch (Utils.getUserChoice(1, 2)) {
 			case 1:
-				getTop5MoviesTicketView();
+				top5CurrentMovies = movieFactory.makeTop5Movie("ticket");
+				top5CurrentMovies.printTop5Movies();
 				break;
 			case 2:
-				getTop5MoviesRatingView();
+				top5CurrentMovies = movieFactory.makeTop5Movie("rating");
+				top5CurrentMovies.printTop5Movies();
 				break;
 		}
 	}
+
+//	/**
+//	 * Get user selection based on how they want to get top 5 movies
+//	 */
+//	public void listTopMovies() {
+//		Utils.displayHeader("Top 5 Movies");
+//		System.out.println(
+//				"1. List top 5 ranking movies by ticket sales.\n" +
+//						"2. List top 5 ranking movies by Overall reviewers' rating.");
+//		switch (Utils.getUserChoice(1, 2)) {
+//			case 1:
+//				getTop5MoviesTicketView();
+//				break;
+//			case 2:
+//				getTop5MoviesRatingView();
+//				break;
+//		}
+//	}
 
 	/**
 	 * prints out top 5 movies ordered by total sales
 	 */
-    public void getTop5MoviesTicketView(){
-		Utils.displayHeader("Top 5 Movie List based on tickets sold");
-		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
-		top5MovieList = movieController.getTop5MoviesListTicket();
-		int i = 1;
-		for (Movie m: top5MovieList){
-			System.out.println("Top "+ i + ": " + m.getTitle());
-			i++;
-		}
-	}
-
-	/**
-	 * prints out top 5 movies ordered by review ratings
-	 */
-	public void getTop5MoviesRatingView(){
-		Utils.displayHeader("Top 5 Movie List based on customers rating");
-		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
-		top5MovieList = movieController.getTop5MoviesListRating();
-		int i = 1;
-		for (Movie m: top5MovieList){
-			System.out.println("Top "+ i + ": " + m.getTitle());
-			i++;
-		}
-	}
+//    public void getTop5MoviesTicketView(){
+//		Utils.displayHeader("Top 5 Movie List based on tickets sold");
+//		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
+//		top5MovieList = movieController.getTop5MoviesListTicket();
+//		int i = 1;
+//		for (Movie m: top5MovieList){
+//			System.out.println("Top "+ i + ": " + m.getTitle());
+//			i++;
+//		}
+//	}
+//
+//	/**
+//	 * prints out top 5 movies ordered by review ratings
+//	 */
+//	public void getTop5MoviesRatingView(){
+//		Utils.displayHeader("Top 5 Movie List based on customers rating");
+//		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
+//		top5MovieList = movieController.getTop5MoviesListRating();
+//		int i = 1;
+//		for (Movie m: top5MovieList){
+//			System.out.println("Top "+ i + ": " + m.getTitle());
+//			i++;
+//		}
+//	}
 
 	public void searchMovieUI() {
 		boolean found = false;
