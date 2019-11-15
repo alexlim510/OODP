@@ -1,14 +1,7 @@
 package com.company.App;
-import com.company.Entity.Cineplex;
-import com.company.Entity.Movie;
-import com.company.Utils.Utils;
+
 import com.company.View.MovieGoerUI;
 import com.company.View.UIDisplay;
-
-import java.io.IOException;
-import java.rmi.server.UID;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MovieGoerTest {
 

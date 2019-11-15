@@ -1,17 +1,15 @@
 package com.company.Controller;
+
 import com.company.Entity.*;
 import com.company.Utils.Utils;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 import com.company.View.UIDisplay;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Comparator;
 
 /**
  * Serve as the controller for Movie Goer's features

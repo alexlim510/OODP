@@ -1,15 +1,10 @@
 package com.company.Entity;
-import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
-
-import static com.company.Utils.UserInputOutput.createTransactionDateString;
-
 
 /**
  * Represents the transaction which a customer made
@@ -67,7 +62,7 @@ public class Transaction implements Serializable{
     */
    public Transaction(Customer customer,Cineplex cineplex, Cinema cinema, ShowTime showTime, float totalPrice,
                        HashMap<String,String> chosenSeats){
-      this.TID = cinema.getCID() + UserInputOutput.createTransactionDateString(LocalDateTime.now());
+      this.TID = cinema.getCID() + Utils.createTransactionDateString(LocalDateTime.now());
       this.customerEmail = customer.getEmail();
       this.customerName = customer.getName();
       this.customerPhone = customer.getPhone();

@@ -55,7 +55,7 @@ public class LoginUI implements GeneralUI {
      * Allow Movie Goer to login or register
      */
    public void displayLoginRegisterPage() {
-      UserInputOutput.displayHeader("Login/Register");
+      Utils.displayHeader("Login/Register");
       boolean end= false;
 
       while (!end) {
@@ -63,7 +63,7 @@ public class LoginUI implements GeneralUI {
          System.out.println("1) Log In");
          System.out.println("2) Register");
 
-         int select = UserInputOutput.getUserChoice(1,2);
+         int select = Utils.getUserChoice(1,2);
          switch (select) {
             case 1:
                displayPublicLoginPage();
@@ -83,7 +83,7 @@ public class LoginUI implements GeneralUI {
      * Allow user goer to  register a new account
      */
    public void displayPublicRegisterPage() {
-      UserInputOutput.displayHeader("Customer Register");
+      Utils.displayHeader("Customer Register");
       LoginController logCtrl = new LoginController();
       ArrayList<Customer> customers = new ArrayList<>();
 
@@ -133,7 +133,7 @@ public class LoginUI implements GeneralUI {
      */
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
-      UserInputOutput.displayHeader("Customer Login");
+      Utils.displayHeader("Customer Login");
       boolean  credentialCheck = false;
          System.out.println("Please input Email:");
          Scanner sc = new Scanner(System.in);
@@ -160,8 +160,8 @@ public class LoginUI implements GeneralUI {
      * display admin Login page and allow user to log in
      */
    public void displayAdminLoginPage() {
-      LoginController logCtrl = new LoginController(); 
-      UserInputOutput.displayHeader("Admin Login");
+      LoginController logCtrl = new LoginController();
+      Utils.displayHeader("Admin Login");
    	
    	//Check password
       boolean credentialCheck = false;

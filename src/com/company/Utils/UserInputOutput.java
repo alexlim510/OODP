@@ -1,7 +1,10 @@
 package com.company.Utils;
 
+import com.company.View.ListerInterface;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -56,21 +59,6 @@ public class UserInputOutput {
     }
 
     /**
-     * Creates LocalDateTime object
-     * @param year year
-     * @param month month
-     * @param day day
-     * @param hour hour
-     * @param minute minute
-     * @return LocalDateTime
-     */
-    public static LocalDateTime createLocalDateTime(int year, int month, int day, int hour, int minute) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm");
-        String date = String.format("%d.%d.%d %02d:%02d",year,month,day,hour,minute);
-        return LocalDateTime.parse(date, formatter);
-    }
-
-    /**
      * Returns date with day of week in the form of a string
      * @param localDateTime inputted LocalDateTime
      * @return String of LocalDateTime object
@@ -78,7 +66,6 @@ public class UserInputOutput {
     public static String createDayOfWeekString(LocalDateTime localDateTime){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm (E)");
         return localDateTime.format(formatter);
-
     }
 
     /**
@@ -157,6 +144,15 @@ public class UserInputOutput {
         }while(ans != 'y' && ans != 'n');
 
         return ans == 'y';
+    }
+
+    public static void list (ArrayList<? extends ListerInterface> array){
+        int i = 1;
+        for(ListerInterface li: array){
+            System.out.print(i+". ");
+            li.listItself();
+            i++;
+        }
     }
 
 }

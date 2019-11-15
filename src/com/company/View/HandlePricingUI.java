@@ -18,7 +18,7 @@ public class HandlePricingUI {
      * This is the UI to add new price category
      */
     public static void addPriceCategoryUI(){
-        UserInputOutput.displayHeader("Adding Price Category");
+        Utils.displayHeader("Adding Price Category");
         boolean successful = false;
         boolean retry = true;
         while(retry && !successful){
@@ -36,7 +36,7 @@ public class HandlePricingUI {
      * This is the UI to delete price category
      */
     public static void deletePriceCategoryUI(){
-        UserInputOutput.displayHeader("Delete Price Category");
+        Utils.displayHeader("Delete Price Category");
         int userChoice;
         boolean successful = false;
         boolean retry = true;
@@ -52,7 +52,7 @@ public class HandlePricingUI {
             for(int i = 0; i<priceKeys.size(); i++){
                 System.out.println(i+1+". "+priceKeys.get(i));
             }
-            userChoice = UserInputOutput.getUserChoice(1, priceKeys.size()) - 1;
+            userChoice = Utils.getUserChoice(1, priceKeys.size()) - 1;
             successful = HandlePricingMgr.deletePriceCategoryMgr(priceKeys.get(userChoice));
             if(!successful){
                 retry = UserInputOutput.retry("Retry");
@@ -67,7 +67,7 @@ public class HandlePricingUI {
      * This is the UI to to edit price category
      */
     public static void editPriceCategoryUI(){
-        UserInputOutput.displayHeader("Edit Price Category");
+        Utils.displayHeader("Edit Price Category");
         int userChoice;
         float newPrice;
         boolean successful = false;
@@ -84,8 +84,8 @@ public class HandlePricingUI {
             for(int i = 0; i<priceKeys.size(); i++){
                 System.out.println(i+1+". "+priceKeys.get(i));
             }
-            userChoice = UserInputOutput.getUserChoice(1, priceKeys.size()) - 1;
-            newPrice = UserInputOutput.getFloatInput("Insert the new price for the category: ");
+            userChoice = Utils.getUserChoice(1, priceKeys.size()) - 1;
+            newPrice = Utils.getFloatInput("Insert the new price for the category: ");
             successful = HandlePricingMgr.editPriceCategoryMgr(priceKeys.get(userChoice), newPrice);
             if(!successful){
                 retry = UserInputOutput.retry("Retry");

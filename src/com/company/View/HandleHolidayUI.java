@@ -23,7 +23,7 @@ public class HandleHolidayUI {
      * This method displays the UI to add a new Date to holiday database
      */
     public static void addHolidayUI(){
-        UserInputOutput.displayHeader("Adding Holiday/Special Date");
+        Utils.displayHeader("Adding Holiday/Special Date");
         Scanner sc = new Scanner(System.in);
         boolean successful = false;
         boolean tryAgain = true;
@@ -43,9 +43,9 @@ public class HandleHolidayUI {
 
         while(!successful && tryAgain){
             System.out.println("Insert the date of holiday/special day");
-            day = UserInputOutput.getDateIntInput("Insert the day (in number)", 1, 31);
-            month = UserInputOutput.getDateIntInput("Insert the month (in number)", 1, 12);
-            year = UserInputOutput.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
+            day = Utils.getDateIntInput("Insert the day (in number)", 1, 31);
+            month = Utils.getDateIntInput("Insert the month (in number)", 1, 12);
+            year = Utils.getDateIntInput("Insert the year (in number)", LocalDateTime.now().getYear(), 9999);
             successful = HandleHolidayMgr.addHolidayMgr(year, month, day);
             if(!successful){
                 tryAgain = UserInputOutput.retry("Retry");
@@ -59,7 +59,7 @@ public class HandleHolidayUI {
      * This method displays the UI to delete a new Date to holiday database
      */
     public static void deleteHolidayUI(){
-        UserInputOutput.displayHeader("Adding Holiday/Special Date");
+        Utils.displayHeader("Adding Holiday/Special Date");
         Scanner sc = new Scanner(System.in);
         boolean successful = false;
         boolean tryAgain = true;
@@ -86,7 +86,7 @@ public class HandleHolidayUI {
                         );
             }
             if(holidayArray.size()>0){
-                choice = UserInputOutput.getUserChoice(1, holidayArray.size()) - 1;
+                choice = Utils.getUserChoice(1, holidayArray.size()) - 1;
             }else{
                 System.out.println("Holiday list is empty!");
                 return;

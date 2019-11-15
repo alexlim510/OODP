@@ -1,19 +1,14 @@
 package com.company.Utils;
 import com.company.Entity.Customer;
-import com.company.Entity.Staff;
 import com.company.View.ListerInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 
 /**
  * Helper class, contains static methods
- * @author Alexander Lim
+ * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */
@@ -94,17 +89,82 @@ public class Utils {
    }
 
    /**
-    * This method lists individual object from
-    * an array of a Class extended from ListerInterface
-    * @param array Array of an extended ListerInterface Class
+    * Displays standard header for UI
+    * @param headerText text to be displayed in header
     */
-   public static void list (ArrayList<? extends ListerInterface> array){
-      int i = 1;
-      for(ListerInterface li: array){
-         System.out.print(i+". ");
-         li.listItself();
-         i++;
-      }
+   public static void displayHeader(String headerText) {
+      UserInputOutput.displayHeader(headerText);
    }
+
+   /**
+    * Gets user choice
+    * @param startingNum number of first choice
+    * @param endingNum number of last choice
+    * @return user's choice
+    */
+   public static int getUserChoice(int startingNum, int endingNum) {
+      return UserInputOutput.getUserChoice(startingNum, endingNum);
+   }
+
+   /**
+    * Gets string inputs
+    * @param inputMessage Message to be displayed before getting input
+    * @return user input
+    */
+   public static String getStringInput(String inputMessage) {
+      return UserInputOutput.getStringInput(inputMessage);
+   }
+
+   /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
+   public static String createDayOfWeekString(LocalDateTime localDateTime){
+      return UserInputOutput.createDayOfWeekString(localDateTime);
+   }
+
+   /**
+    * Returns date with day of week in the form of a string
+    * @param localDateTime inputted LocalDateTime
+    * @return String of LocalDateTime object
+    */
+   public static String createTransactionDateString(LocalDateTime localDateTime){
+      return UserInputOutput.createTransactionDateString(localDateTime);
+   }
+
+   /**
+    * Gets float input from user
+    * @param inputMessage message to be displayed before getting input
+    * @return user's float input
+    */
+   public static float getFloatInput(String inputMessage){
+      return UserInputOutput.getFloatInput(inputMessage);
+   }
+
+   /**
+    * Gets date input from user, restricts date to be within specified range
+    * @param message message to be displayed before getting user input
+    * @param lowerLimit lower limit of date
+    * @param upperLimit upper limit of date
+    * @return user input
+    */
+   public static int getDateIntInput(String message, int lowerLimit, int upperLimit){
+      return UserInputOutput.getDateIntInput(message, lowerLimit, upperLimit);
+   }
+
+   /**
+    * Asks user if he/she wants to retry and get's their input
+    * @param message message to be displayed before getting user's input
+    * @return boolean depending on whether the user wants to retry
+    */
+   public static boolean retry(String message){
+      return UserInputOutput.retry(message);
+   }
+
+   public static void list (ArrayList<? extends ListerInterface> array){
+      UserInputOutput.list(array);
+   }
+
 }
 

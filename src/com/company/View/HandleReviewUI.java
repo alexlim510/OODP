@@ -27,7 +27,7 @@ public class HandleReviewUI {
       
       System.out.println("Insert your review");
       do{
-         rating = UserInputOutput.getFloatInput("Insert your rating (1-5): ");
+         rating = Utils.getFloatInput("Insert your rating (1-5): ");
       }while(rating > 5 || rating < 0);
       System.out.println("Review: ");
       review = sc.nextLine();
