@@ -44,7 +44,9 @@ public class HandleReviewMgr {
          return;
       }
 
-      Review userReview = new Review(movie, customer, review, rating, LocalDateTime.now());
+      Review userReview = new Review( customer, review, rating, LocalDateTime.now());
+
+
 
       //if not
       movie.insertMovieReview(userReview);

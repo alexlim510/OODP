@@ -5,6 +5,7 @@ import com.company.Interface.Top5CurrentMovies;
 import com.company.Interface.TopMovieFactory;
 import com.company.Utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -27,19 +28,21 @@ public class MovieGoerUI implements GeneralUI{
 	 * @param movie movie selected by customer
 	 */
 	public void getMovieDetailsView(Movie movie) {
-		int n=0;
-		
+		int n = 0;
+		ArrayList<Review> movieReviews = movie.getMovieReview();
 		Utils.displayHeader("Movie Details");
-		System.out.println("The details of "+ movie.getTitle() + " :");
-		System.out.println("1) Duration: "+ movie.getDuration());
-		System.out.println("2) Synopsis: "+ movie.getSynopsis());
-		System.out.println("3) Status: "+ movie.getStatusType());
-		System.out.println("5) Movie Type: "+ movie.getMovieClass());
-		System.out.println("6) Age Type: "+ movie.getAgeType());
-		if (movie.getOverallReviewRating() == 0)
-		System.out.println("7) Review Rating: No ratings yet");
-		else
-		System.out.println("7) Review Rating: "+ movie.getOverallReviewRating());
+		System.out.println("The details of " + movie.getTitle() + " :");
+		System.out.println("1) Duration: " + movie.getDuration());
+		System.out.println("2) Synopsis: " + movie.getSynopsis());
+		System.out.println("3) Status: " + movie.getStatusType());
+		System.out.println("5) Movie Type: " + movie.getMovieClass());
+		System.out.println("6) Age Type: " + movie.getAgeType());
+		if (movieReviews.isEmpty())
+			System.out.println("7) Review Rating: No ratings yet");
+		else {
+			DecimalFormat df = new DecimalFormat("#.00");
+			System.out.println("7) Review Rating:" + df.format(movie.getOverallReviewRating()));
+		}
 		String[] movieGenre = movie.getGenre();
 		System.out.print("8) Genre: ");
 		for (int j = 0; j < movieGenre.length; j++) {
@@ -57,10 +60,11 @@ public class MovieGoerUI implements GeneralUI{
 				System.out.print(movieCast[i] + ".\n");	}
 		
 		System.out.println("11) Reviews: ");
-		ArrayList<Review> movieReviews = movie.getMovieReview();
-		for (Review r : movieReviews) {
+		if (movieReviews.isEmpty())
+			System.out.println("7) Review Rating: No reviews yet");
+		else{for (Review r : movieReviews) {
 			System.out.println("   (" +(n+1)+ ") " + r.getContent());
-					n++;}
+					n++;}}
 
 		}
 
@@ -83,6 +87,7 @@ public class MovieGoerUI implements GeneralUI{
 	public void displayHomePage() {
 
 		boolean loop = true;
+
 
 		while (loop) {
 			Scanner sc = new Scanner(System.in);
