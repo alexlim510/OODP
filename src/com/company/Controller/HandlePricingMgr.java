@@ -1,6 +1,7 @@
 package com.company.Controller;
 
 import com.company.Entity.Price;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 /**
@@ -49,7 +50,7 @@ public class HandlePricingMgr {
     public static boolean addPriceCategoryMgr(){
         Price pricing = readPriceFile();
         try{
-            pricing.addPrice(Utils.getStringInput("Insert the name of the category: "), Utils.getFloatInput("Insert the price of the category: "));
+            pricing.addPrice(UserInputOutput.getStringInput("Insert the name of the category: "), UserInputOutput.getFloatInput("Insert the price of the category: "));
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
             return false;
