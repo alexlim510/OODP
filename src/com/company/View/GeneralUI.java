@@ -10,5 +10,8 @@ package com.company.View;
  */
 public interface GeneralUI {
 
+    /**
+     * Displays the UI's homepage
+     */
     public void displayHomePage();
 }
