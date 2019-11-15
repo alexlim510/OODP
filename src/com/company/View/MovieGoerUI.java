@@ -120,7 +120,7 @@ public class MovieGoerUI implements GeneralUI{
 						getBookingHistoryView();
 						break;
 					case 6:
-						searchMovieUI();
+						listTopMoviesUI();
 						break;
 					case 7:
 						loop = false;
