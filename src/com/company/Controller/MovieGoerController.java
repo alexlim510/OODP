@@ -118,7 +118,21 @@ public class MovieGoerController extends Utils {
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
 			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
-				   movieList.add(movie);
+				   if(movieList.size()>0){
+					   boolean exists=false;
+					   for(Movie m : movieList){
+						   if(m.getTitle().equals(movie.getTitle()) && m.getMovieClass().equals(movie.getMovieClass())){
+							   exists=true;
+							   break;
+						   }
+					   }
+					   if(!exists){
+						   movieList.add(movie);
+					   }
+				   }
+				   else{
+					   movieList.add(movie);
+				   }
 			   }
 		   }
 	   }
