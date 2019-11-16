@@ -15,7 +15,7 @@ public class CurrentShowingMovies {
         try {
             MovieArray = (ArrayList<Movie>) Utils.getObjectInputStream("movie.txt").readObject();
             for (Movie m: MovieArray) {
-                if (m.getStatusType().equals("Now showing")) {
+                if (m.getStatusType().equals("Now showing")||m.getStatusType().equals("Preview")) {
                     currentShowingMovieList.add(m);
                 }
             }

@@ -186,7 +186,8 @@ public class MovieGoerUI implements GeneralUI{
 
 			System.out.println("Please select movie: ");
 			int index = Utils.getUserChoice(1,movieList.size());
-			getMovieDetailsView(movieList.get((index - 1)));
+			Movie chosenMovie= movieList.get((index - 1));
+			getMovieDetailsView(chosenMovie);
 		}
 		else {
 			System.out.println("Movie not found");
