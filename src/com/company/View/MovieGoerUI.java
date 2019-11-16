@@ -162,7 +162,7 @@ public class MovieGoerUI implements GeneralUI{
 		System.out.println("Please choose a movie to make review: ");
 		int i=1;
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
-		movieList = movieController.getNowShowingMovieList();
+		movieList = movieController.getNowPreviewShowingMovieList();
 		Utils.displayHeader("Movie List");
 		for (Movie m: movieList) //MovieLists is initiated in main
 		{

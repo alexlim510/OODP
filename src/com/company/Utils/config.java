@@ -4,9 +4,11 @@ import com.company.Entity.Customer;
 import com.company.Entity.Movie;
 import com.company.Entity.Review;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 
@@ -15,7 +17,7 @@ public class config {
 
 public static void main(String[] args) {
 		ObjectOutputStream oos1;
-		try {
+	    		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 			Customer Customer1 = new Customer("anyone", "0123123", "abc@gmail.com");
@@ -121,4 +123,7 @@ public static void main(String[] args) {
 		*/
 
 	}
+
+
 }
+
