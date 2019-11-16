@@ -37,14 +37,14 @@ public class MovieGoerController extends Utils {
 	 * Returns and ArrayList of ALL 'Now showing' Movie objects
 	 * @return ArrayList of movie
 	 */
-   public ArrayList<Movie> getNowShowingMovieList(){
+   public ArrayList<Movie> getNowPreviewShowingMovieList(){
 	   ArrayList<Movie> nowShowing = new ArrayList<Movie>();
 	   ArrayList<Movie> MovieArray = new ArrayList<Movie>();
 	   try {
 		   int i = 0;
 		   MovieArray = (ArrayList<Movie>)Utils.getObjectInputStream("movie.txt").readObject();
 		   for (Movie m: MovieArray) {
-			   if (m.getStatusType().equals("Now showing")) {
+			   if (m.getStatusType().equals("Now showing") || m.getStatusType().equals("Preview")) {
 				   nowShowing.add(m);
 			   }
 		   }

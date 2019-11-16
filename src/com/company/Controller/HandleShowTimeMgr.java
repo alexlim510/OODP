@@ -47,6 +47,7 @@ public class HandleShowTimeMgr {
             }
         }
 
+
         //Adding to Cineplex Array
         CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).addShowTime(newShowTime);
 

@@ -1,6 +1,7 @@
 package com.company.View;
 
 import com.company.Controller.HandleShowTimeMgr;
+import com.company.Controller.MovieGoerController;
 import com.company.Controller.StaffControl;
 import com.company.Entity.Cinema;
 import com.company.Entity.Cineplex;
@@ -97,6 +98,16 @@ public class HandleShowTimeUI {
             return;
         }
         System.out.println("Select the movie: ");
+        MovieGoerController  moviecontrol= new MovieGoerController();
+        MovieArray =  moviecontrol.getNowPreviewShowingMovieList();
+        //Check if the movie is at the end of showing
+//        for(int i = 0; i<MovieArray.size(); i++){
+//            System.out.println(MovieArray.get(i).getTitle()+" tes "+MovieArray.get(i).getStatusType());
+//            if(MovieArray.get(i).getStatusType().equals("End of showing")){
+//                MovieArray.remove(MovieArray.get(i));
+//            }
+//        }
+
         for(int i = 0; i<MovieArray.size(); i++){
             System.out.println(i+1+". "+ MovieArray.get(i).getTitle());
         }
