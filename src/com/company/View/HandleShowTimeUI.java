@@ -72,7 +72,7 @@ public class HandleShowTimeUI {
 
         System.out.println("Select the cinema: ");
         for(int i = 0; i<CinemaArray.size(); i++){
-            System.out.println(i+1+". "+ CinemaArray.get(i).getCID());
+            System.out.println(i+1+". "+ CinemaArray.get(i).getCID() + "(" +CinemaArray.get(i).getCinemaType()+")");
         }
         cinemaChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
 
