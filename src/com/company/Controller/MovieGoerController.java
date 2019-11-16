@@ -336,7 +336,7 @@ public class MovieGoerController extends Utils {
 		}
 	   }
 	   ArrayList<String> movieTitles = getMovieTitles(filteredMovies);
-	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
+	   Movie movie = filteredMovies.get(sui.getMovieSelectionView(movieTitles));
 
 	   ArrayList<Cinema> cinemas = getCinemas(cineplex,movie);
 	   ArrayList<String> cinemaTypes = getCinemaTypes(cinemas);
