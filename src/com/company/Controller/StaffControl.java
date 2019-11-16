@@ -208,7 +208,8 @@ public class StaffControl {
                     i++;
                 }
                 statusType = Utils.getUserChoice(1, i - 1) - 1;
-                movie.setStatusType( movie.getStatusTypes()[statusType]);
+                movie.setStatusType(movie.getStatusTypes()[statusType]);
+                System.out.println("At staff control, statusType is " + movie.getStatusType());
                 break;
             case 4: // movie type : 3D
                 i = 1;

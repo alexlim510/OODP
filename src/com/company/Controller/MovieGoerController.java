@@ -309,7 +309,19 @@ public class MovieGoerController extends Utils {
 	   Cineplex cineplex = cineplexes.get(choice);
 
 	   ArrayList<Movie> movies = getMovieList(cineplex);
-	   ArrayList<String> movieTitles = getMovieTitles(movies);
+	   ArrayList<Movie> allMovies = getNowPreviewShowingMovieList();
+	   ArrayList<Movie> filteredMovies = new ArrayList<>();
+	   for (int index1 = 0 ; index1<allMovies.size(); index1++){
+		   Movie a = allMovies.get(index1);
+		   for (int index2 = 0; index2<movies.size(); index2++){
+	   		Movie b = movies.get(index2);
+	   		if (a.getTitle().equals(b.getTitle())){
+	   			if(a.getStatusType().equals(b.getStatusType()))
+	   				filteredMovies.add(b);
+			}
+		}
+	   }
+	   ArrayList<String> movieTitles = getMovieTitles(filteredMovies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
 
 	   ArrayList<Cinema> cinemas = getCinemas(cineplex,movie);
