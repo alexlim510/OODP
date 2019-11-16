@@ -35,7 +35,7 @@ public class HandleReviewMgr {
       try{
          for(int i = 0; i<movie.getReviews().size(); i++){
             if(movie.getReviews().get(i).getCustomer().getEmail().equals(customer.getEmail())){
-               System.out.println("You have provided a review.");
+               System.out.println("You have already provided a review.");
                return;
             }
          }
@@ -45,7 +45,7 @@ public class HandleReviewMgr {
       }
 
       Review userReview = new Review( customer, review, rating, LocalDateTime.now());
-
+      System.out.println("Review submitted.");
 
 
       //if not
