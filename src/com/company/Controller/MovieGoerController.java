@@ -118,25 +118,11 @@ public class MovieGoerController extends Utils {
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
 			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
-			   	if(movieList.size()>0){
-			   		boolean exists=false;
-			   		for(Movie m : movieList){
-			   			if(m.getTitle().equals(movie.getTitle()) && m.getMovieClass().equals(movie.getMovieClass())){
-			   				exists=true;
-			   				break;
-						}
-					}
-			   		if(!exists){
-			   			movieList.add(movie);
-					}
-				}
-			   	else{
-					movieList.add(movie);
-				}
+				   movieList.add(movie);
 			   }
 		   }
 	   }
-	   return movieList;   		  	   
+	   return movieList;
    }
 
 	/**
@@ -151,7 +137,7 @@ public class MovieGoerController extends Utils {
 		   if(!movieList.contains(movie.getTitle())) {
 			   String title = movie.getTitle();
 			   if(movie.getMovieClass()!=null) {
-				   temp = title+"("+movie.getMovieClass()+")";
+				   temp = movie.getTitle()+"("+movie.getMovieClass()+")";
 				   if(!movieList.contains(temp)){
 				   	movieList.add(temp);
 				   }
@@ -164,7 +150,7 @@ public class MovieGoerController extends Utils {
 			   }
 		   }
 	   }
-	   
+
 	   return movieList;
    }
 
@@ -317,11 +303,11 @@ public class MovieGoerController extends Utils {
 	public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
-	   	 
+
 	   ArrayList<Cineplex> cineplexes = getCineplexList();
 	   choice = sui.getCineplexSelectionView(cineplexes);
 	   Cineplex cineplex = cineplexes.get(choice);
-	   
+
 	   ArrayList<Movie> movies = getMovieList(cineplex);
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
@@ -502,7 +488,7 @@ public class MovieGoerController extends Utils {
 		else{
 			System.out.println("11) Show Till: " + "Not specified.");
 		}
-
+		System.out.println("12) Reviews: ");
 		if (movieReviews.isEmpty())
 			System.out.println("12) Review Rating: No reviews yet");
 		else{for (Review r : movieReviews) {
