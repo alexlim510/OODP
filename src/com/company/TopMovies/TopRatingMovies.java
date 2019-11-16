@@ -15,8 +15,8 @@ import java.util.Comparator;
  */
 public class TopRatingMovies extends Top5CurrentMovies{
     /**
-     *
-     * @return
+     * Gets the current showing movies in a list which is sorted by the overall review rating.
+     * @return currentShowingMovieList which is the current showing movies in a list which is sorted by the overall review rating.
      */
     @Override
     public ArrayList<Movie> getCurrentShowingMovieList() {
@@ -34,6 +34,9 @@ public class TopRatingMovies extends Top5CurrentMovies{
         return currentShowingMovieList;
     }
 
+    /**
+     * Prints the top 5 Movies which are sorted accoring to the overall review rating.
+     */
     @Override
     public void printTop5Movies() {
         Utils.displayHeader("Top 5 Movie List based on customers rating");

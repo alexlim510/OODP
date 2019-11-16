@@ -8,6 +8,11 @@ package com.company.TopMovies;
  * @since 2019-11-12
  */
 public class TopMovieFactory {
+    /**
+     * This is the method for the TopMovieFactory which takes in a string and creates a corresponding Top5CurrentMovies subClass.
+     * @param newTop5MovieType The string used to determing the subClass to create.
+     * @return Top5CurrentMovies's sub class which is either TopTicketMovies or TopRatingMovies.
+     */
     public Top5CurrentMovies makeTop5Movie(String newTop5MovieType) {
 
         if(newTop5MovieType.equals("ticket")){

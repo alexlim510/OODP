@@ -7,6 +7,8 @@ package com.company.TopMovies;
  * @since 2019-11-12
  */
 public abstract class Top5CurrentMovies extends CurrentShowingMovies {
-
+    /**
+     * Abstract print method which the subclasses override to display their own top 5 movies.
+     */
     public abstract void printTop5Movies();
 }

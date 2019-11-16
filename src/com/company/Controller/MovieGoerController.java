@@ -471,7 +471,8 @@ public class MovieGoerController extends Utils {
 		ArrayList<Movie> matchingMovieList = new ArrayList<Movie>();
 
 		for (Movie m : movieList) {
-			if (m.getTitle().contains(input)) {
+			String movieTitle = m.getTitle();
+			if (movieTitle.contains(input)) {
 				matchingMovieList.add(m);
 			}
 		}

@@ -8,7 +8,10 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class TopTicketMovies extends Top5CurrentMovies{
-
+    /**
+     * Gets the current showing movies in a list which is sorted by the ticket sales.
+     * @return currentShowingMovieList which is the current showing movies in a list which is sorted by the ticket sales.
+     */
     @Override
     public ArrayList<Movie> getCurrentShowingMovieList() {
 
@@ -20,7 +23,9 @@ public class TopTicketMovies extends Top5CurrentMovies{
         });
         return currentShowingMovieList;
     }
-
+    /**
+     * Prints the top 5 Movies which are sorted accoring to the ticket sales.
+     */
     @Override
     public void printTop5Movies() {
         Utils.displayHeader("Top 5 Movie List based on Ticket Sales");
