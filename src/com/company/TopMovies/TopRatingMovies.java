@@ -7,8 +7,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ *
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class TopRatingMovies extends Top5CurrentMovies{
-
+    /**
+     *
+     * @return
+     */
     @Override
     public ArrayList<Movie> getCurrentShowingMovieList() {
 

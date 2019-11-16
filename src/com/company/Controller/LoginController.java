@@ -86,10 +86,18 @@ public class LoginController extends Utils {
       }
    }
 
+   /**
+    * Get Customer cookie with Utils.getCustomerCookie()
+    * @return Customer cookie
+    */
    public Customer getCusCookie() {
       return Utils.getCustomerCookie();
    }
 
+   /**
+    * Write customer into customer.txt
+    * @param customers
+    */
    public void writeCustomer(ArrayList<Customer> customers) {
       try {
          Utils.writeObject("customer.txt", customers);
@@ -100,6 +108,10 @@ public class LoginController extends Utils {
       System.out.println("Successfully Registered!");
    }
 
+   /**
+    * Read customers from customer.txt
+    * @return Registered Customers
+    */
    public ArrayList<Customer> readCustomer() {
       ArrayList<com.company.Entity.Customer> customers = new ArrayList<>();
       try {

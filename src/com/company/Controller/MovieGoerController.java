@@ -460,6 +460,11 @@ public class MovieGoerController extends Utils {
 	   }
    }
 
+	/**
+	 * Logic to search for movies that has title containing String inputted.
+	 * @param input movie title
+	 * @return matched movies
+	 */
 	public ArrayList<Movie> searchMovieLogic(String input) {
 
 		ArrayList<Movie> movieList = getAllMovieList();
@@ -473,10 +478,18 @@ public class MovieGoerController extends Utils {
 		return matchingMovieList;
 	}
 
+	/**
+	 * Get customer cookie
+	 * @return Customer cookie
+	 */
 	public Customer getCusCookie() {
 		return Utils.getCustomerCookie();
 	}
 
+	/**
+	 *
+	 * @param array
+	 */
 	public static void list (ArrayList<? extends ListerInterface> array){
 		int i = 1;
 		for(ListerInterface li: array){
