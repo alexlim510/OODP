@@ -112,7 +112,7 @@ public class MovieGoerUI implements GeneralUI{
 		Utils.displayHeader("Movie List");
 		for (Movie m: movieList) //MovieLists is initiated in main
 		{
-			System.out.println(i + ": " + m.getTitle());
+			System.out.println(i + ": " + m.getTitle() + "(" + m.getStatusType()+")");
 			i++;
 		}
 

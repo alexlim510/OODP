@@ -32,7 +32,7 @@ public class TopRatingMovies extends Top5CurrentMovies{
         for (Movie m: getCurrentShowingMovieList()){
             System.out.println("Top "+ i + ": " + m.getTitle() + "(" + m.getOverallReviewRating() + ")");
             i++;
-            if(i == 4){
+            if(i == 6){
                 break;
             }
         }
