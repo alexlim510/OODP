@@ -108,8 +108,15 @@ public class LoginUI implements GeneralUI {
             Customer newcustomer = new Customer(name,hpnum, email);
             customers.add(newcustomer);
             logCtrl.writeCustomer(customers);
+             System.out.println("Successfully Registered!");
+             System.out.println("Name: "+ newcustomer.getName());
+             System.out.println("Phone number: " + newcustomer.getPhone());
+             System.out.println("Email: " + newcustomer.getEmail());
          }
       }
+      //MovieGoerUI mui = new MovieGoerUI();
+      //mui.getHomeView();
+
 
     /**
      *  Display Movie Goer Log in Page and allow them to login with their email address

@@ -180,7 +180,7 @@ public class HandleShowTimeUI {
 
         System.out.println("Select the Show Time you want to delete: ");
         for(int i = 0; i<ShowTimeArray.size(); i++){
-            System.out.println(i+1+". "+ ShowTimeArray.get(i).getMovie().getTitle()+": "+ShowTimeArray.get(i).getDateTime().getHour()+":"+ShowTimeArray.get(i).getDateTime().getMinute());
+            System.out.println(i+1+". "+ ShowTimeArray.get(i).getMovie().getTitle()+": "+ ShowTimeArray.get(i).getDateTime().getYear() + "-"+ ShowTimeArray.get(i).getDateTime().getMonth() + "-" + ShowTimeArray.get(i).getDateTime().getDayOfMonth()+ " " + ShowTimeArray.get(i).getDateTime().getHour()+":"+ShowTimeArray.get(i).getDateTime().getMinute());
         }
         showTimeChoice = UserInputOutput.getUserChoice(1, CinemaArray.size()) - 1;
 
