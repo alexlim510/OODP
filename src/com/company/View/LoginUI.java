@@ -121,6 +121,10 @@ public class LoginUI implements GeneralUI {
                return;
             }
             System.out.println("Successfully Registered!");
+            System.out.println("Name: "+ newcustomer.getName());
+            System.out.println("Phone number: " + newcustomer.getPhone());
+            System.out.println("Email: " + newcustomer.getEmail());
+
          }
       }
       //MovieGoerUI mui = new MovieGoerUI();
