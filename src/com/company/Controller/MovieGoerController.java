@@ -2,6 +2,7 @@ package com.company.Controller;
 
 import com.company.Entity.*;
 import com.company.Utils.Utils;
+import com.company.View.ListerInterface;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 import com.company.View.UIDisplay;
@@ -470,5 +471,18 @@ public class MovieGoerController extends Utils {
 			}
 		}
 		return matchingMovieList;
+	}
+
+	public Customer getCusCookie() {
+		return Utils.getCustomerCookie();
+	}
+
+	public static void list (ArrayList<? extends ListerInterface> array){
+		int i = 1;
+		for(ListerInterface li: array){
+			System.out.print(i+". ");
+			li.listItself();
+			i++;
+		}
 	}
 }

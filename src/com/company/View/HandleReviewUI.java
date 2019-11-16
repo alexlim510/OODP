@@ -4,7 +4,7 @@ package com.company.View;
 import com.company.Controller.HandleReviewMgr;
 import com.company.Entity.Movie;
 import com.company.Utils.UserInputOutput;
-import com.company.Utils.Utils;
+
 
 import java.util.Scanner;
 
@@ -27,7 +27,7 @@ public class HandleReviewUI {
       
       System.out.println("Insert your review");
       do{
-         rating = Utils.getFloatInput("Insert your rating (1-5): ");
+         rating = UserInputOutput.getFloatInput("Insert your rating (1-5): ");
       }while(rating > 5 || rating < 0);
       System.out.println("Review: ");
       review = sc.nextLine();

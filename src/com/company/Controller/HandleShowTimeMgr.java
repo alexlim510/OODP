@@ -89,4 +89,26 @@ public class HandleShowTimeMgr {
         }
         return true;
     }
+
+    public static ArrayList<Cineplex> getCineplexArray(){
+        ArrayList<Cineplex> CineplexArray = null;
+        try{
+            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        }
+        catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+        }
+        return CineplexArray;
+    }
+
+    public static ArrayList<Movie> getMovieArray(){
+        ArrayList<Movie> MovieArray = null;
+        try{
+            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        }
+        catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+        }
+        return MovieArray;
+    }
 }

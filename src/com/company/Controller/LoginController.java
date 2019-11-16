@@ -2,12 +2,16 @@ package com.company.Controller;
 
 import com.company.Entity.Customer;
 import com.company.Entity.Movie;
+import com.company.Entity.Price;
 import com.company.Entity.Staff;
 import com.company.Utils.Utils;
+
 
 import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
+
+import static com.company.Utils.Utils.storeCustomerCookie;
 
 /**
  * Main controller for login
@@ -80,5 +84,31 @@ public class LoginController extends Utils {
       } catch (IOException e) {
       } catch (ClassNotFoundException e) {
       }
+   }
+
+   public Customer getCusCookie() {
+      return Utils.getCustomerCookie();
+   }
+
+   public void writeCustomer(ArrayList<Customer> customers) {
+      try {
+         Utils.writeObject("customer.txt", customers);
+      } catch (IOException e) {
+         e.printStackTrace();
+         return;
+      }
+      System.out.println("Successfully Registered!");
+   }
+
+   public ArrayList<Customer> readCustomer() {
+      ArrayList<com.company.Entity.Customer> customers = new ArrayList<>();
+      try {
+         customers= (ArrayList<com.company.Entity.Customer>) Utils.readObject("customer.txt");
+      } catch (IOException e) {
+         e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+         e.printStackTrace();
+      }
+      return customers;
    }
 }

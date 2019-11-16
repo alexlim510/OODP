@@ -2,7 +2,7 @@ package com.company.View;
 import com.company.Controller.LoginController;
 import com.company.Entity.Customer;
 import com.company.Utils.UserInputOutput;
-import com.company.Utils.Utils;
+
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -54,7 +54,7 @@ public class LoginUI implements GeneralUI {
      * Allow Movie Goer to login or register
      */
    public void displayLoginRegisterPage() {
-      Utils.displayHeader("Login/Register");
+      UserInputOutput.displayHeader("Login/Register");
       boolean end= false;
 
       while (!end) {
@@ -62,7 +62,7 @@ public class LoginUI implements GeneralUI {
          System.out.println("1) Log In");
          System.out.println("2) Register");
 
-         int select = Utils.getUserChoice(1,2);
+         int select = UserInputOutput.getUserChoice(1,2);
          switch (select) {
             case 1:
                displayPublicLoginPage();
@@ -82,7 +82,7 @@ public class LoginUI implements GeneralUI {
      * Allow user goer to  register a new account
      */
    public void displayPublicRegisterPage() {
-      Utils.displayHeader("Customer Register");
+      UserInputOutput.displayHeader("Customer Register");
       LoginController logCtrl = new LoginController();
       ArrayList<Customer> customers = new ArrayList<>();
 
@@ -103,36 +103,20 @@ public class LoginUI implements GeneralUI {
             System.out.println("Please enter mobile phone number");
             String hpnum = sc.nextLine();
 
-
-            try {
-               customers= (ArrayList<Customer>) Utils.readObject("customer.txt");
-            } catch (IOException e) {
-               e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-               e.printStackTrace();
-            }
+            customers = logCtrl.readCustomer();
 
             Customer newcustomer = new Customer(name,hpnum, email);
             customers.add(newcustomer);
-            try {
-               Utils.writeObject("customer.txt", customers);
-            } catch (IOException e) {
-               e.printStackTrace();
-               return;
-            }
-            System.out.println("Successfully Registered!");
+            logCtrl.writeCustomer(customers);
          }
       }
-      //MovieGoerUI mui = new MovieGoerUI();
-      //mui.getHomeView();
-
 
     /**
      *  Display Movie Goer Log in Page and allow them to login with their email address
      */
    public void displayPublicLoginPage() {
       LoginController logCtrl = new LoginController();
-      Utils.displayHeader("Customer Login");
+      UserInputOutput.displayHeader("Customer Login");
       boolean  credentialCheck = false;
          System.out.println("Please input Email:");
          Scanner sc = new Scanner(System.in);
@@ -143,7 +127,7 @@ public class LoginUI implements GeneralUI {
          }
 
       if (credentialCheck == true) {
-         Customer c = Utils.getCustomerCookie();
+         Customer c = logCtrl.getCusCookie();
 
          System.out.println("Hi " + c.getName() + "!");
          MovieGoerUI mui = new MovieGoerUI();
@@ -160,7 +144,7 @@ public class LoginUI implements GeneralUI {
      */
    public void displayAdminLoginPage() {
       LoginController logCtrl = new LoginController();
-      Utils.displayHeader("Admin Login");
+      UserInputOutput.displayHeader("Admin Login");
    	
    	//Check password
       boolean credentialCheck = false;

@@ -1,8 +1,9 @@
 package com.company.View;
+import com.company.Controller.HandlePricingMgr;
 import com.company.Entity.*;
 
 import com.company.Controller.MovieGoerController;
-import com.company.Utils.Utils;
+import com.company.Utils.UserInputOutput;
 
 import java.io.IOException;
 import java.util.*;
@@ -24,7 +25,7 @@ public class SeatUI {
 		for(int i=0;i<cineplexes.size();i++) {
 			System.out.println((i+1)+")"+cineplexes.get(i).getCineplexName());
 		}
-		return Utils.getUserChoice(1, cineplexes.size())-1;
+		return UserInputOutput.getUserChoice(1, cineplexes.size())-1;
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class SeatUI {
 		for(int i=0;i<movies.size();i++) {
 			System.out.println((i+1)+")"+ movies.get(i));
 		}
-		return Utils.getUserChoice(1, movies.size())-1;
+		return UserInputOutput.getUserChoice(1, movies.size())-1;
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class SeatUI {
 		for(int i=0;i<cinemaType.size();i++) {
 			System.out.println((i+1)+")"+ cinemaType.get(i));
 		}
-		return Utils.getUserChoice(1, cinemaType.size())-1;
+		return UserInputOutput.getUserChoice(1, cinemaType.size())-1;
 	}
 
 	/**
@@ -61,26 +62,17 @@ public class SeatUI {
 	public int getShowTimeSelectionView(ArrayList<ShowTime> showTimes) {
 		System.out.println("Please select Show Time: ");
 		int i;
-		Price p = null;
-		try {
-			p = (Price) Utils.readObject("Price.txt");
-		} catch (IOException e) {
-			System.out.println("Invalid file");
-			return -1;
-		} catch (ClassNotFoundException e) {
-			System.out.println("Invalid file");
-			return -1;
-		}
+		Price p = HandlePricingMgr.readPriceFile();
 
 		for(i=0;i<showTimes.size();i++) {
 			if(p.isHoliday(showTimes.get(i).getDateTime()))
-				System.out.println((i+1)+")"+Utils.createDayOfWeekString(showTimes.get(i).getDateTime())+"(Holiday)");
+				System.out.println((i+1)+")"+UserInputOutput.createDayOfWeekString(showTimes.get(i).getDateTime())+"(Holiday)");
 			else
-				System.out.println((i+1)+")"+Utils.createDayOfWeekString(showTimes.get(i).getDateTime()));
+				System.out.println((i+1)+")"+UserInputOutput.createDayOfWeekString(showTimes.get(i).getDateTime()));
 		}
 		System.out.println((i+1)+")"+ "Return to main menu");
 
-		int choice = Utils.getUserChoice(1, showTimes.size()+1)-1;
+		int choice = UserInputOutput.getUserChoice(1, showTimes.size()+1)-1;
 		if(choice>=showTimes.size()) return -1;
 		else return choice;
 	}
@@ -95,7 +87,7 @@ public class SeatUI {
 	 */
 	public HashMap<String,String> getSeatSelectionMenu(ShowTime st, float basePrice) {
 		MovieGoerController mgc = new MovieGoerController();
-		Utils.displayHeader("Seat Selection");
+		UserInputOutput.displayHeader("Seat Selection");
 		HashMap<String,String> chosenSeat = new HashMap<>();
 		getSeatListing(st,chosenSeat);
 		System.out.println("---------------------------------------------------------------------");
@@ -107,7 +99,7 @@ public class SeatUI {
 							"2. Remove selected seat\n" +
 							"3. Make Payment");
 
-			choice = Utils.getUserChoice(1, 3);
+			choice = UserInputOutput.getUserChoice(1, 3);
 			switch(choice) {
 				case 1:
 					String selectedSeat = getSeatSelectionView(st,chosenSeat);
@@ -172,7 +164,7 @@ public class SeatUI {
 				"1. Adult\n" +
 						"2. Senior Citizen\n" +
 						"3. Child");
-		int choice = Utils.getUserChoice(1, 3);
+		int choice = UserInputOutput.getUserChoice(1, 3);
 		Price prices = new Price();
 		switch(choice) {
 			case 1:
@@ -332,7 +324,7 @@ public class SeatUI {
 	 * @param st chosen showtime
 	 */
 	public void getTicketView(Cineplex cineplex, HashMap<String,String> chosenSeats,Cinema cinema, ShowTime st){
-		Utils.displayHeader("Tickets");
+		UserInputOutput.displayHeader("Tickets");
 		for (Map.Entry<String, String> seat : chosenSeats.entrySet()) {
 			System.out.println("===========================================");
 			String seatID = seat.getKey();
