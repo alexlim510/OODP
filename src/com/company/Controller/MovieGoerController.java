@@ -6,10 +6,13 @@ import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 import com.company.View.UIDisplay;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Serve as the controller for Movie Goer's features
@@ -430,76 +433,83 @@ public class MovieGoerController extends Utils {
 	   }
    }
 
-	/**
-	 * Creates a comparator which compares two different movies based on total sales
-	 */
-//	public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
-//
-//		public int compare(Movie m1, Movie m2) {
-//			int movieTicketSales1 = m1.getTotalSales();
-//			int movieTicketSales2 = m2.getTotalSales();
-//			return movieTicketSales2-movieTicketSales1;
-//		}
-//   };
-//
-//	/**
-//	 * Creates a comparator which compares two different movies based on review rating
-//	 */
-//	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
-//
-//		public int compare(Movie m1, Movie m2) {
-//			int movieTicketSales1 = m1.getTotalSales();
-//			int movieTicketSales2 = m2.getTotalSales();
-//
-//			//ascending order
-//			//return StudentName1.compareTo(StudentName2);
-//
-//			//descending order
-//			return movieTicketSales2-movieTicketSales1;
-//		}
-//	};
+	public void searchMovieLogic(String input) {
+		boolean found = false;
 
+		ArrayList<Movie> movieList = getAllMovieList();
+		ArrayList<Movie> selected = new ArrayList<Movie>();
+
+		for (Movie m : movieList) {
+			if (m.getTitle().contains(input)) {
+				selected.add(m);
+				found = true;
+			}
+		}
+		if (found) {
+			// print array of movie
+			System.out.println("Movies found: ");
+
+			Utils.list(selected);
+
+			System.out.println("Please select movie: ");
+			int index = Utils.getUserChoice(1,selected.size());
+
+			getMovieDetailsView(selected.get((index - 1)));
+		}
+		else {
+			System.out.println("Movie not found");
+		}
+	}
 	/**
-	 * returns top 5 movies based on total sales
-	 * @return array list of movies
+	 * 	When a certain movie is passed in, this method will print out
+	 * 	All the details of that movie following the sequence
+	 * @param movie movie selected by customer
 	 */
-//   public ArrayList<Movie> getTop5MoviesListTicket(){
-//   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-//   	nowShowingMovies = getNowShowingMovieList();
-//   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-//   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
-//   	int top5;
-//   	if(nowShowingMovies.size() > 5) {
-//		top5 = 5;
-//	}
-//   	else{
-//		top5 = nowShowingMovies.size();
-//	}
-//   	for (int i = 0; i < top5; i++){
-//		top5Movies.add(nowShowingMovies.get(i));
-//	}
-//   	return top5Movies;
-//   }
-//
-//	/**
-//	 * returns top 5 movies based on review ratings
-//	 * @return array list of movies
-//	 */
-//	public ArrayList<Movie> getTop5MoviesListRating(){
-//		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-//		nowShowingMovies = getNowShowingMovieList();
-//		ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-//		Collections.sort(nowShowingMovies, overallReviewRatingSalesComparator);
-//		int top5;
-//		if(nowShowingMovies.size() > 5) {
-//			top5 = 5;
-//		}
-//		else{
-//			top5 = nowShowingMovies.size();
-//		}
-//		for (int i = 0; i < top5; i++){
-//			top5Movies.add(nowShowingMovies.get(i));
-//		}
-//		return top5Movies;
-//	}
+	public void getMovieDetailsView(Movie movie) {
+		int n = 0;
+		ArrayList<Review> movieReviews = movie.getMovieReview();
+		Utils.displayHeader("Movie Details");
+		System.out.println("The details of " + movie.getTitle() + " :");
+		System.out.println("1) Duration: " + movie.getDuration());
+		System.out.println("2) Synopsis: " + movie.getSynopsis());
+		System.out.println("3) Status: " + movie.getStatusType());
+		System.out.println("5) Movie Type: " + movie.getMovieClass());
+		System.out.println("6) Age Type: " + movie.getAgeType());
+		if (movieReviews.isEmpty())
+			System.out.println("7) Review Rating: No ratings yet");
+		else {
+			DecimalFormat df = new DecimalFormat("#.00");
+			System.out.println("7) Review Rating:" + df.format(movie.getOverallReviewRating()));
+		}
+		String[] movieGenre = movie.getGenre();
+		System.out.print("8) Genre: ");
+		for (int j = 0; j < movieGenre.length; j++) {
+			if (j != movieGenre.length - 1)
+				System.out.print(movieGenre[j] + ", ");
+			else
+				System.out.print(movieGenre[j] + ".\n");}
+		System.out.println("9) Director: "+ movie.getDirector());
+		System.out.print("10) Cast: ");
+		String[] movieCast = movie.getCast();
+		for (int i = 0; i < movieCast.length; i++) {
+			if (i != movieCast.length - 1)
+				System.out.print(movieCast[i] + ", ");
+			else
+				System.out.print(movieCast[i] + ".\n");	}
+		LocalDate showTill = movie.getShowTill();
+		if (showTill!= null){
+			System.out.println("11) Show Till: " + showTill);
+		}
+		else{
+			System.out.println("11) Show Till: " + "Not specified.");
+		}
+		System.out.println("12) Reviews: ");
+		if (movieReviews.isEmpty())
+			System.out.println("12) Review Rating: No reviews yet");
+		else{for (Review r : movieReviews) {
+			System.out.println("   (" +(n+1)+ ") Rating: "  + r.getRating() + ", " + r.getContent());
+			n++;}}
+
+	}
+
 }

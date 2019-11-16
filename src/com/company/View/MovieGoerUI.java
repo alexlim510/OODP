@@ -24,58 +24,6 @@ public class MovieGoerUI implements GeneralUI{
 	MovieGoerController movieController = new MovieGoerController();
 
 	/**
-	 * 	When a certain movie is passed in, this method will print out
-	 * 	All the details of that movie following the sequence
-	 * @param movie movie selected by customer
-	 */
-	public void getMovieDetailsView(Movie movie) {
-		int n = 0;
-		ArrayList<Review> movieReviews = movie.getMovieReview();
-		Utils.displayHeader("Movie Details");
-		System.out.println("The details of " + movie.getTitle() + " :");
-		System.out.println("1) Duration: " + movie.getDuration());
-		System.out.println("2) Synopsis: " + movie.getSynopsis());
-		System.out.println("3) Status: " + movie.getStatusType());
-		System.out.println("5) Movie Type: " + movie.getMovieClass());
-		System.out.println("6) Age Type: " + movie.getAgeType());
-		if (movieReviews.isEmpty())
-			System.out.println("7) Review Rating: No ratings yet");
-		else {
-			DecimalFormat df = new DecimalFormat("#.00");
-			System.out.println("7) Review Rating:" + df.format(movie.getOverallReviewRating()));
-		}
-		String[] movieGenre = movie.getGenre();
-		System.out.print("8) Genre: ");
-		for (int j = 0; j < movieGenre.length; j++) {
-			if (j != movieGenre.length - 1)
-				System.out.print(movieGenre[j] + ", ");
-			else
-				System.out.print(movieGenre[j] + ".\n");}
-		System.out.println("9) Director: "+ movie.getDirector());
-		System.out.print("10) Cast: ");
-		String[] movieCast = movie.getCast();
-		for (int i = 0; i < movieCast.length; i++) {
-			if (i != movieCast.length - 1)
-				System.out.print(movieCast[i] + ", ");
-			else
-				System.out.print(movieCast[i] + ".\n");	}
-		LocalDate showTill = movie.getShowTill();
-		if (showTill!= null){
-			System.out.println("11) Show Till: " + showTill);
-		}
-		else{
-			System.out.println("11) Show Till: " + "Not specified.");
-		}
-		System.out.println("12) Reviews: ");
-		if (movieReviews.isEmpty())
-			System.out.println("12) Review Rating: No reviews yet");
-		else{for (Review r : movieReviews) {
-			System.out.println("   (" +(n+1)+ ") Rating: "  + r.getRating() + ", " + r.getContent());
-					n++;}}
-
-		}
-
-	/**
 	*Prints out all the movies available in the database
 	*In the end, asks users which movie they want to view the details
 	 */
@@ -84,7 +32,7 @@ public class MovieGoerUI implements GeneralUI{
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		movieList = movieController.getAllMovieList();
 		Utils.list(movieList);
-		getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
+		movieController.getMovieDetailsView(movieList.get(Utils.getUserChoice(1, movieList.size())-1));
 	}
 	/**
 	 *Prints the choices available for the users
@@ -227,87 +175,11 @@ public class MovieGoerUI implements GeneralUI{
 				break;
 		}
 	}
-
-//	/**
-//	 * Get user selection based on how they want to get top 5 movies
-//	 */
-//	public void listTopMovies() {
-//		Utils.displayHeader("Top 5 Movies");
-//		System.out.println(
-//				"1. List top 5 ranking movies by ticket sales.\n" +
-//						"2. List top 5 ranking movies by Overall reviewers' rating.");
-//		switch (Utils.getUserChoice(1, 2)) {
-//			case 1:
-//				getTop5MoviesTicketView();
-//				break;
-//			case 2:
-//				getTop5MoviesRatingView();
-//				break;
-//		}
-//	}
-
-	/**
-	 * prints out top 5 movies ordered by total sales
-	 */
-//    public void getTop5MoviesTicketView(){
-//		Utils.displayHeader("Top 5 Movie List based on tickets sold");
-//		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
-//		top5MovieList = movieController.getTop5MoviesListTicket();
-//		int i = 1;
-//		for (Movie m: top5MovieList){
-//			System.out.println("Top "+ i + ": " + m.getTitle());
-//			i++;
-//		}
-//	}
-//
-//	/**
-//	 * prints out top 5 movies ordered by review ratings
-//	 */
-//	public void getTop5MoviesRatingView(){
-//		Utils.displayHeader("Top 5 Movie List based on customers rating");
-//		ArrayList<Movie> top5MovieList = new ArrayList<Movie>();
-//		top5MovieList = movieController.getTop5MoviesListRating();
-//		int i = 1;
-//		for (Movie m: top5MovieList){
-//			System.out.println("Top "+ i + ": " + m.getTitle());
-//			i++;
-//		}
-//	}
-
 	public void searchMovieUI() {
-		boolean found = false;
 		Utils.displayHeader("Search movie");
-
-		ArrayList<Movie> movieList = new ArrayList<Movie>();
-		ArrayList<Movie> selected = new ArrayList<Movie>();
-		movieList = movieController.getAllMovieList();
-
 		System.out.println("Please type in movie name");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.next();
-		for (Movie m : movieList) {
-			if (m.getTitle().contains(input)) {
-				selected.add(m);
-				selectedMovieDetailView(selected);
-				found = true;
-			}
-		}
-		if (!found)
-			System.out.println("Movie not found");
-
-	}
-
-	public void selectedMovieDetailView(ArrayList<Movie> Selectedlist) {
-		int i=1;
-		int select=0;
-
-
-			System.out.println("Movies found: ");
-			Utils.list(Selectedlist);
-			System.out.println("Please select movie: ");
-
-		select = Utils.getUserChoice(1,Selectedlist.size());
-
-	getMovieDetailsView(Selectedlist.get((select-1)));
+		movieController.searchMovieLogic(input);
 	}
 }

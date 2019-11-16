@@ -163,8 +163,12 @@ public class Utils {
    }
 
    public static void list (ArrayList<? extends ListerInterface> array){
-      UserInputOutput.list(array);
+      int i = 1;
+      for(ListerInterface li: array){
+         System.out.print(i+". ");
+         li.listItself();
+         i++;
+      }
    }
-
 }
 

@@ -356,5 +356,4 @@ public class Movie implements Serializable, ListerInterface {
    public void listItself(){
       System.out.println("Title: "+this.title+" - Status: "+this.statusType);
    }
-
 }
