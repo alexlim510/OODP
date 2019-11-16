@@ -452,7 +452,6 @@ public class MovieGoerController extends Utils {
 	 */
 	public void getMovieDetailsView(Movie movie) {
 		int n = 0;
-		ArrayList<Review> movieReviews = movie.getMovieReview();
 		Utils.displayHeader("Movie Details");
 		System.out.println("The details of " + movie.getTitle() + " :");
 		System.out.println("1) Duration: " + movie.getDuration());
@@ -460,6 +459,7 @@ public class MovieGoerController extends Utils {
 		System.out.println("3) Status: " + movie.getStatusType());
 		System.out.println("5) Movie Type: " + movie.getMovieClass());
 		System.out.println("6) Age Type: " + movie.getAgeType());
+		ArrayList<Review> movieReviews = movie.getMovieReview();
 		if (movieReviews.isEmpty())
 			System.out.println("7) Review Rating: No ratings yet");
 		else {
