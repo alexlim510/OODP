@@ -3,6 +3,7 @@ import com.company.Controller.MovieGoerController;
 import com.company.Entity.*;
 import com.company.Interface.Top5CurrentMovies;
 import com.company.Interface.TopMovieFactory;
+import com.company.Utils.UserInputOutput;
 import com.company.Utils.Utils;
 
 import java.text.DecimalFormat;
@@ -45,8 +46,7 @@ public class MovieGoerUI implements GeneralUI{
 
 
 		while (loop) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Select What to do: ");
+			UserInputOutput.displayHeader("Movie Goer Main Menu");
 			System.out.println("1) Book Ticket");
 			System.out.println("2) Movie Listing");
 			System.out.println("3) Search Movie detail");
@@ -55,8 +55,7 @@ public class MovieGoerUI implements GeneralUI{
 			System.out.println("6) Top 5 Movies");
 			System.out.println("7) Quit");
 			try {
-				int choice = sc.nextInt();
-				switch (choice) {
+				switch (UserInputOutput.getUserChoice(1, 7)) {
 					case 1:
 						movieController.seatSelection();
 						break;
@@ -66,7 +65,6 @@ public class MovieGoerUI implements GeneralUI{
 					case 3:
 						searchMovieUI();
 						break;
-
 					case 4:
 						getMakeAReviewView();
 						break;
@@ -180,6 +178,18 @@ public class MovieGoerUI implements GeneralUI{
 		System.out.println("Please type in movie name");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.next();
-		movieController.searchMovieLogic(input);
+		ArrayList<Movie> movieList = movieController.searchMovieLogic(input);
+		if (movieList.size() > 0) {
+			System.out.println("Movies found: ");
+
+			Utils.list(movieList);
+
+			System.out.println("Please select movie: ");
+			int index = Utils.getUserChoice(1,movieList.size());
+			movieController.getMovieDetailsView(movieList.get((index - 1)));
+		}
+		else {
+			System.out.println("Movie not found");
+		}
 	}
 }

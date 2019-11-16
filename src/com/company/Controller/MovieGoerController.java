@@ -433,8 +433,7 @@ public class MovieGoerController extends Utils {
 	   }
    }
 
-	public void searchMovieLogic(String input) {
-		boolean found = false;
+	public ArrayList<Movie> searchMovieLogic(String input) {
 
 		ArrayList<Movie> movieList = getAllMovieList();
 		ArrayList<Movie> selected = new ArrayList<Movie>();
@@ -442,23 +441,9 @@ public class MovieGoerController extends Utils {
 		for (Movie m : movieList) {
 			if (m.getTitle().contains(input)) {
 				selected.add(m);
-				found = true;
 			}
 		}
-		if (found) {
-			// print array of movie
-			System.out.println("Movies found: ");
-
-			Utils.list(selected);
-
-			System.out.println("Please select movie: ");
-			int index = Utils.getUserChoice(1,selected.size());
-
-			getMovieDetailsView(selected.get((index - 1)));
-		}
-		else {
-			System.out.println("Movie not found");
-		}
+		return selected;
 	}
 	/**
 	 * 	When a certain movie is passed in, this method will print out
