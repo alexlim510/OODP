@@ -450,14 +450,14 @@ public class MovieGoerController extends Utils {
 	public ArrayList<Movie> searchMovieLogic(String input) {
 
 		ArrayList<Movie> movieList = getAllMovieList();
-		ArrayList<Movie> selected = new ArrayList<Movie>();
+		ArrayList<Movie> matchingMovieList = new ArrayList<Movie>();
 
 		for (Movie m : movieList) {
 			if (m.getTitle().contains(input)) {
-				selected.add(m);
+				matchingMovieList.add(m);
 			}
 		}
-		return selected;
+		return matchingMovieList;
 	}
 	/**
 	 * 	When a certain movie is passed in, this method will print out
