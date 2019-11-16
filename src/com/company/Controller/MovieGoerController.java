@@ -488,7 +488,7 @@ public class MovieGoerController extends Utils {
 		else{
 			System.out.println("11) Show Till: " + "Not specified.");
 		}
-		System.out.println("12) Reviews: ");
+
 		if (movieReviews.isEmpty())
 			System.out.println("12) Review Rating: No reviews yet");
 		else{for (Review r : movieReviews) {

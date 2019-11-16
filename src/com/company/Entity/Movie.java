@@ -96,7 +96,6 @@ public class Movie implements Serializable, ListerInterface {
       this.cast =cast ;
       this.genre = genre;
       this.duration = duration;
-      this.reviews = reviews;
       this.movieClass = movieClasses[movieClass];
       this.ageType = ageTypes[ageType];
       this.statusType = statusTypes[statusType];
