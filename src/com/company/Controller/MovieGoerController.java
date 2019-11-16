@@ -118,25 +118,11 @@ public class MovieGoerController extends Utils {
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
 			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
-			   	if(movieList.size()>0){
-			   		boolean exists=false;
-			   		for(Movie m : movieList){
-			   			if(m.getTitle().equals(movie.getTitle()) && m.getMovieClass().equals(movie.getMovieClass())){
-			   				exists=true;
-			   				break;
-						}
-					}
-			   		if(!exists){
-			   			movieList.add(movie);
-					}
-				}
-			   	else{
-					movieList.add(movie);
-				}
+				   movieList.add(movie);
 			   }
 		   }
 	   }
-	   return movieList;   		  	   
+	   return movieList;
    }
 
 	/**
@@ -151,7 +137,7 @@ public class MovieGoerController extends Utils {
 		   if(!movieList.contains(movie.getTitle())) {
 			   String title = movie.getTitle();
 			   if(movie.getMovieClass()!=null) {
-				   temp = title+"("+movie.getMovieClass()+")";
+				   temp = movie.getTitle()+"("+movie.getMovieClass()+")";
 				   if(!movieList.contains(temp)){
 				   	movieList.add(temp);
 				   }
@@ -164,7 +150,7 @@ public class MovieGoerController extends Utils {
 			   }
 		   }
 	   }
-	   
+
 	   return movieList;
    }
 
@@ -317,11 +303,11 @@ public class MovieGoerController extends Utils {
 	public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
-	   	 
+
 	   ArrayList<Cineplex> cineplexes = getCineplexList();
 	   choice = sui.getCineplexSelectionView(cineplexes);
 	   Cineplex cineplex = cineplexes.get(choice);
-	   
+
 	   ArrayList<Movie> movies = getMovieList(cineplex);
 	   ArrayList<String> movieTitles = getMovieTitles(movies);
 	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
@@ -450,14 +436,14 @@ public class MovieGoerController extends Utils {
 	public ArrayList<Movie> searchMovieLogic(String input) {
 
 		ArrayList<Movie> movieList = getAllMovieList();
-		ArrayList<Movie> selected = new ArrayList<Movie>();
+		ArrayList<Movie> matchingMovieList = new ArrayList<Movie>();
 
 		for (Movie m : movieList) {
 			if (m.getTitle().contains(input)) {
-				selected.add(m);
+				matchingMovieList.add(m);
 			}
 		}
-		return selected;
+		return matchingMovieList;
 	}
 	/**
 	 * 	When a certain movie is passed in, this method will print out
@@ -466,7 +452,6 @@ public class MovieGoerController extends Utils {
 	 */
 	public void getMovieDetailsView(Movie movie) {
 		int n = 0;
-		ArrayList<Review> movieReviews = movie.getMovieReview();
 		Utils.displayHeader("Movie Details");
 		System.out.println("The details of " + movie.getTitle() + " :");
 		System.out.println("1) Duration: " + movie.getDuration());
@@ -474,6 +459,7 @@ public class MovieGoerController extends Utils {
 		System.out.println("3) Status: " + movie.getStatusType());
 		System.out.println("5) Movie Type: " + movie.getMovieClass());
 		System.out.println("6) Age Type: " + movie.getAgeType());
+		ArrayList<Review> movieReviews = movie.getMovieReview();
 		if (movieReviews.isEmpty())
 			System.out.println("7) Review Rating: No ratings yet");
 		else {
@@ -502,7 +488,7 @@ public class MovieGoerController extends Utils {
 		else{
 			System.out.println("11) Show Till: " + "Not specified.");
 		}
-
+		System.out.println("12) Reviews: ");
 		if (movieReviews.isEmpty())
 			System.out.println("12) Review Rating: No reviews yet");
 		else{for (Review r : movieReviews) {
