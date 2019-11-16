@@ -6,6 +6,7 @@ import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -36,9 +37,15 @@ public class HandleShowTimeMgr {
         // cinema, film, datetime needed
         LocalDateTime dateTime;
         ShowTime newShowTime;
+        LocalDateTime chosenDate = LocalDateTime.of(year, month, day, hour, minute);
+        Movie chosenMovie = MovieArray.get(movieChoice);
+        newShowTime = new ShowTime(chosenDate, chosenMovie);
 
-        newShowTime = new ShowTime(LocalDateTime.of(year, month, day, hour, minute), MovieArray.get(movieChoice));
-
+        //check if datetime has passed movie showtill date
+        if(chosenMovie.getShowTill()!=null && LocalDate.of(year,month,day).isAfter(chosenMovie.getShowTill())){
+            System.out.println("The show time at the inserted time has passed the movie's showtill date");
+            return false;
+        }
         // checking if the showtime has existed
         for (ShowTime st: CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getShowTime()) {
             if (st.getDateTime().isEqual(newShowTime.getDateTime())) {
