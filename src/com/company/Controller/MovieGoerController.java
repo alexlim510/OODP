@@ -187,7 +187,7 @@ public class MovieGoerController extends Utils {
             cinemaType = cinema.getCinemaType();
             if(cinemaType!=null && !cinemaTypes.contains(cinemaType)){
                 cinemaTypes.add(cinemaType);
-                break;
+
             }
         }
         return cinemaTypes;

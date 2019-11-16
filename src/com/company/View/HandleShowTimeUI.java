@@ -100,7 +100,7 @@ public class HandleShowTimeUI {
         for(int i = 0; i<MovieArray.size(); i++){
             System.out.println(i+1+". "+ MovieArray.get(i).getTitle());
         }
-        movieChoice = Utils.getUserChoice(1, CinemaArray.size()) - 1;
+        movieChoice = Utils.getUserChoice(1, MovieArray.size()) - 1;
 
         int year;
         int month;
