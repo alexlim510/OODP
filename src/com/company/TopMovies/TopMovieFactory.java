@@ -1,4 +1,4 @@
-package com.company.Interface;
+package com.company.TopMovies;
 
 public class TopMovieFactory {
     public Top5CurrentMovies makeTop5Movie(String newTop5MovieType) {

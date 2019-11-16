@@ -1,8 +1,8 @@
 package com.company.View;
 
 import com.company.Controller.StaffControl;
-import com.company.Interface.Top5CurrentMovies;
-import com.company.Interface.TopMovieFactory;
+import com.company.TopMovies.Top5CurrentMovies;
+import com.company.TopMovies.TopMovieFactory;
 import com.company.Utils.Utils;
 
 /**

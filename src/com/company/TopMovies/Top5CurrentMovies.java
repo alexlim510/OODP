@@ -1,4 +1,4 @@
-package com.company.Interface;
+package com.company.TopMovies;
 
 public abstract class Top5CurrentMovies extends CurrentShowingMovies {
 

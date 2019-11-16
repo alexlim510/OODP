@@ -1,4 +1,4 @@
-package com.company.Interface;
+package com.company.TopMovies;
 
 import com.company.Entity.Movie;
 import com.company.Utils.Utils;
