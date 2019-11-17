@@ -1,19 +1,16 @@
 package com.company.Controller;
 
 import com.company.Entity.*;
-import com.company.Utils.Utils;
+import com.company.Utils.FileIO;
 import com.company.View.ListerInterface;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 import com.company.View.UIDisplay;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Serve as the controller for Movie Goer's features
@@ -21,7 +18,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2019-12-11
  */
-public class MovieGoerController extends Utils {
+public class MovieGoerController extends FileIO {
 	/**
 	 * User gets a glance of all movies available ----> getMovieListingView()
 	 * Then user will be prompted three choices ----> getHomeView()
@@ -46,7 +43,7 @@ public class MovieGoerController extends Utils {
 	   ArrayList<Movie> MovieArray = new ArrayList<Movie>();
 	   try {
 		   int i = 0;
-		   MovieArray = (ArrayList<Movie>)Utils.getObjectInputStream("movie.txt").readObject();
+		   MovieArray = (ArrayList<Movie>) FileIO.getObjectInputStream("movie.txt").readObject();
 		   for (Movie m: MovieArray) {
 			   if (m.getStatusType().equals("Now showing") || m.getStatusType().equals("Preview")) {
 				   nowShowing.add(m);
@@ -69,7 +66,7 @@ public class MovieGoerController extends Utils {
 	public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
 	   try {
-		   allMovie = (ArrayList<Movie>)Utils.readObject("movie.txt");
+		   allMovie = (ArrayList<Movie>) FileIO.readObject("movie.txt");
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   } catch (ClassNotFoundException e) {
@@ -85,7 +82,7 @@ public class MovieGoerController extends Utils {
    public ArrayList<Cineplex> getCineplexList(){
 	   ArrayList<Cineplex> allCineplex = new ArrayList<Cineplex>();
 	   try {
-		   allCineplex = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
+		   allCineplex = (ArrayList<Cineplex>) FileIO.readObject("cineplex.txt");
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   } catch (ClassNotFoundException e) {
@@ -265,7 +262,7 @@ public class MovieGoerController extends Utils {
 	   int dayOfWeek = showtime.getDateTime().getDayOfWeek().ordinal();
 	   Price p = null;
 	   try {
-		   p = (Price) Utils.readObject("price.txt");
+		   p = (Price) FileIO.readObject("price.txt");
 	   } catch (IOException e) {
 		   System.out.println("Invalid file");
 		   return -1;
@@ -356,21 +353,21 @@ public class MovieGoerController extends Utils {
        occupySeats(cineplex,cinema,showtime,chosenSeats);
 
        //update user transaction history
-	   Customer customer = Utils.getCustomerCookie();
+	   Customer customer = FileIO.getCustomerCookie();
 	   ArrayList<Customer> customerData = new ArrayList<>();
 	   Transaction transaction = new Transaction(customer,cineplex,cinema,showtime,
 			   calculateTotalPrice(chosenSeats,basePrice),chosenSeats);
 	   customer.addTransactions(transaction);
-	   Utils.storeCustomerCookie(customer);
+	   FileIO.storeCustomerCookie(customer);
 
 	   try {
-		   customerData = (ArrayList<Customer>)Utils.readObject("customer.txt");
+		   customerData = (ArrayList<Customer>) FileIO.readObject("customer.txt");
 		   for(Customer c: customerData){
 		   	if(customer.getEmail().equals(c.getEmail())){
 		   		c.addTransactions(transaction);
 			}
 		   }
-		   Utils.writeObject("customer.txt",customerData);
+		   FileIO.writeObject("customer.txt",customerData);
 	   } catch (IOException e) {
 		   System.out.println("File not found!");
 		   return;
@@ -381,14 +378,14 @@ public class MovieGoerController extends Utils {
 
 	   //update movie Total Sales
 	   try {
-		   ArrayList<Movie> movieData = (ArrayList<Movie>)Utils.readObject("movie.txt");
+		   ArrayList<Movie> movieData = (ArrayList<Movie>) FileIO.readObject("movie.txt");
 		   for(Movie m: movieData){
 		   	if(m.getTitle().equals(movie.getTitle())){
 		   		m.increaseTotalSales(chosenSeats.size());
 		   		break;
 			}
 		   }
-		   Utils.writeObject("movie.txt",movieData);
+		   FileIO.writeObject("movie.txt",movieData);
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   } catch (ClassNotFoundException e) {
@@ -429,7 +426,7 @@ public class MovieGoerController extends Utils {
    public void occupySeats(Cineplex cineplex, Cinema cinema, ShowTime showTime, HashMap<String,String> chosenSeats){
 	   ArrayList<Cineplex> cineplexes = null;
 	   try {
-		   cineplexes = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+		   cineplexes = (ArrayList<Cineplex>) FileIO.readObject("cineplex.txt");
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   } catch (ClassNotFoundException e) {
@@ -453,7 +450,7 @@ public class MovieGoerController extends Utils {
            }
        }
 	   try {
-		   Utils.writeObject("cineplex.txt", cineplexes);
+		   FileIO.writeObject("cineplex.txt", cineplexes);
 	   } catch (IOException e) {
 		   e.printStackTrace();
 	   }
@@ -483,7 +480,7 @@ public class MovieGoerController extends Utils {
 	 * @return Customer cookie
 	 */
 	public Customer getCusCookie() {
-		return Utils.getCustomerCookie();
+		return FileIO.getCustomerCookie();
 	}
 
 	/**

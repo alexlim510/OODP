@@ -1,14 +1,11 @@
 package com.company.Utils;
 
 import com.company.Entity.Customer;
-import com.company.Entity.Movie;
 import com.company.Entity.Review;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 
@@ -24,7 +21,7 @@ public static void main(String[] args) {
 			ArrayList<Review> reviewlist= new ArrayList<Review>();
 			LocalDateTime now = LocalDateTime.now();
 
-			oos1 = Utils.getObjectOutputStream("movie.txt");
+			oos1 = FileIO.getObjectOutputStream("movie.txt");
 			  
 		
 //			Movie movie1 = new Movie("Superman" ,"Cool and handsome" , "Alex" ,
@@ -84,7 +81,7 @@ public static void main(String[] args) {
 //		//Read
 //	ArrayList<Movie> moviei = null;
 //	try {
-//		moviei = (ArrayList<Movie>) Utils.readObject("movie.txt");
+//		moviei = (ArrayList<Movie>) FileIO.readObject("movie.txt");
 //	} catch (IOException e) {
 //		e.printStackTrace();
 //	} catch (ClassNotFoundException e) {
@@ -96,7 +93,7 @@ public static void main(String[] args) {
 		/*
 		try {
 			
-			oos = Utils.getObjectOutputStream("cinema.txt");
+			oos = FileIO.getObjectOutputStream("cinema.txt");
 			Cinema cp1 = new Cinema("wm1","West Mall");
 			Cinema cp2 = new Cinema("wm2","West Mall");
 			Cinema cp3 = new Cinema("wm3","West Mall");
@@ -111,7 +108,7 @@ public static void main(String[] args) {
 		}
 		
 		try {
-			ArrayList<Cinema> cpi = (ArrayList<Cinema>)Utils.getObjectInputStream("cinema.txt").readObject();
+			ArrayList<Cinema> cpi = (ArrayList<Cinema>)FileIO.getObjectInputStream("cinema.txt").readObject();
 			for(Cinema c: cpi) {
 				System.out.println(c.getCID());
 			}

@@ -10,13 +10,13 @@ public class staffConfig {
             Staff staff1 = new Staff("S001", "admin", "password", "SuperAdmin");
             ArrayList<Staff> staffList = new ArrayList<Staff>();
             staffList.add(staff1);
-            Utils.writeObject("staff.txt", (Object)staffList);
+            FileIO.writeObject("staff.txt", (Object)staffList);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            ArrayList<Staff> staffList2 = (ArrayList<Staff>)Utils.readObject("staff.txt");
+            ArrayList<Staff> staffList2 = (ArrayList<Staff>) FileIO.readObject("staff.txt");
             for(Staff c: staffList2) {
                 System.out.println(c.getName());
                 System.out.println(c.getUserName());

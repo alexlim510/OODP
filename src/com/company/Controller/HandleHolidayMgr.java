@@ -1,7 +1,7 @@
 package com.company.Controller;
 
 import com.company.Entity.Price;
-import com.company.Utils.Utils;
+import com.company.Utils.FileIO;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -61,7 +61,7 @@ public class HandleHolidayMgr {
     public static Price getPricing() {
         Price pricing = null;
         try {
-            pricing = (Price) Utils.readObject("price.txt");
+            pricing = (Price) FileIO.readObject("price.txt");
         } catch (IOException e) {
             System.out.println("File is missing. Please try again");
         } catch (ClassNotFoundException e) {

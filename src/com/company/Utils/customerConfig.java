@@ -15,14 +15,14 @@ public class customerConfig {
             cp.add(cp1);
             cp.add(cp2);
             cp.add(cp3);
-            Utils.writeObject("customer.txt", (Object)cp);
+            FileIO.writeObject("customer.txt", (Object)cp);
             //oos.writeObject(cp);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            ArrayList<Customer> cpi = (ArrayList<Customer>)Utils.readObject("customer.txt");
+            ArrayList<Customer> cpi = (ArrayList<Customer>) FileIO.readObject("customer.txt");
             for(Customer c: cpi) {
                 System.out.println(c.getEmail());
                 System.out.println(c.getName());

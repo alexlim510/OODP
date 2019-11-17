@@ -3,7 +3,7 @@ package com.company.Controller;
 import com.company.Entity.Customer;
 import com.company.Entity.Movie;
 import com.company.Entity.Review;
-import com.company.Utils.Utils;
+import com.company.Utils.FileIO;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,7 +26,7 @@ public class HandleReviewMgr {
    public static void insertReview(String review, float rating, Movie movie){
       ArrayList<Movie> movies = null;
       //Retrieving customer
-      Customer customer = Utils.getCustomerCookie();
+      Customer customer = FileIO.getCustomerCookie();
       if(customer == null){
          System.out.println("Please log in");
       }
@@ -53,7 +53,7 @@ public class HandleReviewMgr {
 
       //modifying database
       try {
-         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+         movies = (ArrayList<Movie>) FileIO.readObject("movie.txt");
       } catch (IOException e) {
          System.out.println("File is missing. Please try again");
          return;
@@ -69,7 +69,7 @@ public class HandleReviewMgr {
       }
 
       try {
-         Utils.writeObject("movie.txt", movies);
+         FileIO.writeObject("movie.txt", movies);
       } catch (IOException e) {
          System.out.println("File is missing. Please try again");
       }
@@ -82,7 +82,7 @@ public class HandleReviewMgr {
    public static void deleteReview(Movie movie){
       ArrayList<Movie> movies;
       //Retrieving customer
-      Customer customer = Utils.getCustomerCookie();
+      Customer customer = FileIO.getCustomerCookie();
       if(customer == null){
          System.out.println("Please log in.");
       }
@@ -98,7 +98,7 @@ public class HandleReviewMgr {
       }
 
       try {
-         movies = (ArrayList<Movie>) Utils.readObject("movie.txt");
+         movies = (ArrayList<Movie>) FileIO.readObject("movie.txt");
       } catch (IOException e) {
          System.out.println("File is missing. Please try again");
          return;
@@ -116,7 +116,7 @@ public class HandleReviewMgr {
 
       //Inserting to database
       try {
-         Utils.writeObject("movie.txt", movies);
+         FileIO.writeObject("movie.txt", movies);
       } catch (IOException e) {
          System.out.println("File is missing. Please try again");
          return;

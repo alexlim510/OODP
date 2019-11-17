@@ -2,16 +2,13 @@ package com.company.Controller;
 
 import com.company.Entity.Customer;
 import com.company.Entity.Movie;
-import com.company.Entity.Price;
 import com.company.Entity.Staff;
-import com.company.Utils.Utils;
+import com.company.Utils.FileIO;
 
 
 import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
-
-import static com.company.Utils.Utils.storeCustomerCookie;
 
 /**
  * Main controller for login
@@ -19,7 +16,7 @@ import static com.company.Utils.Utils.storeCustomerCookie;
  * @version 1.0
  * @since 2019-12-11
  */
-public class LoginController extends Utils {
+public class LoginController extends FileIO {
     /**
      * checks customer credentials
      * @param email email of customer
@@ -72,7 +69,7 @@ public class LoginController extends Utils {
      */
    public void updateMovieStatus(){
       try {
-         ArrayList<Movie> movies = (ArrayList<Movie>)Utils.readObject("movie.txt");
+         ArrayList<Movie> movies = (ArrayList<Movie>) FileIO.readObject("movie.txt");
          if(movies.size()!=0){
             for(Movie m: movies){
                if(m.getShowTill()!=null && m.getShowTill().isBefore(LocalDate.now())){
@@ -80,18 +77,18 @@ public class LoginController extends Utils {
                }
             }
          }
-         Utils.writeObject("movie.txt",(Object)movies);
+         FileIO.writeObject("movie.txt",(Object)movies);
       } catch (IOException e) {
       } catch (ClassNotFoundException e) {
       }
    }
 
    /**
-    * Get Customer cookie with Utils.getCustomerCookie()
+    * Get Customer cookie with FileIO.getCustomerCookie()
     * @return Customer cookie
     */
    public Customer getCusCookie() {
-      return Utils.getCustomerCookie();
+      return FileIO.getCustomerCookie();
    }
 
    /**
@@ -100,7 +97,7 @@ public class LoginController extends Utils {
     */
    public void writeCustomer(ArrayList<Customer> customers) {
       try {
-         Utils.writeObject("customer.txt", customers);
+         FileIO.writeObject("customer.txt", customers);
       } catch (IOException e) {
          e.printStackTrace();
          return;
@@ -115,7 +112,7 @@ public class LoginController extends Utils {
    public ArrayList<Customer> readCustomer() {
       ArrayList<com.company.Entity.Customer> customers = new ArrayList<>();
       try {
-         customers= (ArrayList<com.company.Entity.Customer>) Utils.readObject("customer.txt");
+         customers= (ArrayList<com.company.Entity.Customer>) FileIO.readObject("customer.txt");
       } catch (IOException e) {
          e.printStackTrace();
       } catch (ClassNotFoundException e) {

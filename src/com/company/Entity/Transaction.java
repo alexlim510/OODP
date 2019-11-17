@@ -1,5 +1,5 @@
 package com.company.Entity;
-import com.company.Utils.Utils;
+import com.company.Utils.UserInputOutput;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class Transaction implements Serializable{
     */
    public Transaction(Customer customer,Cineplex cineplex, Cinema cinema, ShowTime showTime, float totalPrice,
                        HashMap<String,String> chosenSeats){
-      this.TID = cinema.getCID() + Utils.createTransactionDateString(LocalDateTime.now());
+      this.TID = cinema.getCID() + UserInputOutput.createTransactionDateString(LocalDateTime.now());
       this.customerEmail = customer.getEmail();
       this.customerName = customer.getName();
       this.customerPhone = customer.getPhone();

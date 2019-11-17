@@ -1,7 +1,8 @@
 package com.company.Controller;
 
 import com.company.Entity.Price;
-import com.company.Utils.Utils;
+import com.company.Utils.UserInputOutput;
+import com.company.Utils.FileIO;
 
 /**
  * This is the controller of the configuration of pricing.
@@ -18,7 +19,7 @@ public class HandlePricingMgr {
     public static Price readPriceFile(){
         Price pricing;
         try{
-            pricing = (Price) Utils.readObject("price.txt");
+            pricing = (Price) FileIO.readObject("price.txt");
         }catch (Exception e){
             System.out.println(e.getMessage());
             System.out.println("Cannot read file");
@@ -34,7 +35,7 @@ public class HandlePricingMgr {
      */
     public static boolean modifyPriceDB(Price pricing){
         try{
-            Utils.writeObject("price.txt", pricing);
+            FileIO.writeObject("price.txt", pricing);
         }catch (Exception e){
             System.out.println("Failed to modify the database. Please try again");
             return false;
@@ -49,7 +50,7 @@ public class HandlePricingMgr {
     public static boolean addPriceCategoryMgr(){
         Price pricing = readPriceFile();
         try{
-            pricing.addPrice(Utils.getStringInput("Insert the name of the category: "), Utils.getFloatInput("Insert the price of the category: "));
+            pricing.addPrice(UserInputOutput.getStringInput("Insert the name of the category: "), UserInputOutput.getFloatInput("Insert the price of the category: "));
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
             return false;

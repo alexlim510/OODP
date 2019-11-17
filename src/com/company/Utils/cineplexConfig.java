@@ -79,7 +79,7 @@ public class cineplexConfig {
 
         ArrayList<Movie> movie = null;
         try {
-            movie = (ArrayList<Movie>) Utils.readObject("movie.txt");
+            movie = (ArrayList<Movie>) FileIO.readObject("movie.txt");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -111,9 +111,9 @@ public class cineplexConfig {
         //check day of week of showtime
         System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.println(Utils.createDayOfWeekString(st1.getDateTime()));
-        System.out.println(Utils.createDayOfWeekString(st2.getDateTime()));
-        System.out.println(Utils.createDayOfWeekString(st3.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st1.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st2.getDateTime()));
+        System.out.println(UserInputOutput.createDayOfWeekString(st3.getDateTime()));
         System.out.println(st1.getDateTime().format(formatter).equals(st2.getDateTime().format(formatter)));
 
         // print seats
@@ -123,19 +123,19 @@ public class cineplexConfig {
         chosen.add("rAc1");
         //sui.getSeatListing(st1,chosen);
         try {
-            Utils.writeObject("cineplex.txt", (Object)cp);
+            FileIO.writeObject("cineplex.txt", (Object)cp);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Price p = new Price();
         try {
-            Utils.writeObject("price.txt", (Object)p);
+            FileIO.writeObject("price.txt", (Object)p);
         } catch (IOException e) {
             e.printStackTrace();
         }
 			/*
-			ArrayList<Cineplex> cpp = (ArrayList<Cineplex>)Utils.readObject("cineplex.txt");
+			ArrayList<Cineplex> cpp = (ArrayList<Cineplex>)FileIO.readObject("cineplex.txt");
 			for(Cineplex c: cpp) {
 				ArrayList<Cinema> clist1 = c.getCinemas();
 				System.out.println(c.getCineplexName());

@@ -3,7 +3,7 @@ package com.company.Controller;
 import com.company.Entity.Cineplex;
 import com.company.Entity.Movie;
 import com.company.Entity.ShowTime;
-import com.company.Utils.Utils;
+import com.company.Utils.FileIO;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -60,7 +60,7 @@ public class HandleShowTimeMgr {
 
         //Inserting new showtime to database
         try{
-            Utils.writeObject("cineplex.txt", CineplexArray);
+            FileIO.writeObject("cineplex.txt", CineplexArray);
         }catch (IOException e){
             System.out.println("File not found. please try again.");
             return false;
@@ -82,7 +82,7 @@ public class HandleShowTimeMgr {
         ShowTimeArray.remove(ShowTimeArray.get(showTimeChoice));
         //Inserting new showtime to database
         try{
-            Utils.writeObject("cineplex.txt", CineplexArray);
+            FileIO.writeObject("cineplex.txt", CineplexArray);
         }catch (IOException e){
             System.out.println("File not found. please try again.");
             return false;
@@ -93,7 +93,7 @@ public class HandleShowTimeMgr {
     public static ArrayList<Cineplex> getCineplexArray(){
         ArrayList<Cineplex> CineplexArray = null;
         try{
-            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+            CineplexArray = (ArrayList<Cineplex>) FileIO.readObject("cineplex.txt");
         }
         catch (ClassNotFoundException | IOException e) {
             System.out.println("File is missing. Please try again");
@@ -104,7 +104,7 @@ public class HandleShowTimeMgr {
     public static ArrayList<Movie> getMovieArray(){
         ArrayList<Movie> MovieArray = null;
         try{
-            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+            MovieArray = (ArrayList<Movie>) FileIO.readObject("movie.txt");
         }
         catch (ClassNotFoundException | IOException e) {
             System.out.println("File is missing. Please try again");
