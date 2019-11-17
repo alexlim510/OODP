@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
+/**
+ * Helper class, To handle User input and output
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class UserInputOutput {
 
     /**

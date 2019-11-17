@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.Serializable;
 
 /**
- * This is the Entity Class of Cineplex
+ * Represents the Entity Class of Cineplex
  * @author Group 2 - SS6
  * @version 1.0
  */

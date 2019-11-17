@@ -10,9 +10,21 @@ import java.time.LocalDateTime;
  * @since 2019-11-12
  */
 public class Review implements Serializable{
+   /**
+    * Date time of the review
+    */
    private LocalDateTime reviewDateTime;
+   /**
+    * Content of the review
+    */
    private String content;
+   /**
+    * Customer who made this review
+    */
    private Customer customer;
+   /**
+    * Rating for the movie
+    */
    private float rating;
 
    /**

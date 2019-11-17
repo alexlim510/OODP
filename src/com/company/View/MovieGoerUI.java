@@ -154,6 +154,10 @@ public class MovieGoerUI implements GeneralUI{
 			System.out.println("-----------------------------------------");
 		}
 	}
+
+	/**
+	 * UI to list Top 5 movies by Sales or rating
+	 */
 	public void listTopMoviesUI() {
 		UserInputOutput.displayHeader("Top 5 Movies");
 		System.out.println(
@@ -172,6 +176,10 @@ public class MovieGoerUI implements GeneralUI{
 				break;
 		}
 	}
+
+	/**
+	 * UI to search for movie
+	 */
 	public void searchMovieUI() {
 		UserInputOutput.displayHeader("Search movie");
 		System.out.println("Please type in movie name");

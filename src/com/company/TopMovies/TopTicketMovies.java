@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * List Top 5 Movie based on Ticket Sales
+ * @author Group 2 - SS6
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public class TopTicketMovies extends Top5CurrentMovies{
     /**
      * Gets the current showing movies in a list which is sorted by the ticket sales.

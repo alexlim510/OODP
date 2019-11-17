@@ -9,6 +9,10 @@ import com.company.View.*;
  * @since 2019-11-12
  */
 public class MoblimaApp{
+   /**
+    * Main method
+    * @param args
+    */
    public static void main(String[] args) {
       LoginUI log = new LoginUI();
       UIDisplay ui = new UIDisplay(log);

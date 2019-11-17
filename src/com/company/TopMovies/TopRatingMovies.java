@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- *
+ *List Top 5 Movie based on Rating
  * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12

@@ -3,17 +3,35 @@ import java.io.Serializable;
 import java.util.ArrayList;
 	
 /**
- * This is the Entity Class of Customer
+ * Represents the Entity Class of Customer
  * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-13
  */
 public class Customer extends Person implements Serializable{
+   /**
+    * Email of customer
+    */
    private String email;
+   /**
+    * Phone Number of customer
+    */
    private String phone;
+   /**
+    * Age of customer
+    */
    private int age;
+   /**
+    * Indicate whether customer is student or not
+    */
    private boolean isStudent;
+   /**
+    * Indicate whether customer is Elderly or not
+    */
    private boolean isElderly;
+   /**
+    * ArrayList to store transactions of customer
+    */
    private ArrayList<Transaction> transactions = new ArrayList<>();
 
    /**

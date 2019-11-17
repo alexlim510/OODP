@@ -3,14 +3,23 @@ package com.company.Entity;
 import java.io.Serializable;
 
 /**
- * This is a Staff Class which inherits from the Person Class
+ * Represents a Staff Class which inherits from the Person Class
  * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-12
  */
 public class Staff extends Person implements Serializable {
+    /**
+     * ID of the staff
+     */
     private String staffID;
+    /**
+     * User name for Staff LogIn
+     */
     private String userName;
+    /**
+     * Password for Staff Login
+     */
     private String password;
 
     /**

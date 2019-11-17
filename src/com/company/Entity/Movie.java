@@ -7,36 +7,84 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * This is the Entity Class of Movie
+ * Represents the Entity Class of Movie
  * @author Group 2 - SS6
  * @version 1.0
  * @since 2019-11-13
  */
 public class Movie implements Serializable, ListerInterface {
+   /**
+    * Title of movie
+    */
    private String title;
+   /**
+    * Class of movie. exp: 3D , blockbuster
+    */
    private String movieClass; // 3D, blockbuster etc..
+   /**
+    * Status of Movie exp:now showing , coming soon
+    */
    private String statusType; //now showing, etc..
+   /**
+    * Age type of movie. exp:G , PG , PG18
+    */
    private String ageType; //{"G", "PG", "PG13", "NC16", "M18", "R21"}
+   /**
+    * Synopsis of movie
+    */
    private String synopsis;
+   /**
+    * Directors of the movie
+    */
    private String director;
+   /**
+    * Casts of the movie
+    */
    private String[] cast;
+   /**
+    * Genre of movie
+    */
    private String[] genre;
+   /**
+    * Duration of the movie
+    */
    private int duration;
+   /**
+    * Date of movie will show until.
+    */
    private LocalDate showTill;
+   /**
+    * ArrayList of reviews for the movie
+    */
    private ArrayList<Review> reviews;
+   /**
+    * Number of sales of the movie
+    */
    private int totalSales = 0;
 
+   /**
+    * List of different Movie classes
+    */
    String[] movieClasses = {"Normal", "Blockbuster", "3D"};
 
+   /**
+    * List of different Age types
+    */
    String[] ageTypes = {"G", "PG", "PG13", "NC16", "M18", "R21"};
 
+   /**
+    * List of different Movie Statuses
+    */
    String[] statusTypes = {"Coming soon", "Now showing", "End of showing", "Preview"};
 
+   /**
+    * This method constructs a movie object.
+    */
    // Constructor used for getting movie functions like getmovieClaees / getAgeTypes / getstatusTypes
    public Movie() {}
 
    /**
-    * This method constructs a movie object
+    * This method constructs a movie object with title initialised.
     * @param title Title of the movie
     */
    public Movie(String title) {
