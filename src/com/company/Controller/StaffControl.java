@@ -2,6 +2,8 @@ package com.company.Controller;
 
 
 import com.company.Entity.*;
+import com.company.TopMovies.Top5CurrentMovies;
+import com.company.TopMovies.TopMovieFactory;
 import com.company.Utils.FileIO;
 import com.company.Utils.UserInputOutput;
 
@@ -314,5 +316,30 @@ public class StaffControl {
             return;
         }
         System.out.println("Movie deleted successfully!");
+    }
+
+    /**
+     * Listing Top Movies for staff
+     */
+    public void listTopMovies() {
+        UserInputOutput.displayHeader("Top 5 Movies");
+        System.out.println(
+                "1. List top 5 ranking movies by ticket sales.\n" +
+                        "2. List top 5 ranking movies by Overall reviewers' rating.\n"+
+                        "3. Go back");
+        TopMovieFactory movieFactory = new TopMovieFactory();
+        Top5CurrentMovies top5CurrentMovies = null;
+        switch (UserInputOutput.getUserChoice(1, 3)) {
+            case 1:
+                top5CurrentMovies = movieFactory.makeTop5Movie("ticket");
+                top5CurrentMovies.printTop5Movies();
+                break;
+            case 2:
+                top5CurrentMovies = movieFactory.makeTop5Movie("rating");
+                top5CurrentMovies.printTop5Movies();
+                break;
+            case 3:
+                break;
+        }
     }
 }

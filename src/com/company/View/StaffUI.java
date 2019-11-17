@@ -43,7 +43,7 @@ public class StaffUI implements GeneralUI{
                     displayStaffConfigurationOptions();
                     break;
                 case 4:
-                    listTopMovies();
+                    staffControl.listTopMovies();
                     break;
                 case 5:
                     exit = true;
@@ -163,31 +163,6 @@ public class StaffUI implements GeneralUI{
                 break;
             case 3:
                 displayStaffConfigurationOptions();
-                break;
-        }
-    }
-    /**
-     * Listing Top Movies for staff
-     */
-    public void listTopMovies() {
-        UserInputOutput.displayHeader("Top 5 Movies");
-        System.out.println(
-                "1. List top 5 ranking movies by ticket sales.\n" +
-                        "2. List top 5 ranking movies by Overall reviewers' rating.\n"+
-                        "3. Go back");
-        TopMovieFactory movieFactory = new TopMovieFactory();
-        Top5CurrentMovies top5CurrentMovies = null;
-        switch (UserInputOutput.getUserChoice(1, 3)) {
-            case 1:
-                top5CurrentMovies = movieFactory.makeTop5Movie("ticket");
-                top5CurrentMovies.printTop5Movies();
-                break;
-            case 2:
-                top5CurrentMovies = movieFactory.makeTop5Movie("rating");
-                top5CurrentMovies.printTop5Movies();
-                break;
-            case 3:
-                displayStaffShowtimeOptions();
                 break;
         }
     }
