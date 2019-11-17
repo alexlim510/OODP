@@ -2,14 +2,18 @@ package com.company.Controller;
 
 import com.company.Entity.*;
 import com.company.Utils.Utils;
+import com.company.View.ListerInterface;
 import com.company.View.MovieGoerUI;
 import com.company.View.SeatUI;
 import com.company.View.UIDisplay;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Serve as the controller for Movie Goer's features
@@ -37,14 +41,14 @@ public class MovieGoerController extends Utils {
 	 * Returns and ArrayList of ALL 'Now showing' Movie objects
 	 * @return ArrayList of movie
 	 */
-   public ArrayList<Movie> getNowShowingMovieList(){
+   public ArrayList<Movie> getNowPreviewShowingMovieList(){
 	   ArrayList<Movie> nowShowing = new ArrayList<Movie>();
 	   ArrayList<Movie> MovieArray = new ArrayList<Movie>();
 	   try {
 		   int i = 0;
 		   MovieArray = (ArrayList<Movie>)Utils.getObjectInputStream("movie.txt").readObject();
 		   for (Movie m: MovieArray) {
-			   if (m.getStatusType().equals("Now showing")) {
+			   if (m.getStatusType().equals("Now showing") || m.getStatusType().equals("Preview")) {
 				   nowShowing.add(m);
 			   }
 		   }
@@ -114,11 +118,25 @@ public class MovieGoerController extends Utils {
 		   for(ShowTime st: showTimes) {
 			   Movie movie = st.getMovie();
 			   if(movie.getStatusType().equals("Now showing") || movie.getStatusType().equals("Preview")) {
-				   movieList.add(movie);	   
+				   if(movieList.size()>0){
+					   boolean exists=false;
+					   for(Movie m : movieList){
+						   if(m.getTitle().equals(movie.getTitle()) && m.getMovieClass().equals(movie.getMovieClass())){
+							   exists=true;
+							   break;
+						   }
+					   }
+					   if(!exists){
+						   movieList.add(movie);
+					   }
+				   }
+				   else{
+					   movieList.add(movie);
+				   }
 			   }
 		   }
 	   }
-	   return movieList;   		  	   
+	   return movieList;
    }
 
 	/**
@@ -143,10 +161,10 @@ public class MovieGoerController extends Utils {
 			   	if(!movieList.contains(temp)){
 			   		movieList.add(temp);
 				}
-			   }				   
+			   }
 		   }
 	   }
-	   
+
 	   return movieList;
    }
 
@@ -186,7 +204,7 @@ public class MovieGoerController extends Utils {
             cinemaType = cinema.getCinemaType();
             if(cinemaType!=null && !cinemaTypes.contains(cinemaType)){
                 cinemaTypes.add(cinemaType);
-                break;
+
             }
         }
         return cinemaTypes;
@@ -299,14 +317,26 @@ public class MovieGoerController extends Utils {
 	public void seatSelection() {
 	   SeatUI sui = new SeatUI();
 	   int choice;
-	   	 
+
 	   ArrayList<Cineplex> cineplexes = getCineplexList();
 	   choice = sui.getCineplexSelectionView(cineplexes);
 	   Cineplex cineplex = cineplexes.get(choice);
-	   
+
 	   ArrayList<Movie> movies = getMovieList(cineplex);
-	   ArrayList<String> movieTitles = getMovieTitles(movies);
-	   Movie movie = movies.get(sui.getMovieSelectionView(movieTitles));
+	   ArrayList<Movie> allMovies = getNowPreviewShowingMovieList();
+	   ArrayList<Movie> filteredMovies = new ArrayList<>();
+	   for (int index1 = 0 ; index1<allMovies.size(); index1++){
+		   Movie a = allMovies.get(index1);
+		   for (int index2 = 0; index2<movies.size(); index2++){
+	   		Movie b = movies.get(index2);
+	   		if (a.getTitle().equals(b.getTitle())){
+	   			if(a.getStatusType().equals(b.getStatusType()))
+	   				filteredMovies.add(b);
+			}
+		}
+	   }
+	   ArrayList<String> movieTitles = getMovieTitles(filteredMovies);
+	   Movie movie = filteredMovies.get(sui.getMovieSelectionView(movieTitles));
 
 	   ArrayList<Cinema> cinemas = getCinemas(cineplex,movie);
 	   ArrayList<String> cinemaTypes = getCinemaTypes(cinemas);
@@ -430,75 +460,42 @@ public class MovieGoerController extends Utils {
    }
 
 	/**
-	 * Creates a comparator which compares two different movies based on total sales
+	 * Logic to search for movies that has title containing String inputted.
+	 * @param input movie title
+	 * @return matched movies
 	 */
-//	public static Comparator<Movie> MovieTicketSalesComparator = new Comparator<Movie>() {
-//
-//		public int compare(Movie m1, Movie m2) {
-//			int movieTicketSales1 = m1.getTotalSales();
-//			int movieTicketSales2 = m2.getTotalSales();
-//			return movieTicketSales2-movieTicketSales1;
-//		}
-//   };
-//
-//	/**
-//	 * Creates a comparator which compares two different movies based on review rating
-//	 */
-//	public static Comparator<Movie> overallReviewRatingSalesComparator = new Comparator<Movie>() {
-//
-//		public int compare(Movie m1, Movie m2) {
-//			int movieTicketSales1 = m1.getTotalSales();
-//			int movieTicketSales2 = m2.getTotalSales();
-//
-//			//ascending order
-//			//return StudentName1.compareTo(StudentName2);
-//
-//			//descending order
-//			return movieTicketSales2-movieTicketSales1;
-//		}
-//	};
+	public ArrayList<Movie> searchMovieLogic(String input) {
+
+		ArrayList<Movie> movieList = getAllMovieList();
+		ArrayList<Movie> matchingMovieList = new ArrayList<Movie>();
+
+		for (Movie m : movieList) {
+			String movieTitle = m.getTitle();
+			if (movieTitle.contains(input)) {
+				matchingMovieList.add(m);
+			}
+		}
+		return matchingMovieList;
+	}
 
 	/**
-	 * returns top 5 movies based on total sales
-	 * @return array list of movies
+	 * Get customer cookie
+	 * @return Customer cookie
 	 */
-//   public ArrayList<Movie> getTop5MoviesListTicket(){
-//   	ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-//   	nowShowingMovies = getNowShowingMovieList();
-//   	ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-//   	Collections.sort(nowShowingMovies, MovieTicketSalesComparator);
-//   	int top5;
-//   	if(nowShowingMovies.size() > 5) {
-//		top5 = 5;
-//	}
-//   	else{
-//		top5 = nowShowingMovies.size();
-//	}
-//   	for (int i = 0; i < top5; i++){
-//		top5Movies.add(nowShowingMovies.get(i));
-//	}
-//   	return top5Movies;
-//   }
-//
-//	/**
-//	 * returns top 5 movies based on review ratings
-//	 * @return array list of movies
-//	 */
-//	public ArrayList<Movie> getTop5MoviesListRating(){
-//		ArrayList<Movie> nowShowingMovies = new ArrayList<Movie>();
-//		nowShowingMovies = getNowShowingMovieList();
-//		ArrayList<Movie> top5Movies = new ArrayList<Movie>();
-//		Collections.sort(nowShowingMovies, overallReviewRatingSalesComparator);
-//		int top5;
-//		if(nowShowingMovies.size() > 5) {
-//			top5 = 5;
-//		}
-//		else{
-//			top5 = nowShowingMovies.size();
-//		}
-//		for (int i = 0; i < top5; i++){
-//			top5Movies.add(nowShowingMovies.get(i));
-//		}
-//		return top5Movies;
-//	}
+	public Customer getCusCookie() {
+		return Utils.getCustomerCookie();
+	}
+
+	/**
+	 *
+	 * @param array
+	 */
+	public static void list (ArrayList<? extends ListerInterface> array){
+		int i = 1;
+		for(ListerInterface li: array){
+			System.out.print(i+". ");
+			li.listItself();
+			i++;
+		}
+	}
 }

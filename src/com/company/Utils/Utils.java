@@ -161,10 +161,5 @@ public class Utils {
    public static boolean retry(String message){
       return UserInputOutput.retry(message);
    }
-
-   public static void list (ArrayList<? extends ListerInterface> array){
-      UserInputOutput.list(array);
-   }
-
 }
 

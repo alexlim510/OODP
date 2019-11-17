@@ -6,6 +6,7 @@ import com.company.Entity.ShowTime;
 import com.company.Utils.Utils;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -36,9 +37,15 @@ public class HandleShowTimeMgr {
         // cinema, film, datetime needed
         LocalDateTime dateTime;
         ShowTime newShowTime;
+        LocalDateTime chosenDate = LocalDateTime.of(year, month, day, hour, minute);
+        Movie chosenMovie = MovieArray.get(movieChoice);
+        newShowTime = new ShowTime(chosenDate, chosenMovie);
 
-        newShowTime = new ShowTime(LocalDateTime.of(year, month, day, hour, minute), MovieArray.get(movieChoice));
-
+        //check if datetime has passed movie showtill date
+        if(chosenMovie.getShowTill()!=null && LocalDate.of(year,month,day).isAfter(chosenMovie.getShowTill())){
+            System.out.println("The show time at the inserted time has passed the movie's showtill date");
+            return false;
+        }
         // checking if the showtime has existed
         for (ShowTime st: CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).getShowTime()) {
             if (st.getDateTime().isEqual(newShowTime.getDateTime())) {
@@ -46,6 +53,7 @@ public class HandleShowTimeMgr {
                 return false;
             }
         }
+
 
         //Adding to Cineplex Array
         CineplexArray.get(cineplexChoice).getCinemas().get(cinemaChoice).addShowTime(newShowTime);
@@ -80,5 +88,27 @@ public class HandleShowTimeMgr {
             return false;
         }
         return true;
+    }
+
+    public static ArrayList<Cineplex> getCineplexArray(){
+        ArrayList<Cineplex> CineplexArray = null;
+        try{
+            CineplexArray = (ArrayList<Cineplex>) Utils.readObject("cineplex.txt");
+        }
+        catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+        }
+        return CineplexArray;
+    }
+
+    public static ArrayList<Movie> getMovieArray(){
+        ArrayList<Movie> MovieArray = null;
+        try{
+            MovieArray = (ArrayList<Movie>) Utils.readObject("movie.txt");
+        }
+        catch (ClassNotFoundException | IOException e) {
+            System.out.println("File is missing. Please try again");
+        }
+        return MovieArray;
     }
 }

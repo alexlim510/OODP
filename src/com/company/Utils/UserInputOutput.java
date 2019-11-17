@@ -145,14 +145,4 @@ public class UserInputOutput {
 
         return ans == 'y';
     }
-
-    public static void list (ArrayList<? extends ListerInterface> array){
-        int i = 1;
-        for(ListerInterface li: array){
-            System.out.print(i+". ");
-            li.listItself();
-            i++;
-        }
-    }
-
 }

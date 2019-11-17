@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class Cineplex implements Serializable{
 	/**
-	 * Name of cinplex
+	 * Name of cineplex
 	 */
 	private String cineplexName;
 	/**

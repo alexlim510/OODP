@@ -3,7 +3,7 @@ package com.company.Entity;
 import com.company.View.ListerInterface;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +22,7 @@ public class Movie implements Serializable, ListerInterface {
    private String[] cast;
    private String[] genre;
    private int duration;
-   private LocalDateTime showTill;
+   private LocalDate showTill;
    private ArrayList<Review> reviews;
    private int totalSales = 0;
 
@@ -59,7 +59,7 @@ public class Movie implements Serializable, ListerInterface {
     */
    // This constructor is used for creating new movies from the staffUI.
    public Movie(String title, String synopsis , String director , String[] cast , String[] genre,
-                LocalDateTime showTill , int duration , int movieClass,
+                LocalDate showTill , int duration , int movieClass,
                 int ageType, int statusType ) {
       this.title= title;
       this.synopsis= synopsis;
@@ -96,7 +96,6 @@ public class Movie implements Serializable, ListerInterface {
       this.cast =cast ;
       this.genre = genre;
       this.duration = duration;
-      this.reviews = reviews;
       this.movieClass = movieClasses[movieClass];
       this.ageType = ageTypes[ageType];
       this.statusType = statusTypes[statusType];
@@ -321,7 +320,7 @@ public class Movie implements Serializable, ListerInterface {
     * This method gets the dateTime of the movie's last showing dateTime
     * @return dateTime of the movie's last showing dateTime
     */
-   public LocalDateTime getShowTill() {
+   public LocalDate getShowTill() {
       return showTill;
    }
 
@@ -329,7 +328,7 @@ public class Movie implements Serializable, ListerInterface {
     * This method sets the dateTime of the movie's last showing dateTime
     * @param showTill dateTime of the movie's last showing dateTime
     */
-   public void setShowTill(LocalDateTime showTill) {
+   public void setShowTill(LocalDate showTill) {
       this.showTill = showTill;
    }
 
@@ -356,5 +355,4 @@ public class Movie implements Serializable, ListerInterface {
    public void listItself(){
       System.out.println("Title: "+this.title+" - Status: "+this.statusType);
    }
-
 }

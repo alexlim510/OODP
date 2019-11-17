@@ -41,6 +41,7 @@ public class ShowTime implements Serializable {
 	 * @param time
 	 * @param movie
 	 */
+
     public ShowTime(LocalDateTime time, Movie movie) {
         this.dateTime = time;
         this.movie = movie;

@@ -24,6 +24,8 @@ public class cineplexConfig {
         Cinema c2 = new Cinema("wm2");
         Cinema c3 = new Cinema("wm3");
         c1.setCinemaType(c1.getCinemaTypes()[1]);
+        c2.setCinemaType(c1.getCinemaTypes()[1]);
+        c3.setCinemaType(c1.getCinemaTypes()[1]);
         ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
         cinemas.add(c1);
         cinemas.add(c2);
@@ -34,10 +36,46 @@ public class cineplexConfig {
             if(c.getCineplexName().equals("West Mall")) {
                 c.setCinemas(cinemas);
             }
-            else {
-                c.setCinemas(null);
-            }
+
         }
+
+
+
+
+        Cinema nc1 = new Cinema("J1");
+        Cinema nc2 = new Cinema("J2");
+        Cinema nc3 = new Cinema("J3");
+        nc3.setCinemaType(c1.getCinemaTypes()[1]);
+        ArrayList<Cinema> jemcinemas = new ArrayList<Cinema>();
+        jemcinemas.add(nc1);
+        jemcinemas.add(nc2);
+        jemcinemas.add(nc3);
+
+        for(Cineplex cc: cp) {
+            if(cc.getCineplexName().equals("Jem")) {
+                cc.setCinemas(jemcinemas);
+            }
+
+        }
+
+
+        Cinema cathaycinema1 = new Cinema("tc1");
+        Cinema cathaycinema2 = new Cinema("tc2");
+        Cinema cathaycinema3 = new Cinema("tc3");
+        cathaycinema2.setCinemaType(cathaycinema2.getCinemaTypes()[1]);
+        ArrayList<Cinema> cathaycinemas = new ArrayList<Cinema>();
+        cathaycinemas.add(cathaycinema1);
+        cathaycinemas.add(cathaycinema2);
+        cathaycinemas.add(cathaycinema3);
+
+        for(Cineplex ccc: cp) {
+            if(ccc.getCineplexName().equals("The Cathay")) {
+                ccc.setCinemas(cathaycinemas);
+            }
+
+        }
+
+
 
         ArrayList<Movie> movie = null;
         try {
@@ -54,10 +92,21 @@ public class cineplexConfig {
             c1.addShowTime(st1);
             c2.addShowTime(st2);
             c3.addShowTime(st3);
+            cathaycinema1.addShowTime(st1);
+            cathaycinema2.addShowTime(st2);
+            cathaycinema3.addShowTime(st3);
+            nc1.addShowTime(st1);
+            nc2.addShowTime(st2);
+            nc3.addShowTime(st3);
         }
         catch(IllegalArgumentException e) {
             System.out.println(e);
         }
+
+
+
+
+
 
         //check day of week of showtime
         System.out.println(st2.getDateTime().getDayOfWeek().ordinal());
