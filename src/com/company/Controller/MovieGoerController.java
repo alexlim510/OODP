@@ -64,7 +64,6 @@ public class MovieGoerController extends Utils {
 	 */
 	public ArrayList<Movie> getAllMovieList(){
 	   ArrayList<Movie> allMovie = null;
-	   int i = 0;
 	   try {
 		   allMovie = (ArrayList<Movie>)Utils.readObject("movie.txt");
 	   } catch (IOException e) {
